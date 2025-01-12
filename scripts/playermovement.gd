@@ -1,14 +1,14 @@
 extends CharacterBody3D
 
 # How fast the player moves in meters per second.
-@export var max_speed = 75
-# Acceleration and deceleration rates in meters per second squared for forward/backward movement.
-@export var acceleration = 400
+@export var max_speed = 100
+# Acceleration and deceleration rates in meters per second squared for movement.
+@export var acceleration = 1000
 @export var deceleration = 400
 # The downward acceleration when in the air, in meters per second squared.
 @export var fall_acceleration = 75
 # Jump strength in meters per second.
-@export var jump_strength = 35
+@export var jump_strength = 30
 # Mouse sensitivity
 @export var mouse_sensitivity = 0.002
 # How fast the camera returns to normal position
@@ -61,28 +61,25 @@ func _physics_process(delta):
 		direction = direction.normalized()
 		direction = direction.rotated(Vector3.UP, rotation.y)
 
-	# Calculate the target velocity
-	target_velocity.x = direction.x * max_speed  # Side-to-side movement is immediate
-	target_velocity.z = direction.z * max_speed  # Forward/backward uses momentum
-
-	# Smoothly adjust current forward/backward velocity (z-axis only)
-	if direction.z != 0:
-		# Accelerate towards target forward/backward velocity
-		current_velocity.z = move_toward(current_velocity.z, target_velocity.z, acceleration * delta)
+	# Apply acceleration/deceleration for both horizontal and vertical movements
+	# Smoothly adjust current velocity for both axes
+	if direction != Vector3.ZERO:
+		target_velocity.x = direction.x * max_speed
+		target_velocity.z = direction.z * max_speed
 	else:
-		# Decelerate to stop when no input for forward/backward
-		current_velocity.z = move_toward(current_velocity.z, 0, deceleration * delta)
+		# Decelerate to stop when no input
+		target_velocity.x = move_toward(current_velocity.x, 0, deceleration * delta)
+		target_velocity.z = move_toward(current_velocity.z, 0, deceleration * delta)
 
-	# Apply side-to-side movement directly
-	current_velocity.x = target_velocity.x
-
-	# Handle jumping
-	if is_on_floor():
-		if Input.is_action_pressed("jump"):
-			current_velocity.y = jump_strength
-	else:
-		# Apply gravity when in the air
+	# Apply gravity when in the air
+	if not is_on_floor():
 		current_velocity.y -= fall_acceleration * delta
+	elif Input.is_action_pressed("jump"):
+		current_velocity.y = jump_strength  # Jump if on the floor and jump key is pressed
+
+	# Accelerate/decelerate on x, y, and z directions
+	current_velocity.x = move_toward(current_velocity.x, target_velocity.x, acceleration * delta)
+	current_velocity.z = move_toward(current_velocity.z, target_velocity.z, acceleration * delta)
 
 	# Move the character
 	velocity = current_velocity
