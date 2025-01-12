@@ -3,10 +3,12 @@ extends CharacterBody3D
 # How fast the player moves in meters per second.
 @export var max_speed = 75
 # Acceleration and deceleration rates in meters per second squared for forward/backward movement.
-@export var acceleration = 150
+@export var acceleration = 400
 @export var deceleration = 400
 # The downward acceleration when in the air, in meters per second squared.
 @export var fall_acceleration = 75
+# Jump strength in meters per second.
+@export var jump_strength = 35
 # Mouse sensitivity
 @export var mouse_sensitivity = 0.002
 # How fast the camera returns to normal position
@@ -74,11 +76,13 @@ func _physics_process(delta):
 	# Apply side-to-side movement directly
 	current_velocity.x = target_velocity.x
 
-	# Apply vertical velocity
-	if not is_on_floor():
-		current_velocity.y -= fall_acceleration * delta
+	# Handle jumping
+	if is_on_floor():
+		if Input.is_action_pressed("jump"):
+			current_velocity.y = jump_strength
 	else:
-		current_velocity.y = 0
+		# Apply gravity when in the air
+		current_velocity.y -= fall_acceleration * delta
 
 	# Move the character
 	velocity = current_velocity

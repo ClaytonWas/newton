@@ -1,0 +1,65 @@
+[gd_scene load_steps=13 format=3 uid="uid://b4untvgg5fv5u"]
+
+[ext_resource type="PackedScene" uid="uid://cnxm803p7w416" path="res://scenes/player.tscn" id="1_8uxa5"]
+[ext_resource type="Texture2D" uid="uid://c3bq8bylxfiiu" path="res://textures/Rug2_Texture.png" id="2_47imk"]
+[ext_resource type="PackedScene" uid="uid://da6akh7ukg2bu" path="res://scenes/LongHall.tscn" id="3_feghg"]
+[ext_resource type="Texture2D" uid="uid://dy4efrnasltus" path="res://textures/Beigewall2_Texture.png" id="4_b424s"]
+[ext_resource type="PackedScene" uid="uid://dqwbwpx130nt6" path="res://scenes/MediumRoom.tscn" id="5_chvwk"]
+[ext_resource type="Texture2D" uid="uid://baf7umi8dijob" path="res://textures/Door_02_Brown.png" id="5_ruymg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2kseo"]
+size = Vector3(7.5, 5, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xi66q"]
+albedo_texture = ExtResource("4_b424s")
+uv1_triplanar = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_dwvxy"]
+material = SubResource("StandardMaterial3D_xi66q")
+size = Vector2(7.5, 5)
+orientation = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g6frm"]
+size = Vector3(60, 0.1, 30)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vnxsm"]
+albedo_texture = ExtResource("2_47imk")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_k0es6"]
+size = Vector2(60, 30)
+
+[node name="Main" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_8uxa5")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -73)
+
+[node name="LongHall" parent="." instance=ExtResource("3_feghg")]
+
+[node name="FrontDoor" type="Node3D" parent="."]
+
+[node name="Wall3" type="StaticBody3D" parent="FrontDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00523281, 2.5, -74.9973)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FrontDoor/Wall3"]
+shape = SubResource("BoxShape3D_2kseo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FrontDoor/Wall3"]
+mesh = SubResource("PlaneMesh_dwvxy")
+
+[node name="Sprite3D" type="Sprite3D" parent="FrontDoor/Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0141877, -0.600002, 0.101166)
+pixel_size = 0.015
+texture = ExtResource("5_ruymg")
+
+[node name="MediumRoom" parent="." instance=ExtResource("5_chvwk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.62, 0, 89.9)
+
+[node name="Floor2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.5, 4.9, 120)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor2"]
+shape = SubResource("BoxShape3D_g6frm")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor2"]
+material_override = SubResource("StandardMaterial3D_vnxsm")
+mesh = SubResource("PlaneMesh_k0es6")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://da6akh7ukg2bu"]
 
-[ext_resource type="Texture2D" uid="uid://dy4efrnasltus" path="res://Beigewall2_Texture.png" id="1_1gf64"]
-[ext_resource type="Texture2D" uid="uid://c3bq8bylxfiiu" path="res://Rug2_Texture.png" id="1_qtwmf"]
+[ext_resource type="Texture2D" uid="uid://dy4efrnasltus" path="res://textures/Beigewall2_Texture.png" id="1_1gf64"]
+[ext_resource type="Texture2D" uid="uid://c3bq8bylxfiiu" path="res://textures/Rug2_Texture.png" id="1_qtwmf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m0bqt"]
 size = Vector3(7.5, 0.1, 150)
@@ -17,12 +17,12 @@ size = Vector2(7.5, 150)
 [sub_resource type="BoxShape3D" id="BoxShape3D_6bjyk"]
 size = Vector3(0.1, 5, 150)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eqvxi"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5fxmj"]
 albedo_texture = ExtResource("1_1gf64")
 uv1_triplanar = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_nwodi"]
-material = SubResource("StandardMaterial3D_eqvxi")
+material = SubResource("StandardMaterial3D_5fxmj")
 size = Vector2(150, 5)
 orientation = 0
 
