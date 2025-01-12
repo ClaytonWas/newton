@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3qquhbhb8snf"]
+
+[ext_resource type="Script" path="res://playermovement.gd" id="1_4mmhk"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_vamow"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_00tt3"]
+size = Vector2(20, 20)
+orientation = 1
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_44gm6"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4646, 0)
+script = ExtResource("1_4mmhk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CylinderShape3D_vamow")
+script = ExtResource("1_4mmhk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_00tt3")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("WorldBoundaryShape3D_44gm6")

@@ -1,0 +1,85 @@
+extends CharacterBody3D
+
+# How fast the player moves in meters per second.
+@export var max_speed = 75
+# Acceleration and deceleration rates in meters per second squared for forward/backward movement.
+@export var acceleration = 150
+@export var deceleration = 400
+# The downward acceleration when in the air, in meters per second squared.
+@export var fall_acceleration = 75
+# Mouse sensitivity
+@export var mouse_sensitivity = 0.002
+# How fast the camera returns to normal position
+@export var camera_return_speed = 5.0
+
+@onready var camera = $Camera3D
+
+var target_velocity = Vector3.ZERO
+var current_velocity = Vector3.ZERO
+
+func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func _input(event):
+	# Toggle mouse capture with ESC
+	if event.is_action_pressed("ui_cancel"):
+		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			
+	if event is InputEventMouseMotion:
+		# Rotate left/right always happens
+		rotate_y(-event.relative.x * mouse_sensitivity)
+		
+		# Rotate up/down only when middle mouse is pressed
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE):
+			camera.rotate_x(-event.relative.y * mouse_sensitivity)
+			camera.rotation.x = clamp(camera.rotation.x, -PI/3, PI/4)
+
+func _physics_process(delta):
+	var direction = Vector3.ZERO
+	
+	# Return camera to normal position when middle mouse is not pressed
+	if !Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE):
+		camera.rotation.x = lerp(camera.rotation.x, 0.0, camera_return_speed * delta)
+	
+	# Gather input for movement
+	if Input.is_action_pressed("move_right"):
+		direction.x += 1
+	if Input.is_action_pressed("move_left"):
+		direction.x -= 1
+	if Input.is_action_pressed("move_back"):
+		direction.z += 1
+	if Input.is_action_pressed("move_forward"):
+		direction.z -= 1
+
+	# Normalize and rotate the direction vector
+	if direction != Vector3.ZERO:
+		direction = direction.normalized()
+		direction = direction.rotated(Vector3.UP, rotation.y)
+
+	# Calculate the target velocity
+	target_velocity.x = direction.x * max_speed  # Side-to-side movement is immediate
+	target_velocity.z = direction.z * max_speed  # Forward/backward uses momentum
+
+	# Smoothly adjust current forward/backward velocity (z-axis only)
+	if direction.z != 0:
+		# Accelerate towards target forward/backward velocity
+		current_velocity.z = move_toward(current_velocity.z, target_velocity.z, acceleration * delta)
+	else:
+		# Decelerate to stop when no input for forward/backward
+		current_velocity.z = move_toward(current_velocity.z, 0, deceleration * delta)
+
+	# Apply side-to-side movement directly
+	current_velocity.x = target_velocity.x
+
+	# Apply vertical velocity
+	if not is_on_floor():
+		current_velocity.y -= fall_acceleration * delta
+	else:
+		current_velocity.y = 0
+
+	# Move the character
+	velocity = current_velocity
+	move_and_slide()
