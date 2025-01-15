@@ -1,26 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cnxm803p7w416"]
+[gd_scene load_steps=4 format=3 uid="uid://cnxm803p7w416"]
 
 [ext_resource type="Script" path="res://scripts/playermovement.gd" id="1_2ak50"]
-[ext_resource type="ArrayMesh" uid="uid://dqe653wdiybg4" path="res://objects/Glock.obj" id="1_e42n0"]
-[ext_resource type="Texture2D" uid="uid://ccp4ny80ak4ek" path="res://textures/Glock.png" id="3_uiauh"]
-[ext_resource type="Texture2D" uid="uid://cgfbrg00a0fhd" path="res://textures/low_taper.webp" id="4_wcral"]
+[ext_resource type="PackedScene" uid="uid://6jpw5odjd5ro" path="res://scenes/guns/pistol.tscn" id="2_ts4jc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ykk5e"]
 height = 1.75
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vunsw"]
-albedo_texture = ExtResource("3_uiauh")
-
-[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_xj37f"]
-albedo_texture = ExtResource("3_uiauh")
-albedo_texture_force_srgb = true
-orm_texture = ExtResource("4_wcral")
-heightmap_scale = 16.0
-heightmap_deep_parallax = true
-heightmap_min_layers = 8
-heightmap_max_layers = 32
-heightmap_flip_binormal = true
-detail_mask = ExtResource("4_wcral")
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_2ak50")
@@ -33,12 +17,5 @@ shape = SubResource("CapsuleShape3D_ykk5e")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.93233, 0.22151)
 fov = 105.0
 
-[node name="Glock" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.0348623, 0, -0.398478, 0, 0.4, 0, 0.398478, 0, 0.0348623, 0.780478, 1.17153, -0.556613)
-mesh = ExtResource("1_e42n0")
-skeleton = NodePath("../CollisionShape3D")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Glock"]
-mesh = ExtResource("1_e42n0")
-surface_material_override/0 = SubResource("StandardMaterial3D_vunsw")
-surface_material_override/1 = SubResource("ORMMaterial3D_xj37f")
+[node name="Gun" parent="." instance=ExtResource("2_ts4jc")]
+transform = Transform3D(-0.0433405, 0, -0.99906, 0, 1, 0, 0.99906, 0, -0.0433405, 0.793972, 1.06599, -0.413)
