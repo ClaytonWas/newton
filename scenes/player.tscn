@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cnxm803p7w416"]
 
 [ext_resource type="Script" path="res://scripts/playermovement.gd" id="1_2ak50"]
-[ext_resource type="PackedScene" uid="uid://6jpw5odjd5ro" path="res://scenes/guns/pistol.tscn" id="2_ts4jc"]
+[ext_resource type="PackedScene" uid="uid://4vk24nn2440l" path="res://scenes/guns/shotgunPistol.tscn" id="2_mcu23"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ykk5e"]
 height = 1.75
@@ -17,5 +17,5 @@ shape = SubResource("CapsuleShape3D_ykk5e")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.93233, 0.22151)
 fov = 105.0
 
-[node name="Gun" parent="." instance=ExtResource("2_ts4jc")]
-transform = Transform3D(-0.0433405, 0, -0.99906, 0, 1, 0, 0.99906, 0, -0.0433405, 0.793972, 1.06599, -0.413)
+[node name="ShotgunPistol" parent="." instance=ExtResource("2_mcu23")]
+transform = Transform3D(-0.019721, 0, 0.999806, 0, 1, 0, -0.999806, 0, -0.019721, 0.753101, 1.41895, -0.263526)

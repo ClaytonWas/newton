@@ -2,11 +2,11 @@ extends "res://scripts/guns/AmmoGun.gd"
 
 # Functions
 func _ready():
-	damage = 50
-	reloadSpeed = 0.7
-	movementSpeed = 50
-	magazineSize = 3
-	remainingInMagazine = 3
+	damage = 100
+	reloadSpeed = 2
+	movementSpeed = 75
+	magazineSize = 2
+	remainingInMagazine = 2
 
 func _process(delta):
 	if Input.is_action_just_pressed("shoot"):

@@ -4,7 +4,7 @@ extends "res://scripts/guns/Gun.gd"
 var magazineSize = 7
 var remainingInMagazine = 7
 
-# Called when the node enters the scene tree for the first time.
+# Functions
 func reload():
 	print("Reloading...")
 	await get_tree().create_timer(reloadSpeed).timeout
