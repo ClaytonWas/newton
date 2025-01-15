@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccp4ny80ak4ek"
-path.s3tc="res://.godot/imported/Glock.png-ee6f837200cc2d20d97306828b67be54.s3tc.ctex"
+uid="uid://c3bq8bylxfiiu"
+path.s3tc="res://.godot/imported/Rug2_Texture.png-92c33451a40c5bbb87d72b3d44e9cd1f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/Glock.png"
-dest_files=["res://.godot/imported/Glock.png-ee6f837200cc2d20d97306828b67be54.s3tc.ctex"]
+source_file="res://textures/environments/Rug2_Texture.png"
+dest_files=["res://.godot/imported/Rug2_Texture.png-92c33451a40c5bbb87d72b3d44e9cd1f.s3tc.ctex"]
 
 [params]
 

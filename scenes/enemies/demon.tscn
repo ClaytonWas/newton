@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccxty8d0eplbl"]
+
+[ext_resource type="Script" path="res://scripts/enemies/demon.gd" id="1_xvlxb"]
+[ext_resource type="Texture2D" uid="uid://dodjl1q0t30iy" path="res://textures/enemies/Demon4Sheet.png" id="2_yrimd"]
+
+[node name="demon" type="Node3D"]
+script = ExtResource("1_xvlxb")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+billboard = 1
+texture = ExtResource("2_yrimd")

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://baf7umi8dijob"
-path.s3tc="res://.godot/imported/Door_02_Brown.png-cac2b022e76d56ddc96d7e91c01b9308.s3tc.ctex"
+uid="uid://dh1dqrsuehxi8"
+path.s3tc="res://.godot/imported/Demon.png-7cf96b2210d3279b4e52be4706f7f3f8.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/Door_02_Brown.png"
-dest_files=["res://.godot/imported/Door_02_Brown.png-cac2b022e76d56ddc96d7e91c01b9308.s3tc.ctex"]
+source_file="res://textures/enemies/Demon.png"
+dest_files=["res://.godot/imported/Demon.png-7cf96b2210d3279b4e52be4706f7f3f8.s3tc.ctex"]
 
 [params]
 

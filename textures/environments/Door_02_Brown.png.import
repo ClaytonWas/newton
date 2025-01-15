@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgfbrg00a0fhd"
-path.s3tc="res://.godot/imported/low_taper.webp-9dd9e9653aa0cd84ec7e79a8e01ab45c.s3tc.ctex"
+uid="uid://baf7umi8dijob"
+path.s3tc="res://.godot/imported/Door_02_Brown.png-1f341c85a84dafee1859d0ef14192da6.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/low_taper.webp"
-dest_files=["res://.godot/imported/low_taper.webp-9dd9e9653aa0cd84ec7e79a8e01ab45c.s3tc.ctex"]
+source_file="res://textures/environments/Door_02_Brown.png"
+dest_files=["res://.godot/imported/Door_02_Brown.png-1f341c85a84dafee1859d0ef14192da6.s3tc.ctex"]
 
 [params]
 

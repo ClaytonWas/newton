@@ -5,7 +5,7 @@ func _ready():
 	damage = 50
 	reloadSpeed = 0.7
 	movementSpeed = 50
-	magazineSize = 3
+	magazineSize = 7
 	remainingInMagazine = 3
 
 func _process(delta):
