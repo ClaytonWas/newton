@@ -15,4 +15,4 @@ script = ExtResource("1_evvmc")
 bg_clr = Color(0.169245, 0.169245, 0.169245, 1)
 border_clr = Color(1, 1, 1, 1)
 inner_radius = 45.0
-options = [null, null, null, null, null, null, null]
+options = ["Pistol", "Rifle", null, null, null, null, null]
