@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dh1dqrsuehxi8"
-path.s3tc="res://.godot/imported/Demon.png-7cf96b2210d3279b4e52be4706f7f3f8.s3tc.ctex"
+uid="uid://156js7f0qeqb"
+path.s3tc="res://.godot/imported/DemonSpritesheet.png-2f69276c99e86911027f7f57114855a6.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/enemies/Demon.png"
-dest_files=["res://.godot/imported/Demon.png-7cf96b2210d3279b4e52be4706f7f3f8.s3tc.ctex"]
+source_file="res://textures/enemies/DemonSpritesheet.png"
+dest_files=["res://.godot/imported/DemonSpritesheet.png-2f69276c99e86911027f7f57114855a6.s3tc.ctex"]
 
 [params]
 
