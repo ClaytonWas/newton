@@ -4,6 +4,7 @@ extends CharacterBody3D
 @onready var detectionArea = $DetectionArea
 var currentXSpeed = 5
 var xBasisMovementVector = Vector3(currentXSpeed, 0, 0)
+var health = 100
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,3 +30,13 @@ func _physics_process(delta: float) -> void:
 				sprite.billboard = 0
 	if collision:
 		print(collision.get_collider().name)
+
+func takeDamage(amount):
+	health -= amount
+	print("Health remaining: ", health)
+	if health <= 0:
+		die()
+
+func die():
+	print("Character died")
+	queue_free()

@@ -13,7 +13,7 @@ func reload():
 
 func shoot():
 	if remainingInMagazine > 0:
-		print("Shooting!")
+		print("Shooting from AmmoGun!")
 		remainingInMagazine -= 1
 	else:
 		print("Out of ammo!")

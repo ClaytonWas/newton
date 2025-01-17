@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://bk5uay7ai6pr6"]
+[gd_scene load_steps=8 format=4 uid="uid://c575uv334iglo"]
 
 [ext_resource type="Script" path="res://scripts/guns/LaserGun.gd" id="1_kmnyh"]
 [ext_resource type="ArrayMesh" uid="uid://bdgogt0i2a1s" path="res://objects/Rocket SMG.obj" id="2_m1lny"]
@@ -22,7 +22,7 @@ data = PackedByteArray("SUQzAwAAAAAALlRZRVIAAAAFAAAAMjAyNFRFTkMAAAAVAAAATEFNRSBp
 script = ExtResource("1_kmnyh")
 
 [node name="OBJ" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -1.5, 0.8, 0)
+transform = Transform3D(-0.2, 0, 1.74846e-08, 0, 0.2, 0, -1.74846e-08, 0, -0.2, 1.43644, 0.8, 0)
 mesh = ExtResource("2_m1lny")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_25t46")
