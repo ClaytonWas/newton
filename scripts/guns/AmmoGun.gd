@@ -27,7 +27,4 @@ func _process(delta):
 
 func fireHitscan():
 	raycast.force_raycast_update()
-	if raycast.get_collider() != null:
-		return raycast.get_collider()
-	else:
-		return null
+	return raycast.get_collider()
