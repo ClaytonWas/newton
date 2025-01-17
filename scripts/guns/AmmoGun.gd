@@ -4,13 +4,20 @@ extends "res://scripts/guns/Gun.gd"
 @onready var raycast: RayCast3D = $RayCast3D
 var magazineSize = 7
 var remainingInMagazine = 7
+var isReloading = false
 
 # Functions
 func reload():
-	print("Reloading...")
-	await get_tree().create_timer(reloadSpeed).timeout
-	remainingInMagazine = magazineSize
-	print("Reload Complete")
+	if isReloading:
+		return
+		
+	if remainingInMagazine < magazineSize:
+		print("Reloading...")
+		isReloading = true
+		await get_tree().create_timer(reloadSpeed).timeout
+		remainingInMagazine = magazineSize
+		print("Reload Complete")
+		isReloading = false
 
 func shoot():
 	if remainingInMagazine > 0:
