@@ -1,11 +1,10 @@
-[gd_scene load_steps=5 format=4 uid="uid://4vk24nn2440l"]
+[gd_scene load_steps=5 format=4 uid="uid://bm0qjc2ls1os0"]
 
 [ext_resource type="Script" path="res://scripts/guns/ShotgunPistol.gd" id="1_rdu0j"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ipxhd"]
 resource_name = "SuperShotgun_Mat"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
 emission_energy_multiplier = 0.0
