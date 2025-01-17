@@ -14,8 +14,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_ykk5e")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.93233, 0.22151)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7585, 0.22151)
 fov = 105.0
 
 [node name="Pistol" parent="." instance=ExtResource("2_a215n")]
-transform = Transform3D(-6.0964e-05, 0.00349012, 0.999994, -0.0174523, 0.999841, -0.00349065, -0.999848, -0.0174524, -4.37111e-08, 0, 1.237, -0.00392419)
+transform = Transform3D(-0.0631553, 0.00238185, 0.998001, -0.0174523, 0.999841, -0.00349065, -0.997852, -0.0176379, -0.0631037, 0.707285, 0.981978, -0.263591)

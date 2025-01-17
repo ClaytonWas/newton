@@ -1,6 +1,7 @@
 extends "res://scripts/guns/Gun.gd"
 
 # Common Variables
+@onready var raycast: RayCast3D = $RayCast3D
 var magazineSize = 7
 var remainingInMagazine = 7
 
@@ -23,3 +24,10 @@ func _process(delta):
 		shoot()
 	if Input.is_action_just_pressed("reload"):
 		reload()
+
+func fireHitscan():
+	raycast.force_raycast_update()
+	if raycast.get_collider() != null:
+		return raycast.get_collider()
+	else:
+		return null
