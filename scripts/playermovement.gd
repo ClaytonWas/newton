@@ -22,14 +22,7 @@ var current_velocity = Vector3.ZERO
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-func _input(event):
-	# Toggle mouse capture with ESC
-	if event.is_action_pressed("ui_cancel"):
-		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		else:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-			
+func _input(event):			
 	if event is InputEventMouseMotion:
 		# Rotate left/right always happens
 		rotate_y(-event.relative.x * mouse_sensitivity)
