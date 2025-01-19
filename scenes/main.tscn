@@ -5,8 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://da6akh7ukg2bu" path="res://scenes/LongHall.tscn" id="3_feghg"]
 [ext_resource type="Texture2D" uid="uid://dy4efrnasltus" path="res://textures/environments/Beigewall2_Texture.png" id="4_b424s"]
 [ext_resource type="PackedScene" uid="uid://dqwbwpx130nt6" path="res://scenes/MediumRoom.tscn" id="5_chvwk"]
+
+[ext_resource type="PackedScene" uid="uid://bvnyx7k8ac0sw" path="res://scenes/inventory.tscn" id="7_6xpae"]
 [ext_resource type="Texture2D" uid="uid://baf7umi8dijob" path="res://textures/environments/Door_02_Brown.png" id="5_ruymg"]
 [ext_resource type="PackedScene" uid="uid://ccxty8d0eplbl" path="res://scenes/enemies/demon.tscn" id="7_xf1d3"]
+
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2kseo"]
 size = Vector3(7.5, 5, 0.1)
@@ -62,8 +65,13 @@ shape = SubResource("BoxShape3D_g6frm")
 material_override = SubResource("StandardMaterial3D_vnxsm")
 mesh = SubResource("PlaneMesh_k0es6")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" parent="CanvasLayer" instance=ExtResource("7_6xpae")]
+
 [node name="Demon" parent="." instance=ExtResource("7_xf1d3")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 30, 1.5, 90)
 
 [node name="Player" parent="." instance=ExtResource("1_8uxa5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.369482, 0.05, -72.7186)
+

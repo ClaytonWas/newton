@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvnyx7k8ac0sw"]
+
+[ext_resource type="Script" path="res://scripts/inventorywheel.gd" id="1_evvmc"]
+
+[node name="Control" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_evvmc")
+bg_clr = Color(0.169245, 0.169245, 0.169245, 1)
+border_clr = Color(1, 1, 1, 1)
+inner_radius = 45.0
+options = ["Pistol", "Rifle", null, null, null, null, null]
