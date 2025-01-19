@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=3 uid="uid://dqwbwpx130nt6"]
 
-[ext_resource type="Texture2D" uid="uid://c3bq8bylxfiiu" path="res://textures/Rug2_Texture.png" id="1_i0h4k"]
-[ext_resource type="Texture2D" uid="uid://dy4efrnasltus" path="res://textures/Beigewall2_Texture.png" id="2_oay06"]
+[ext_resource type="Texture2D" uid="uid://c3bq8bylxfiiu" path="res://textures/environments/Rug2_Texture.png" id="1_i0h4k"]
+[ext_resource type="Texture2D" uid="uid://dy4efrnasltus" path="res://textures/environments/Beigewall2_Texture.png" id="2_oay06"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rr50w"]
 size = Vector3(60, 0.1, 30)

@@ -31,4 +31,4 @@ surface_material_override/1 = SubResource("ORMMaterial3D_2s2ct")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.775036, 0.512995, 0)
-target_position = Vector3(100, 0, 0)
+target_position = Vector3(1, 0, 0)

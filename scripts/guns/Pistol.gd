@@ -1,15 +1,13 @@
 extends "res://scripts/guns/AmmoGun.gd"
 
-
-# Called when the node enters the scene tree for the first time.
+# Functions
 func _ready():
-	damage = 100
+	damage = 50
 	reloadSpeed = 0.7
 	movementSpeed = 50
-	magazineSize = 3
+	magazineSize = 7
 	remainingInMagazine = 3
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_pressed("shoot"):
 		shoot()
@@ -17,7 +15,21 @@ func _process(delta):
 		reload()
 	
 func shoot():
-	super.shoot()
+	if remainingInMagazine > 0:
+		print("Shooting from AmmoGun!")
+		fireHitscan()
+		remainingInMagazine -= 1
+	else:
+		print("Out of ammo!")
 
 func reload():
-	super.reload	()
+	super.reload()
+	
+	
+func fireHitscan():
+	var hitObject = super.fireHitscan()
+	if hitObject is CharacterBody3D:
+		print("Hit: ", hitObject)
+		hitObject.takeDamage(damage)
+	elif hitObject is Node3D:
+		print("Hit: ", hitObject)

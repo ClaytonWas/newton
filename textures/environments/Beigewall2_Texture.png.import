@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dy4efrnasltus"
-path.s3tc="res://.godot/imported/Beigewall2_Texture.png-72c736afe924de55c0d05496d21a160c.s3tc.ctex"
+path.s3tc="res://.godot/imported/Beigewall2_Texture.png-58d26baea287cdc1178534d5afa2472c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/Beigewall2_Texture.png"
-dest_files=["res://.godot/imported/Beigewall2_Texture.png-72c736afe924de55c0d05496d21a160c.s3tc.ctex"]
+source_file="res://textures/environments/Beigewall2_Texture.png"
+dest_files=["res://.godot/imported/Beigewall2_Texture.png-58d26baea287cdc1178534d5afa2472c.s3tc.ctex"]
 
 [params]
 
