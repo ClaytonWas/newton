@@ -9,6 +9,7 @@ extends Control
 @export var inner_radius: float 
 
 @export var options = []
+var inventoryOpen : bool = false
 
 func _draw():
 	var points = []
@@ -26,7 +27,21 @@ func _draw():
 				draw_arc(Vector2.ZERO, outer_radius, rads,  2*rads, 128, Color.BLACK)
 				
 	draw_arc(Vector2.ZERO, inner_radius, 0, TAU, 128, border_clr, border_width, true)
+	
+func _ready():
+	pass
+	
+func _process(delta):
+	if(inventoryOpen):
+		self.visible = true
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	else:
+		self.visible = false
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	if len(options) <= 7:
-		queue_redraw()
+func _physics_process(delta: float):
+	if Input.is_action_pressed("inventory_toggle"):
+		inventoryOpen = true
+	else:
+		inventoryOpen = false
+		
