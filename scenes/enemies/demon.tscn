@@ -188,7 +188,7 @@ shape = SubResource("BoxShape3D_awknd")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 sprite_frames = SubResource("SpriteFrames_vpn0s")
-animation = &"walkBack"
+animation = &"walkLeftBack"
 
 [node name="DetectionArea" type="Area3D" parent="."]
 

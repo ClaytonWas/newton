@@ -16,6 +16,7 @@ func _process(delta: float) -> void:
 
 # Called every physics frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
+	sprite.billboard = 0
 	var collision = move_and_collide(movement_vector * delta)
 	
 	if detectionArea.has_overlapping_bodies() == true:
@@ -23,8 +24,7 @@ func _physics_process(delta: float) -> void:
 		for body in overlappingBodies:
 			if body.name == 'Player':
 				sprite.billboard = 2
-			else:
-				sprite.billboard = 0
+
 	if collision:
 		print(collision.get_collider().name)
 
