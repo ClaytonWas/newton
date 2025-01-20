@@ -1,7 +1,8 @@
 extends "res://scripts/enemies/enemy.gd"
 
 func _ready():
-	health = 200
+	health = 50
+	walk_speed = 1
 	sprite.play("walkForward")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

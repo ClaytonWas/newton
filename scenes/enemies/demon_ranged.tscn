@@ -1,89 +1,89 @@
-[gd_scene load_steps=26 format=3 uid="uid://ccxty8d0eplbl"]
+[gd_scene load_steps=26 format=3 uid="uid://c26jbd6ors1x0"]
 
-[ext_resource type="Script" path="res://scripts/enemies/demon.gd" id="1_xvlxb"]
-[ext_resource type="Texture2D" uid="uid://156js7f0qeqb" path="res://textures/enemies/DemonSpritesheet.png" id="2_of8q3"]
+[ext_resource type="Script" path="res://scripts/enemies/demon_ranged.gd" id="1_ryxmw"]
+[ext_resource type="Texture2D" uid="uid://156js7f0qeqb" path="res://textures/enemies/DemonSpritesheet.png" id="2_7rs85"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_awknd"]
 size = Vector3(0.803162, 0.879303, 0.760365)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_grdds"]
-atlas = ExtResource("2_of8q3")
+atlas = ExtResource("2_7rs85")
 region = Rect2(0, 360, 90, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cm1c1"]
-atlas = ExtResource("2_of8q3")
+atlas = ExtResource("2_7rs85")
 region = Rect2(90, 360, 90, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vr0sc"]
-atlas = ExtResource("2_of8q3")
+atlas = ExtResource("2_7rs85")
 region = Rect2(180, 360, 90, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gxugp"]
-atlas = ExtResource("2_of8q3")
+atlas = ExtResource("2_7rs85")
 region = Rect2(270, 360, 90, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j0a07"]
-atlas = ExtResource("2_of8q3")
+atlas = ExtResource("2_7rs85")
 region = Rect2(0, 0, 90, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e8i4n"]
-atlas = ExtResource("2_of8q3")
+atlas = ExtResource("2_7rs85")
 region = Rect2(90, 0, 90, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dp4d1"]
-atlas = ExtResource("2_of8q3")
+atlas = ExtResource("2_7rs85")
 region = Rect2(180, 0, 90, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q5nhp"]
-atlas = ExtResource("2_of8q3")
+atlas = ExtResource("2_7rs85")
 region = Rect2(270, 0, 90, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_brpr5"]
-atlas = ExtResource("2_of8q3")
+atlas = ExtResource("2_7rs85")
 region = Rect2(0, 180, 90, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2kuhl"]
-atlas = ExtResource("2_of8q3")
+atlas = ExtResource("2_7rs85")
 region = Rect2(90, 180, 90, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w7fik"]
-atlas = ExtResource("2_of8q3")
+atlas = ExtResource("2_7rs85")
 region = Rect2(180, 180, 90, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fc7p6"]
-atlas = ExtResource("2_of8q3")
+atlas = ExtResource("2_7rs85")
 region = Rect2(270, 180, 90, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jty0l"]
-atlas = ExtResource("2_of8q3")
+atlas = ExtResource("2_7rs85")
 region = Rect2(0, 270, 90, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0kk8u"]
-atlas = ExtResource("2_of8q3")
+atlas = ExtResource("2_7rs85")
 region = Rect2(90, 270, 90, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oy3pp"]
-atlas = ExtResource("2_of8q3")
+atlas = ExtResource("2_7rs85")
 region = Rect2(180, 270, 90, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yi01i"]
-atlas = ExtResource("2_of8q3")
+atlas = ExtResource("2_7rs85")
 region = Rect2(270, 270, 90, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7e8t0"]
-atlas = ExtResource("2_of8q3")
+atlas = ExtResource("2_7rs85")
 region = Rect2(0, 90, 90, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_asrll"]
-atlas = ExtResource("2_of8q3")
+atlas = ExtResource("2_7rs85")
 region = Rect2(90, 90, 90, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_backw"]
-atlas = ExtResource("2_of8q3")
+atlas = ExtResource("2_7rs85")
 region = Rect2(180, 90, 90, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_axay8"]
-atlas = ExtResource("2_of8q3")
+atlas = ExtResource("2_7rs85")
 region = Rect2(270, 90, 90, 90)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vpn0s"]
@@ -178,15 +178,16 @@ animations = [{
 height = 0.965697
 radius = 3.6267
 
-[node name="Demon" type="CharacterBody3D"]
+[node name="Demon_Ranged" type="CharacterBody3D"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
-script = ExtResource("1_xvlxb")
+script = ExtResource("1_ryxmw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0011654)
 shape = SubResource("BoxShape3D_awknd")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+modulate = Color(0.290196, 1, 1, 1)
 sprite_frames = SubResource("SpriteFrames_vpn0s")
 animation = &"walkBack"
 

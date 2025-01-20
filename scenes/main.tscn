@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b4untvgg5fv5u"]
+[gd_scene load_steps=16 format=3 uid="uid://b4untvgg5fv5u"]
 
 [ext_resource type="PackedScene" uid="uid://cnxm803p7w416" path="res://scenes/player.tscn" id="1_8uxa5"]
 [ext_resource type="Texture2D" uid="uid://c3bq8bylxfiiu" path="res://textures/environments/Rug2_Texture.png" id="2_47imk"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://baf7umi8dijob" path="res://textures/environments/Door_02_Brown.png" id="5_ruymg"]
 [ext_resource type="PackedScene" uid="uid://bvnyx7k8ac0sw" path="res://scenes/inventory.tscn" id="7_6xpae"]
 [ext_resource type="PackedScene" uid="uid://ccxty8d0eplbl" path="res://scenes/enemies/demon.tscn" id="7_xf1d3"]
+[ext_resource type="PackedScene" uid="uid://c26jbd6ors1x0" path="res://scenes/enemies/demon_ranged.tscn" id="9_ycugp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2kseo"]
 size = Vector3(7.5, 5, 0.1)
@@ -73,3 +74,6 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 30, 1.5, 90)
 
 [node name="Player" parent="." instance=ExtResource("1_8uxa5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.369482, 0.05, -72.7186)
+
+[node name="Demon_Ranged" parent="." instance=ExtResource("9_ycugp")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 10.301, 1.75996, 95.4516)
