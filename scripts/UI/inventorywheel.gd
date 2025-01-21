@@ -34,10 +34,9 @@ func _draw():
 			if points.size() > 1:
 				#Calculate middle distance
 				#middle point d = sqrt((x2-x1)^2 + (y2-y1)^2) / 2
-				d = ( ((points[-1][0] * outer_radius ) - (points[-2][0] * inner_radius))**2) +  \
+				d = (((points[-1][0] * outer_radius ) - (points[-2][0] * inner_radius))**2) +  \
 					(((points[-1][1] * outer_radius) - (points[-2][1] * inner_radius))**2)
 				d = sqrt(d) / 2
-				
 				
 				draw_circle(points[-1]*d, 40, Color.PINK)
 				print("drawn cirlce ",i)
