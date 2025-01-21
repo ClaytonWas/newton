@@ -77,3 +77,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.369482, 0.05, -72.7186)
 
 [node name="Demon_Ranged" parent="." instance=ExtResource("9_ycugp")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 10.301, 1.75996, 95.4516)
+
+[node name="LongHall2" parent="." instance=ExtResource("3_feghg")]
+transform = Transform3D(-0.0610833, -0.318975, -0.945793, 0, 0.947562, -0.319571, 0.998133, -0.0195205, -0.0578803, 102.421, 23.8197, 84.2834)

@@ -175,8 +175,8 @@ animations = [{
 }]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_a2mln"]
-height = 0.965697
-radius = 3.6267
+height = 0.764189
+radius = 1.40886
 
 [node name="Demon" type="CharacterBody3D"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)

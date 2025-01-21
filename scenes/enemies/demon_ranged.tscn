@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://156js7f0qeqb" path="res://textures/enemies/DemonSpritesheet.png" id="2_7rs85"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_awknd"]
-size = Vector3(0.803162, 0.879303, 0.760365)
+size = Vector3(1.4312, 0.879303, 1.12637)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_grdds"]
 atlas = ExtResource("2_7rs85")
@@ -175,15 +175,15 @@ animations = [{
 }]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_a2mln"]
-height = 0.965697
-radius = 3.6267
+height = 2.85844
+radius = 7.053
 
 [node name="Demon_Ranged" type="CharacterBody3D"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 script = ExtResource("1_ryxmw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0011654)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0125961, 0, -0.0126872)
 shape = SubResource("BoxShape3D_awknd")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
