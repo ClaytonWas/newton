@@ -12,6 +12,7 @@ class_name Weapons extends Resource
 @export_category("Weapon Stats")
 @export var damage: float
 @export var magazine_size: int
+@export var total_ammo: int
 @export var reload_time: float
 @export var spread: float			#Bloom multiplier
 @export var isMelee: bool = false

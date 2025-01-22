@@ -4,12 +4,13 @@ extends Control
 @export var border_clr : Color = Color.WHITE_SMOKE
 
 @export var border_width: float = 3
-@export var outer_radius: float = 256                  #TODO: Wheel size proportional to screen?
+@onready var outer_radius: float = get_viewport_rect().size.y *0.4                #TODO: Wheel size proportional to screen?
 @export var inner_radius: float 
 
 @export var options = []
 var inventoryOpen : bool = false
 var menuOpen: bool = false
+
 
 func _draw():
 	var points = []
@@ -17,6 +18,13 @@ func _draw():
 	var bg : Color = Color.DARK_SLATE_GRAY
 	bg.a = 0.7
 	draw_rect(Rect2(get_viewport_rect().size * -1,get_viewport_rect().size * 2), bg, true)
+	
+	var title_label = Label.new()
+	title_label.text = "Inventory"
+	title_label.position = Vector2(0, -(outer_radius + 50))
+	
+	add_child(title_label)
+	
 	draw_circle(Vector2.ZERO, outer_radius, bg_clr)
 	draw_arc(Vector2.ZERO, inner_radius, 0, TAU, 128, border_clr, border_width, true)
 

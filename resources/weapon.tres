@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Weapons" load_steps=2 format=3 uid="uid://bo3u1kjy0k6p"]
+
+[ext_resource type="Script" path="res://scripts/guns/weapons.gd" id="1_ev8jq"]
+
+[resource]
+script = ExtResource("1_ev8jq")
+name = &""
+position = Vector3(0, 0, 0)
+rotation = Vector3(0, 0, 0)
+shadow = false
+damage = 0.0
+magazine_size = 0
+total_ammo = 0
+reload_time = 0.0
+spread = 0.0
+isMelee = false
