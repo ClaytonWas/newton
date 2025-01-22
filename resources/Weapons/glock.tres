@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Weapons" load_steps=3 format=3 uid="uid://c03dv4cruws6u"]
+
+[ext_resource type="Script" path="res://scripts/guns/weapons.gd" id="1_bs1cx"]
+[ext_resource type="ArrayMesh" uid="uid://dqe653wdiybg4" path="res://objects/Glock.obj" id="1_yfayq"]
+
+[resource]
+script = ExtResource("1_bs1cx")
+name = &"Glock"
+position = Vector3(0.2, -0.165, -0.22)
+rotation = Vector3(90, 0, 90)
+mesh = ExtResource("1_yfayq")
+shadow = false
+damage = 35.0
+magazine_size = 12
+total_ammo = 0
+reload_time = 0.5
+spread = 0.0
+isMelee = false

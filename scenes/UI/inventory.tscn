@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bvnyx7k8ac0sw"]
 
-[ext_resource type="Script" path="res://scripts/inventorywheel.gd" id="1_evvmc"]
+[ext_resource type="Script" path="res://scripts/UI/inventorywheel.gd" id="1_evvmc"]
 
 [node name="Control" type="Control"]
 visible = false
