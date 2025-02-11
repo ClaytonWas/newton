@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=3 format=3 uid="uid://ksjqhws7tms6"]
+
+[ext_resource type="Script" path="res://scripts/weaponResource.gd" id="1_4pdn5"]
+[ext_resource type="ArrayMesh" uid="uid://dqe653wdiybg4" path="res://objects/Glock.obj" id="1_ti6vw"]
+
+[resource]
+script = ExtResource("1_4pdn5")
+weapon_name = &"FadeGlock"
+mesh = ExtResource("1_ti6vw")
+damage = 100.0
+magazine_size = 20
+reserve_ammo = 40
+reload_time = 1.0
+spread = 0.0
+is_melee = false
+is_fullauto = true

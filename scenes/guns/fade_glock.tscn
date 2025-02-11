@@ -1,0 +1,23 @@
+[gd_scene load_steps=8 format=3 uid="uid://cuoksi8gn05bj"]
+
+[ext_resource type="Script" path="res://scripts/init_weapon.gd" id="1_6fd1d"]
+[ext_resource type="Resource" uid="uid://ksjqhws7tms6" path="res://resources/fade_glock.tres" id="2_3arh5"]
+[ext_resource type="ArrayMesh" uid="uid://dqe653wdiybg4" path="res://objects/Glock.obj" id="3_t0uqq"]
+[ext_resource type="Texture2D" uid="uid://ccp4ny80ak4ek" path="res://textures/guns/Glock.png" id="4_ukymu"]
+[ext_resource type="Texture2D" uid="uid://cgfbrg00a0fhd" path="res://textures/guns/low_taper.webp" id="5_bui3h"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fwakb"]
+albedo_texture = ExtResource("4_ukymu")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b15b8"]
+albedo_texture = ExtResource("5_bui3h")
+
+[node name="FadeGlock" type="Node3D"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+script = ExtResource("1_6fd1d")
+gun = ExtResource("2_3arh5")
+
+[node name="Glock" type="MeshInstance3D" parent="."]
+mesh = ExtResource("3_t0uqq")
+surface_material_override/0 = SubResource("StandardMaterial3D_fwakb")
+surface_material_override/1 = SubResource("StandardMaterial3D_b15b8")

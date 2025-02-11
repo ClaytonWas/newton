@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dqwbwpx130nt6"]
+[gd_scene load_steps=21 format=3 uid="uid://dqwbwpx130nt6"]
 
 [ext_resource type="Texture2D" uid="uid://c3bq8bylxfiiu" path="res://textures/environments/Rug2_Texture.png" id="1_i0h4k"]
 [ext_resource type="Texture2D" uid="uid://dy4efrnasltus" path="res://textures/environments/Beigewall2_Texture.png" id="2_oay06"]
@@ -15,8 +15,10 @@ size = Vector2(60, 30)
 [sub_resource type="BoxShape3D" id="BoxShape3D_18khe"]
 size = Vector3(0.1, 5, 29.9855)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ctd6r"]
+albedo_texture = ExtResource("2_oay06")
+
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gceif"]
-load_path = "res://.godot/imported/Beigewall2_Texture.png-72c736afe924de55c0d05496d21a160c.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gm0yu"]
 albedo_texture = SubResource("CompressedTexture2D_gceif")
@@ -29,6 +31,9 @@ orientation = 0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e70ei"]
 size = Vector3(0.1, 5, 29.9855)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yc5tj"]
+albedo_texture = ExtResource("2_oay06")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_s1xfd"]
 material = SubResource("StandardMaterial3D_gm0yu")
@@ -85,6 +90,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00994874)
 shape = SubResource("BoxShape3D_18khe")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Wall1"]
+material_override = SubResource("StandardMaterial3D_ctd6r")
 mesh = SubResource("PlaneMesh_ffk0y")
 
 [node name="Wall2" type="StaticBody3D" parent="."]
@@ -95,6 +101,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00994874)
 shape = SubResource("BoxShape3D_e70ei")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Wall2"]
+material_override = SubResource("StandardMaterial3D_yc5tj")
 mesh = SubResource("PlaneMesh_s1xfd")
 
 [node name="Wall3" type="StaticBody3D" parent="."]

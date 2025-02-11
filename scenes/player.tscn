@@ -1,13 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://cnxm803p7w416"]
+[gd_scene load_steps=9 format=3 uid="uid://cnxm803p7w416"]
 
 [ext_resource type="Script" path="res://scripts/playermovement.gd" id="1_2ak50"]
-[ext_resource type="PackedScene" uid="uid://6jpw5odjd5ro" path="res://scenes/guns/pistol.tscn" id="2_a215n"]
+[ext_resource type="Script" path="res://scripts/weaponResource.gd" id="2_mx5bv"]
+[ext_resource type="Resource" uid="uid://daj1kmkgd1b7a" path="res://objects/old_glock.tres" id="3_ky4ee"]
+[ext_resource type="Resource" uid="uid://ksjqhws7tms6" path="res://resources/fade_glock.tres" id="4_cow4m"]
+[ext_resource type="Script" path="res://scripts/init_weapon.gd" id="6_mesns"]
+[ext_resource type="PackedScene" uid="uid://b2fwofkviwqga" path="res://scenes/guns/old_glock.tscn" id="6_p1v6h"]
+[ext_resource type="PackedScene" uid="uid://cuoksi8gn05bj" path="res://scenes/guns/fade_glock.tscn" id="7_jcwfb"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ykk5e"]
 height = 1.75
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_2ak50")
+inventory = Array[ExtResource("2_mx5bv")]([ExtResource("3_ky4ee"), ExtResource("4_cow4m")])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -17,5 +23,18 @@ shape = SubResource("CapsuleShape3D_ykk5e")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7585, 0.22151)
 fov = 105.0
 
-[node name="Pistol" parent="." instance=ExtResource("2_a215n")]
-transform = Transform3D(-0.0631553, 0.00238185, 0.998001, -0.0174523, 0.999841, -0.00349065, -0.997852, -0.0176379, -0.0631037, 0.707285, 0.981978, -0.263591)
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
+target_position = Vector3(0, 0, -101)
+
+[node name="right_hand" type="Node3D" parent="."]
+transform = Transform3D(0.0175106, -0.003185, -0.999842, -0.0174523, 0.999842, -0.00349065, 0.999694, 0.0175107, 0.0174523, 0.707285, 0.981978, -0.263591)
+
+[node name="Gun" type="Node3D" parent="right_hand"]
+visible = false
+script = ExtResource("6_mesns")
+
+[node name="OldGlock" parent="right_hand" instance=ExtResource("6_p1v6h")]
+visible = false
+
+[node name="FadeGlock" parent="right_hand" instance=ExtResource("7_jcwfb")]
+visible = false

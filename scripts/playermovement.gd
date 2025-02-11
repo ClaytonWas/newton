@@ -14,6 +14,10 @@ extends CharacterBody3D
 # How fast the camera returns to normal position
 @export var camera_return_speed = 5.0
 
+@export_category("Weapon Variables")
+@export var inventory: Array[Weapon] = []
+@export var equipped_weapon : Weapon
+
 @onready var camera = $Camera3D
 
 var target_velocity = Vector3.ZERO
@@ -21,8 +25,17 @@ var current_velocity = Vector3.ZERO
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	equipped_weapon = inventory[0]
+	
+	$right_hand.find_child(equipped_weapon.weapon_name).visible = true
+	
 
-func _input(event):			
+func _input(event):	
+	if Input.is_action_just_pressed("shoot"):
+		shoot()
+	if Input.is_action_just_pressed("reload"):
+		reload()		
+		
 	if event is InputEventMouseMotion:
 		# Rotate left/right always happens
 		rotate_y(-event.relative.x * mouse_sensitivity)
@@ -31,10 +44,18 @@ func _input(event):
 		if Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE):
 			camera.rotate_x(-event.relative.y * mouse_sensitivity)
 			camera.rotation.x = clamp(camera.rotation.x, -PI/3, PI/4)
+			
+#Swap between weapons
+	if event.is_action_pressed("slot1"):
+		changeWeapon(inventory[0])
+		
+	if event.is_action_pressed("slot2"):
+		changeWeapon(inventory[1])
+		
 
 func _physics_process(delta):
 	var direction = Vector3.ZERO
-	
+
 	# Return camera to normal position when middle mouse is not pressed
 	if !Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE):
 		camera.rotation.x = lerp(camera.rotation.x, 0.0, camera_return_speed * delta)
@@ -77,3 +98,53 @@ func _physics_process(delta):
 	# Move the character
 	velocity = current_velocity
 	move_and_slide()
+
+func changeWeapon(gun:Weapon):
+	print("magsize/reserve/reloadtime/mag %d/%d/%d/%d", inventory.size())
+	var old_gun = equipped_weapon
+	
+	equipped_weapon = gun
+	
+	#$gun.weapon_type = gun
+	
+	#Jank Code, need to either replace one node OR create new one
+	$right_hand.find_child(old_gun.weapon_name).visible = false
+	$right_hand.find_child(equipped_weapon.weapon_name).visible = true
+	print('Switched to ',gun.weapon_name,' dealing ',gun.damage,' per shot.')
+	print("magsize/reserve/reloadtime/mag %d/%d/%d/%d",gun.magazine_size, gun.reload_time, gun.mag)
+	
+	
+		#$right_hand.add_child(new_gun)
+	
+func fireHitscan():
+	var hitObject = self.raycast.force_raycast_update()
+	
+	if hitObject is CharacterBody3D:
+		print("Hit: ", hitObject)
+		hitObject.takeDamage(equipped_weapon.damage)
+	elif hitObject is Node3D:
+		print("Hit: ", hitObject)
+
+func shoot():
+	if equipped_weapon.mag > 0:
+		equipped_weapon.shoot()				#Handles ammo count
+		print("Shooting from %s!",equipped_weapon.weapon_name)
+		
+		var hitObject = self.find_child("Camera3D").find_child("RayCast3D").get_collider()
+		
+		if "Demon" in hitObject.name:
+			print("Hit: ", hitObject.name)
+			hitObject.takeDamage(equipped_weapon.damage)
+
+	else:
+		print("Out of ammo!")
+
+func reload():
+	print(equipped_weapon, equipped_weapon.reload_time)
+	var timer = Timer.new()
+	self.add_child(timer)
+	timer.wait_time = equipped_weapon.reload_time
+	timer.start()
+	
+	#play equipped_weapon.dryfire_sound
+	equipped_weapon.reload()
