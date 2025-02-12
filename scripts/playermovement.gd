@@ -1,27 +1,30 @@
 extends CharacterBody3D
 
-# How fast the player moves in meters per second.
-@export var max_speed = 25
-# Acceleration and deceleration rates in meters per second squared for movement.
-@export var acceleration = 1000
-@export var deceleration = 400
-# The downward acceleration when in the air, in meters per second squared.
-@export var fall_acceleration = 75
-# Jump strength in meters per second.
-@export var jump_strength = 30
-# Mouse sensitivity
-@export var mouse_sensitivity = 0.002
-# How fast the camera returns to normal position
-@export var camera_return_speed = 5.0
+@export_category("Camera Controls")
+@export var mouse_sensitivity := 0.002
+const headbob_shake := 0.025
+const headbob_frequency := 0.5
+@export var headbob_time := 0.0
+
+@export_category("Movement Variables")
+@export var walk_speed := 30.0
+@export var sprint_speed := 100.0
+@export var jump_strength := 14.0
+@export var air_speed_cap := 0.85
+@export var air_speed_acceleration := 800.0
+@export var air_move_speed := 500.0
+@export var ground_speed_acceleration := 7.5
+@export var ground_speed_deceleration := 7.5
+@export var ground_friction := 5
 
 @export_category("Weapon Variables")
 @export var inventory: Array[Weapon] = []
 @export var equipped_weapon : Weapon
 
-@onready var camera = $Camera3D
-
 var target_velocity = Vector3.ZERO
 var current_velocity = Vector3.ZERO
+
+var desired_direction := Vector3.ZERO
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -35,15 +38,6 @@ func _input(event):
 		shoot()
 	if Input.is_action_just_pressed("reload"):
 		reload()		
-		
-	if event is InputEventMouseMotion:
-		# Rotate left/right always happens
-		rotate_y(-event.relative.x * mouse_sensitivity)
-		
-		# Rotate up/down only when middle mouse is pressed
-		if Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE):
-			camera.rotate_x(-event.relative.y * mouse_sensitivity)
-			camera.rotation.x = clamp(camera.rotation.x, -PI/3, PI/4)
 			
 #Swap between weapons
 	if event.is_action_pressed("slot1"):
@@ -52,52 +46,77 @@ func _input(event):
 	if event.is_action_pressed("slot2"):
 		changeWeapon(inventory[1])
 		
+func _unhandled_input(event):
+	if event is InputEventMouseButton:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	elif event.is_action_pressed("ui_cancel"):
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		
+	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		if event is InputEventMouseMotion:
+			rotate_y(-event.relative.x * mouse_sensitivity)
+			%Camera3D.rotate_x(-event.relative.y * mouse_sensitivity)
+			%Camera3D.rotation.x = clamp(%Camera3D.rotation.x, deg_to_rad(-70), deg_to_rad(70))
+
+func _headbob_effect(delta) -> void:
+	headbob_time += delta * self.velocity.length()
+	%Camera3D.transform.origin = Vector3(
+		cos(headbob_time * headbob_frequency * 0.5) * headbob_shake,
+		sin(headbob_time * headbob_frequency * 0.5) * headbob_shake,
+		0
+	)
+
+func get_move_speed() -> float:
+	if Input.is_action_pressed("sprint"):
+		return sprint_speed 
+	else:
+		return walk_speed	
 
 func _physics_process(delta):
-	var direction = Vector3.ZERO
-
-	# Return camera to normal position when middle mouse is not pressed
-	if !Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE):
-		camera.rotation.x = lerp(camera.rotation.x, 0.0, camera_return_speed * delta)
+	var direction = Input.get_vector("move_left", "move_right", "move_forward", "move_back").normalized()
+	desired_direction = self.global_transform.basis * Vector3(direction.x, 0.0, direction.y)
 	
-	# Gather input for movement
-	if Input.is_action_pressed("move_right"):
-		direction.x += 1
-	if Input.is_action_pressed("move_left"):
-		direction.x -= 1
-	if Input.is_action_pressed("move_back"):
-		direction.z += 1
-	if Input.is_action_pressed("move_forward"):
-		direction.z -= 1
-
-	# Normalize and rotate the direction vector
-	if direction != Vector3.ZERO:
-		direction = direction.normalized()
-		direction = direction.rotated(Vector3.UP, rotation.y)
-
-	# Apply acceleration/deceleration for both horizontal and vertical movements
-	# Smoothly adjust current velocity for both axes
-	if direction != Vector3.ZERO:
-		target_velocity.x = direction.x * max_speed
-		target_velocity.z = direction.z * max_speed
+	if is_on_floor():
+		if Input.is_action_just_pressed("jump"):
+			self.velocity.y = jump_strength
+		else:
+			_floor_physics(delta)
 	else:
-		# Decelerate to stop when no input
-		target_velocity.x = move_toward(current_velocity.x, 0, deceleration * delta)
-		target_velocity.z = move_toward(current_velocity.z, 0, deceleration * delta)
+		_air_physics(delta)
+	
+	move_and_slide()	
 
-	# Apply gravity when in the air
-	if not is_on_floor():
-		current_velocity.y -= fall_acceleration * delta
-	elif Input.is_action_pressed("jump"):
-		current_velocity.y = jump_strength  # Jump if on the floor and jump key is pressed
-
-	# Accelerate/decelerate on x, y, and z directions
-	current_velocity.x = move_toward(current_velocity.x, target_velocity.x, acceleration * delta)
-	current_velocity.z = move_toward(current_velocity.z, target_velocity.z, acceleration * delta)
-
-	# Move the character
-	velocity = current_velocity
-	move_and_slide()
+func _floor_physics(delta) -> void:
+	var current_speed_in_desired_direction = self.velocity.dot(desired_direction)
+	var add_speed_till_cap = get_move_speed() - current_speed_in_desired_direction
+	if add_speed_till_cap > 0:
+		var accel_speed = ground_speed_acceleration * delta * get_move_speed()
+		accel_speed = min(accel_speed, add_speed_till_cap)
+		self.velocity += accel_speed * desired_direction
+	
+	# Apply friction
+	var grip = max(self.velocity.length(), ground_speed_deceleration)
+	var deceleration_from_grip = grip * ground_friction * delta
+	var new_speed = max(self.velocity.length() - deceleration_from_grip, 0.0)
+	if self.velocity.length() > 0:
+		new_speed /= self.velocity.length()
+	self.velocity *= new_speed
+	
+	_headbob_effect(delta)
+	
+func _air_physics(delta) -> void:
+	self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta
+	
+	# How fast is the player already moving into the direction they want to go in:
+	var current_speed_in_desired_direction = self.velocity.dot(desired_direction)
+	# This code allows to to gain momentumn in air like the source engine:
+	var capped_speed = min((air_move_speed * desired_direction).length(), air_speed_cap)
+	var add_speed_till_cap = capped_speed - current_speed_in_desired_direction
+	if add_speed_till_cap > 0:
+		var current_acceleration = air_speed_acceleration * air_move_speed * delta
+		current_acceleration = min(current_acceleration, add_speed_till_cap)
+		self.velocity += current_acceleration * desired_direction
+	
 
 func changeWeapon(gun:Weapon):
 	print("magsize/reserve/reloadtime/mag %d/%d/%d/%d", inventory.size())

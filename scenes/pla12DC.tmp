@@ -11,15 +11,27 @@
 height = 1.77674
 
 [node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000536442, 1.70298, 2.563e-05)
 script = ExtResource("1_2ak50")
+mouse_sensitivity = null
+headbob_time = null
+walk_speed = null
+sprint_speed = null
+jump_strength = null
 inventory = Array[Object]([ExtResource("3_ky4ee"), ExtResource("4_cow4m")])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9096, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.707677, 0)
 shape = SubResource("CapsuleShape3D_ykk5e")
 
+[node name="Camera3D" type="Camera3D" parent="."]
+fov = 105.0
+
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
+target_position = Vector3(0, 0, -101)
+
 [node name="right_hand" type="Node3D" parent="."]
-transform = Transform3D(0.0175106, -0.003185, -0.999842, -0.0174523, 0.999842, -0.00349065, 0.999694, 0.0175107, 0.0174523, 0.707, 1, -0.37)
+transform = Transform3D(0.0175106, -0.003185, -0.999842, -0.0174523, 0.999842, -0.00349065, 0.999694, 0.0175107, 0.0174523, 0.706767, -0.813761, -0.370307)
 
 [node name="Gun" type="Node3D" parent="right_hand"]
 visible = false
@@ -30,13 +42,3 @@ visible = false
 
 [node name="FadeGlock" parent="right_hand" instance=ExtResource("7_jcwfb")]
 visible = false
-
-[node name="HeadPivot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
-
-[node name="Camera3D" type="Camera3D" parent="HeadPivot"]
-unique_name_in_owner = true
-fov = 105.0
-
-[node name="RayCast3D" type="RayCast3D" parent="HeadPivot/Camera3D"]
-target_position = Vector3(0, 0, -101)
