@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://c575uv334iglo"]
+[gd_scene load_steps=10 format=3 uid="uid://c575uv334iglo"]
 
 [ext_resource type="Script" path="res://scripts/init_weapon.gd" id="1_oc2lb"]
 [ext_resource type="ArrayMesh" uid="uid://bdgogt0i2a1s" path="res://objects/Rocket SMG.obj" id="2_m1lny"]
 [ext_resource type="Resource" uid="uid://b2k74qk7pwwkn" path="res://objects/laser_gun.tres" id="2_oh6cf"]
+[ext_resource type="PackedScene" path="res://scenes/guns/muzzle_flash.tscn" id="4_pn81j"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_25t46"]
 albedo_color = Color(0.886275, 0.435294, 0.482353, 1)
@@ -73,3 +74,6 @@ surface_material_override/32 = SubResource("StandardMaterial3D_4tn60")
 surface_material_override/33 = SubResource("StandardMaterial3D_4tn60")
 surface_material_override/34 = SubResource("StandardMaterial3D_4tn60")
 surface_material_override/35 = SubResource("StandardMaterial3D_4tn60")
+
+[node name="muzzle_flash" parent="." instance=ExtResource("4_pn81j")]
+transform = Transform3D(-0.0993988, 4.39353e-10, -0.0109492, 0.00747959, -0.0730305, -0.0679014, -0.00799622, -0.0683121, 0.0725915, 1.65471, 0.516046, -0.0340618)

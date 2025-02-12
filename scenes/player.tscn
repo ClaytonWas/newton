@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/playermovement.gd" id="1_2ak50"]
 [ext_resource type="Script" path="res://scripts/weaponResource.gd" id="2_2mino"]
-[ext_resource type="Resource" path="res://resources/old_glock.tres" id="3_nn53y"]
+[ext_resource type="Resource" uid="uid://daj1kmkgd1b7a" path="res://resources/old_glock.tres" id="3_nn53y"]
 [ext_resource type="Resource" uid="uid://ksjqhws7tms6" path="res://resources/fade_glock.tres" id="4_cow4m"]
 [ext_resource type="Script" path="res://scripts/init_weapon.gd" id="6_mesns"]
 [ext_resource type="PackedScene" uid="uid://b2fwofkviwqga" path="res://scenes/guns/old_glock.tscn" id="6_p1v6h"]

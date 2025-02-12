@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://scripts/init_weapon.gd" id="1_442o4"]
 [ext_resource type="ArrayMesh" uid="uid://dqe653wdiybg4" path="res://objects/Glock.obj" id="1_ts61r"]
 [ext_resource type="Texture2D" uid="uid://ccp4ny80ak4ek" path="res://textures/guns/Glock.png" id="2_sulhs"]
-[ext_resource type="Resource" path="res://resources/old_glock.tres" id="2_udgop"]
-[ext_resource type="PackedScene" uid="uid://fwd2eml7uj0b" path="res://scenes/guns/muzzle_flash.tscn" id="5_cptg7"]
+[ext_resource type="Resource" uid="uid://daj1kmkgd1b7a" path="res://resources/old_glock.tres" id="2_udgop"]
+[ext_resource type="PackedScene" path="res://scenes/guns/muzzle_flash.tscn" id="5_cptg7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1qejf"]
 albedo_texture = ExtResource("2_sulhs")
