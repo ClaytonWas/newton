@@ -32,22 +32,22 @@ fov = 105.0
 [node name="RayCast3D" type="RayCast3D" parent="HeadPivot/Camera3D"]
 target_position = Vector3(0, 0, -101)
 
-[node name="right_hand" type="Node3D" parent="HeadPivot/Camera3D"]
+[node name="right_hand" type="Node3D" parent="HeadPivot"]
 unique_name_in_owner = true
 transform = Transform3D(0.0175106, -0.003185, -0.999842, -0.0174523, 0.999842, -0.00349065, 0.999694, 0.0175107, 0.0174523, 0.707, -0.7, -0.37)
 
-[node name="Gun" type="Node3D" parent="HeadPivot/Camera3D/right_hand"]
+[node name="Gun" type="Node3D" parent="HeadPivot/right_hand"]
 transform = Transform3D(1, -1.86265e-09, -1.86265e-09, -1.86265e-09, 1, -1.45519e-10, 1.86265e-09, 5.82077e-11, 1, 0, 0, 0)
 visible = false
 script = ExtResource("6_mesns")
 
-[node name="old_glock" parent="HeadPivot/Camera3D/right_hand" instance=ExtResource("6_p1v6h")]
+[node name="old_glock" parent="HeadPivot/right_hand" instance=ExtResource("6_p1v6h")]
 visible = false
 
-[node name="fade_glock" parent="HeadPivot/Camera3D/right_hand" instance=ExtResource("7_jcwfb")]
+[node name="fade_glock" parent="HeadPivot/right_hand" instance=ExtResource("7_jcwfb")]
 visible = false
 
-[node name="LaserGun" parent="HeadPivot/Camera3D/right_hand" instance=ExtResource("8_7qm2k")]
+[node name="LaserGun" parent="HeadPivot/right_hand" instance=ExtResource("8_7qm2k")]
 transform = Transform3D(-0.7, 1.58325e-08, -1.49012e-07, 1.76951e-08, 0.75, 9.8953e-10, 1.04308e-07, 6.98492e-10, -1, -0.151277, -0.0569464, 0.269655)
 visible = false
 

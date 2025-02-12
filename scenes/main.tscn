@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b4untvgg5fv5u"]
+[gd_scene load_steps=18 format=3 uid="uid://b4untvgg5fv5u"]
 
 [ext_resource type="PackedScene" uid="uid://cnxm803p7w416" path="res://scenes/player.tscn" id="1_8uxa5"]
 [ext_resource type="Material" uid="uid://dnmrqfjfp8f27" path="res://textures/environments/wall1.material" id="2_6ths0"]
@@ -12,24 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://c26jbd6ors1x0" path="res://scenes/enemies/demon_ranged.tscn" id="9_ycugp"]
 [ext_resource type="PackedScene" uid="uid://b2fjtwvvykrc3" path="res://scenes/ShortHall.tscn" id="11_qr3m5"]
 [ext_resource type="PackedScene" uid="uid://dli4pc7f7u7hw" path="res://scenes/SmallRoom.tscn" id="12_uu6oe"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kgnl4"]
-sky_top_color = Color(0, 0.313726, 0.235294, 1)
-sky_horizon_color = Color(0.55, 0.620681, 0.592074, 1)
-sky_energy_multiplier = 4.9
-ground_horizon_color = Color(0.55, 0.620681, 0.592074, 1)
-
-[sub_resource type="Sky" id="Sky_n5b8c"]
-sky_material = SubResource("ProceduralSkyMaterial_kgnl4")
-
-[sub_resource type="Environment" id="Environment_i1fa3"]
-background_mode = 2
-sky = SubResource("Sky_n5b8c")
-sdfgi_use_occlusion = true
-sdfgi_bounce_feedback = 0.34
-glow_enabled = true
-glow_mix = 0.119
-glow_blend_mode = 4
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2kseo"]
 size = Vector3(7.5, 5, 0.1)
@@ -49,14 +31,6 @@ albedo_texture = ExtResource("2_47imk")
 size = Vector2(60, 30)
 
 [node name="Main" type="Node3D"]
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.497781, 0.0470542, 0, 0.0941083, 0.995562, -0.5, 0.862182, -0.0815002, 0, 0, 0)
-light_color = Color(0.94902, 0.247059, 0.14902, 1)
-shadow_enabled = true
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_i1fa3")
 
 [node name="LongHall" parent="." instance=ExtResource("3_feghg")]
 
