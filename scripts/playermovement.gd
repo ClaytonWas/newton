@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 # How fast the player moves in meters per second.
-@export var max_speed = 50
+@export var max_speed = 25
 # Acceleration and deceleration rates in meters per second squared for movement.
 @export var acceleration = 1000
 @export var deceleration = 400
