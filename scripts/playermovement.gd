@@ -20,6 +20,7 @@ const headbob_frequency := 0.5
 @export_category("Weapon Variables")
 @export var inventory: Array[Weapon] = []
 @export var equipped_weapon : Weapon
+var equipped_weapon_node: Node3D
 
 var target_velocity = Vector3.ZERO
 var current_velocity = Vector3.ZERO
@@ -30,7 +31,11 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	equipped_weapon = inventory[0]
 	
-	%right_hand.find_child(equipped_weapon.weapon_name).visible = true
+	var gun_node = load("res://scenes/guns/" + equipped_weapon.weapon_name + ".tscn")
+
+	equipped_weapon_node = %right_hand.find_child(equipped_weapon.weapon_name)
+	equipped_weapon_node.visible = true
+
 	
 
 func _input(event):	
@@ -121,51 +126,65 @@ func _air_physics(delta) -> void:
 	
 
 func changeWeapon(gun:Weapon):
-	print("magsize/reserve/reloadtime/mag %d/%d/%d/%d", inventory.size())
+	#Hide current weapon
 	var old_gun = equipped_weapon
-	
+	equipped_weapon_node.visible = false
+		
 	equipped_weapon = gun
+	equipped_weapon_node = %right_hand.find_child(equipped_weapon.weapon_name)
 	
-	#$gun.weapon_type = gun
-	
+	#Show new weapon
 	#Jank Code, need to either replace one node OR create new one
-	%right_hand.find_child(old_gun.weapon_name).visible = false
-	%right_hand.find_child(equipped_weapon.weapon_name).visible = true
+	equipped_weapon_node.visible = true
+	var gun_node = load("res://scenes/guns/" + gun.weapon_name + ".tscn")
+
+	#%right_hand.find_child(old_gun.weapon_name).visible = false
+	#%right_hand.find_child(equipped_weapon.weapon_name).visible = true
 	print('Switched to ',gun.weapon_name,' dealing ',gun.damage,' per shot.')
-	print("magsize/reserve/reloadtime/mag %d/%d/%d/%d",gun.magazine_size, gun.reload_time, gun.mag)
-	
-	
-		#$right_hand.add_child(new_gun)
-	
-func fireHitscan():
-	var hitObject = self.raycast.force_raycast_update()
-	
-	if hitObject is CharacterBody3D:
-		print("Hit: ", hitObject)
-		hitObject.takeDamage(equipped_weapon.damage)
-	elif hitObject is Node3D:
-		print("Hit: ", hitObject)
 
 func shoot():
 	if equipped_weapon.mag > 0:
-		equipped_weapon.shoot()				#Handles ammo count
 		print("Shooting from %s!",equipped_weapon.weapon_name)
 		
-		var hitObject = self.find_child("Camera3D").find_child("RayCast3D").get_collider()
-		
-		if "Demon" in hitObject.name:
-			print("Hit: ", hitObject.name)
-			hitObject.takeDamage(equipped_weapon.damage)
+		equipped_weapon.shoot()		#Handles ammo count
 
+		equipped_weapon_node.find_child('muzzle_flash').visible=true	#Show muzzle flash
+		equipped_weapon_node.find_child('muzzle_flash').find_child('FlashTimer').start()
+		
+		$AudioPlayer.stream = equipped_weapon.fire_sound	#Play sound
+		$AudioPlayer.play()
+		
+		var raycast =  self.find_child("Camera3D").find_child("RayCast3D")
+		var hit_object = raycast.get_collider()
+		var hit_point = raycast.get_collision_point()
+		
+		if raycast.is_colliding():
+			if "Demon" in hit_object.name:
+				print("Hit: ", hit_object.name)
+				hit_object.takeDamage(equipped_weapon.damage)
+			else:
+				#Spawn bullet hole
+				var bullet_hole = load("res://scenes/guns/bullet_hole.tscn").instantiate()
+				#bullet_hole.global_transform.origin = hit_point.position
+				
+				#hit_object.add_child_scene(bullet_hole)
+				print('Missed, hit instead: ', hit_object, hit_point)
 	else:
 		print("Out of ammo!")
+		%AudioPlayer.stream = equipped_weapon.dryfire_sound	#Play dry fire sound
+		%AudioPlayer.play()
 
 func reload():
-	print(equipped_weapon, equipped_weapon.reload_time)
-	var timer = Timer.new()
-	self.add_child(timer)
-	timer.wait_time = equipped_weapon.reload_time
-	timer.start()
-	
-	#play equipped_weapon.dryfire_sound
-	equipped_weapon.reload()
+	if (equipped_weapon.mag != equipped_weapon.magazine_size):	#Only reload if clip isnt full
+		print(equipped_weapon, equipped_weapon.reload_time)
+		
+		%AudioPlayer.stream = equipped_weapon.reload_sound	#Play dry fire sound
+		%AudioPlayer.play()
+		
+		var timer = Timer.new()
+		self.add_child(timer)
+		timer.wait_time = equipped_weapon.reload_time
+		timer.start()
+		
+		
+		equipped_weapon.reload()

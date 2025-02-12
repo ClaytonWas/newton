@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://fwd2eml7uj0b"]
+
+[ext_resource type="Script" path="res://scripts/guns/muzzle_flash.gd" id="1_dc0c5"]
+[ext_resource type="Texture2D" uid="uid://hvitirq04ndl" path="res://textures/guns/muzzle_flash.png" id="2_eahd0"]
+
+[node name="muzzle_flash" type="Node3D"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+script = ExtResource("1_dc0c5")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+texture = ExtResource("2_eahd0")
+
+[node name="FlashTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="FlashTimer" to="." method="_on_flash_timer_timeout"]

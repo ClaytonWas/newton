@@ -1,11 +1,17 @@
-[gd_resource type="Resource" script_class="Weapon" load_steps=3 format=3 uid="uid://ksjqhws7tms6"]
+[gd_resource type="Resource" script_class="Weapon" load_steps=6 format=3 uid="uid://ksjqhws7tms6"]
 
 [ext_resource type="Script" path="res://scripts/weaponResource.gd" id="1_4pdn5"]
+[ext_resource type="AudioStream" uid="uid://dbggodhgq242c" path="res://sounds/shot_dry.wav" id="1_cq52v"]
+[ext_resource type="AudioStream" uid="uid://cf2cdwaifeibb" path="res://sounds/shot_rifle.wav" id="1_hlnmc"]
 [ext_resource type="ArrayMesh" uid="uid://dqe653wdiybg4" path="res://objects/Glock.obj" id="1_ti6vw"]
+[ext_resource type="AudioStream" uid="uid://ue0wp3hbiyo0" path="res://sounds/reload_pistol.wav" id="3_vj3d7"]
 
 [resource]
 script = ExtResource("1_4pdn5")
-weapon_name = &"FadeGlock"
+weapon_name = &"fade_glock"
+fire_sound = ExtResource("1_hlnmc")
+reload_sound = ExtResource("3_vj3d7")
+dryfire_sound = ExtResource("1_cq52v")
 mesh = ExtResource("1_ti6vw")
 damage = 100.0
 magazine_size = 20

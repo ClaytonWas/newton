@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://cuoksi8gn05bj"]
+[gd_scene load_steps=9 format=3 uid="uid://cuoksi8gn05bj"]
 
 [ext_resource type="Script" path="res://scripts/init_weapon.gd" id="1_6fd1d"]
 [ext_resource type="Resource" uid="uid://ksjqhws7tms6" path="res://resources/fade_glock.tres" id="2_3arh5"]
 [ext_resource type="ArrayMesh" uid="uid://dqe653wdiybg4" path="res://objects/Glock.obj" id="3_t0uqq"]
 [ext_resource type="Texture2D" uid="uid://ccp4ny80ak4ek" path="res://textures/guns/Glock.png" id="4_ukymu"]
 [ext_resource type="Texture2D" uid="uid://cgfbrg00a0fhd" path="res://textures/guns/low_taper.webp" id="5_bui3h"]
+[ext_resource type="PackedScene" uid="uid://fwd2eml7uj0b" path="res://scenes/guns/muzzle_flash.tscn" id="6_rsxcy"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fwakb"]
 albedo_texture = ExtResource("4_ukymu")
@@ -23,7 +24,7 @@ subsurf_scatter_transmittance_boost = 0.75
 backlight = Color(0.214622, 0.385359, 0.772152, 1)
 backlight_texture = ExtResource("5_bui3h")
 
-[node name="FadeGlock" type="Node3D"]
+[node name="fade_glock" type="Node3D"]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
 script = ExtResource("1_6fd1d")
 gun = ExtResource("2_3arh5")
@@ -33,3 +34,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0380358, 0.0215879, 0.0073
 mesh = ExtResource("3_t0uqq")
 surface_material_override/0 = SubResource("StandardMaterial3D_fwakb")
 surface_material_override/1 = SubResource("StandardMaterial3D_b15b8")
+
+[node name="muzzle_flash" parent="." instance=ExtResource("6_rsxcy")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -2.28488, 1.16, 0.0710919)
+visible = false

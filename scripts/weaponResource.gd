@@ -17,10 +17,11 @@ class_name Weapon extends Resource
 @export var is_melee: bool = false
 @export var is_fullauto: bool 
 var is_reloading: bool = false	#Flag to avoid reload spam
-var mag: int	#Current amount of bullets loaded
+var mag: int = magazine_size	#Current amount of bullets loaded
 
 func _ready():
-	mag = magazine_size
+	reserve_ammo += magazine_size
+	update_ammo(magazine_size)
 
 
 func get_damage():return damage
