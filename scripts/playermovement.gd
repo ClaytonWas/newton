@@ -30,7 +30,7 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	equipped_weapon = inventory[0]
 	
-	$right_hand.find_child(equipped_weapon.weapon_name).visible = true
+	%right_hand.find_child(equipped_weapon.weapon_name).visible = true
 	
 
 func _input(event):	
@@ -45,6 +45,8 @@ func _input(event):
 		
 	if event.is_action_pressed("slot2"):
 		changeWeapon(inventory[1])
+	if event.is_action_pressed("slot3"):
+		changeWeapon(inventory[2])
 		
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
@@ -127,8 +129,8 @@ func changeWeapon(gun:Weapon):
 	#$gun.weapon_type = gun
 	
 	#Jank Code, need to either replace one node OR create new one
-	$right_hand.find_child(old_gun.weapon_name).visible = false
-	$right_hand.find_child(equipped_weapon.weapon_name).visible = true
+	%right_hand.find_child(old_gun.weapon_name).visible = false
+	%right_hand.find_child(equipped_weapon.weapon_name).visible = true
 	print('Switched to ',gun.weapon_name,' dealing ',gun.damage,' per shot.')
 	print("magsize/reserve/reloadtime/mag %d/%d/%d/%d",gun.magazine_size, gun.reload_time, gun.mag)
 	

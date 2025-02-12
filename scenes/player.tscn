@@ -1,35 +1,26 @@
-[gd_scene load_steps=8 format=3 uid="uid://cnxm803p7w416"]
+[gd_scene load_steps=11 format=3 uid="uid://cnxm803p7w416"]
 
 [ext_resource type="Script" path="res://scripts/playermovement.gd" id="1_2ak50"]
+[ext_resource type="Script" path="res://scripts/weaponResource.gd" id="2_2mino"]
 [ext_resource type="Resource" uid="uid://daj1kmkgd1b7a" path="res://objects/old_glock.tres" id="3_ky4ee"]
 [ext_resource type="Resource" uid="uid://ksjqhws7tms6" path="res://resources/fade_glock.tres" id="4_cow4m"]
 [ext_resource type="Script" path="res://scripts/init_weapon.gd" id="6_mesns"]
 [ext_resource type="PackedScene" uid="uid://b2fwofkviwqga" path="res://scenes/guns/old_glock.tscn" id="6_p1v6h"]
 [ext_resource type="PackedScene" uid="uid://cuoksi8gn05bj" path="res://scenes/guns/fade_glock.tscn" id="7_jcwfb"]
+[ext_resource type="PackedScene" uid="uid://c575uv334iglo" path="res://scenes/guns/laser_gun.tscn" id="8_7qm2k"]
+[ext_resource type="Resource" uid="uid://b2k74qk7pwwkn" path="res://objects/laser_gun.tres" id="9_751et"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ykk5e"]
 height = 1.77674
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_2ak50")
-inventory = Array[Object]([ExtResource("3_ky4ee"), ExtResource("4_cow4m")])
+mouse_sensitivity = 0.005
+inventory = Array[ExtResource("2_2mino")]([ExtResource("3_ky4ee"), ExtResource("4_cow4m"), ExtResource("9_751et")])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9096, 0)
 shape = SubResource("CapsuleShape3D_ykk5e")
-
-[node name="right_hand" type="Node3D" parent="."]
-transform = Transform3D(0.0175106, -0.003185, -0.999842, -0.0174523, 0.999842, -0.00349065, 0.999694, 0.0175107, 0.0174523, 0.707, 1, -0.37)
-
-[node name="Gun" type="Node3D" parent="right_hand"]
-visible = false
-script = ExtResource("6_mesns")
-
-[node name="OldGlock" parent="right_hand" instance=ExtResource("6_p1v6h")]
-visible = false
-
-[node name="FadeGlock" parent="right_hand" instance=ExtResource("7_jcwfb")]
-visible = false
 
 [node name="HeadPivot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
@@ -40,3 +31,21 @@ fov = 105.0
 
 [node name="RayCast3D" type="RayCast3D" parent="HeadPivot/Camera3D"]
 target_position = Vector3(0, 0, -101)
+
+[node name="right_hand" type="Node3D" parent="HeadPivot/Camera3D"]
+unique_name_in_owner = true
+transform = Transform3D(0.0175106, -0.003185, -0.999842, -0.0174523, 0.999842, -0.00349065, 0.999694, 0.0175107, 0.0174523, 0.707, -0.7, -0.37)
+
+[node name="Gun" type="Node3D" parent="HeadPivot/Camera3D/right_hand"]
+visible = false
+script = ExtResource("6_mesns")
+
+[node name="OldGlock" parent="HeadPivot/Camera3D/right_hand" instance=ExtResource("6_p1v6h")]
+visible = false
+
+[node name="FadeGlock" parent="HeadPivot/Camera3D/right_hand" instance=ExtResource("7_jcwfb")]
+visible = false
+
+[node name="LaserGun" parent="HeadPivot/Camera3D/right_hand" instance=ExtResource("8_7qm2k")]
+transform = Transform3D(-0.7, 1.58325e-08, -1.49012e-07, 1.76951e-08, 0.75, 9.8953e-10, 1.04308e-07, 6.98492e-10, -1, -0.151277, -0.0569464, 0.269655)
+visible = false
