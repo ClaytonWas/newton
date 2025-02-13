@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cno3hrttu38po"]
+
+[ext_resource type="Shader" path="res://scenes/starrysky.gdshader" id="1_37fup"]
+
+[resource]
+shader = ExtResource("1_37fup")
+shader_parameter/sky_color = Color(0.03, 0.05, 0.11, 1)
+shader_parameter/star_base_color = Color(0.434276, 0.601379, 0.312184, 1)
+shader_parameter/star_hue_offset = 0.327
+shader_parameter/star_intensity = 0.088
+shader_parameter/star_twinkle_speed = 0.998
+shader_parameter/star_twinkle_intensity = 0.117
+shader_parameter/layer_scale = 39.339
+shader_parameter/layer_scale_step = 10.0
+shader_parameter/layers_count = 3

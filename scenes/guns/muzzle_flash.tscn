@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://fwd2eml7uj0b"]
+[gd_scene load_steps=11 format=3 uid="uid://fwd2eml7uj0b"]
 
 [ext_resource type="Script" path="res://scripts/guns/muzzle_flash.gd" id="1_dc0c5"]
 [ext_resource type="Texture2D" uid="uid://hvitirq04ndl" path="res://textures/guns/muzzle_flash.png" id="2_eahd0"]
@@ -24,7 +24,12 @@ point_count = 2
 [sub_resource type="CurveTexture" id="CurveTexture_i67us"]
 curve = SubResource("Curve_8uxsa")
 
+[sub_resource type="Curve" id="Curve_2lox1"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="CurveTexture" id="CurveTexture_h6fj2"]
+curve = SubResource("Curve_2lox1")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a2xhw"]
 direction = Vector3(-1, 0, 0)
