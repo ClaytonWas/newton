@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://c26jbd6ors1x0" path="res://scenes/enemies/demon_ranged.tscn" id="9_ycugp"]
 [ext_resource type="PackedScene" uid="uid://b2fjtwvvykrc3" path="res://scenes/ShortHall.tscn" id="11_qr3m5"]
 [ext_resource type="PackedScene" uid="uid://dli4pc7f7u7hw" path="res://scenes/SmallRoom.tscn" id="12_uu6oe"]
-[ext_resource type="Shader" path="res://scenes/levels/water.gdshader" id="14_576ay"]
+[ext_resource type="Shader" path="res://scripts/shaders/water.gdshader" id="14_576ay"]
 
 [sub_resource type="Sky" id="Sky_fn18i"]
 sky_material = ExtResource("1_akjd5")

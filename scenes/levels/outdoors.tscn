@@ -1,19 +1,28 @@
-[gd_scene load_steps=10 format=3 uid="uid://b2spxeueapwij"]
+[gd_scene load_steps=11 format=3 uid="uid://b2spxeueapwij"]
 
-[ext_resource type="Material" uid="uid://cno3hrttu38po" path="res://textures/environments/starrynight.tres" id="1_6icnd"]
-[ext_resource type="Shader" path="res://scenes/levels/water.gdshader" id="2_v7h6p"]
+[ext_resource type="Shader" path="res://scripts/shaders/starrysky.gdshader" id="1_g6wkd"]
+[ext_resource type="Shader" path="res://scripts/shaders/water.gdshader" id="2_v7h6p"]
 [ext_resource type="Texture2D" uid="uid://bj5m2pgiiqhj4" path="res://textures/environments/moon.png" id="3_vvtia"]
 [ext_resource type="PackedScene" uid="uid://cnxm803p7w416" path="res://scenes/player.tscn" id="4_px3de"]
 
-[sub_resource type="Sky" id="Sky_8xddx"]
-sky_material = ExtResource("1_6icnd")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bg5ec"]
+shader = ExtResource("1_g6wkd")
+shader_parameter/sky_color = Color(0.00422742, 0.013734, 0.0455292, 1)
+shader_parameter/star_base_color = Color(1, 0.55, 0.64, 1)
+shader_parameter/star_hue_offset = 0.318
+shader_parameter/star_intensity = 0.08
+shader_parameter/star_twinkle_speed = 0.479
+shader_parameter/star_twinkle_intensity = 0.167
+shader_parameter/layer_scale = 0.165
+shader_parameter/layer_scale_step = 20.248
+shader_parameter/layers_count = 2
 
-[sub_resource type="Environment" id="Environment_qroa0"]
+[sub_resource type="Sky" id="Sky_82qnk"]
+sky_material = SubResource("ShaderMaterial_bg5ec")
+
+[sub_resource type="Environment" id="Environment_kd1xk"]
 background_mode = 2
-sky = SubResource("Sky_8xddx")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_5vris"]
-size = Vector3(7.5, 0.1, 150)
+sky = SubResource("Sky_82qnk")
 
 [sub_resource type="QuadMesh" id="QuadMesh_neuva"]
 size = Vector2(100, 100)
@@ -32,7 +41,13 @@ shader_parameter/metallic = 0.6
 shader_parameter/specular = 0.5
 shader_parameter/roughness = 0.05
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_5vris"]
+size = Vector3(120.746, 0.1, 150)
+
 [node name="Outdoors" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_kd1xk")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, 0.5, -2.18557e-08, 0, -4.37114e-08, -1, -0.5, -0.866025, 3.78552e-08, 0, 0, 0)
@@ -40,19 +55,17 @@ light_color = Color(0.501961, 0.643137, 0.560784, 1)
 light_energy = 52.5
 shadow_enabled = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_qroa0")
-
 [node name="Area3D" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0398, 0)
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
-shape = SubResource("BoxShape3D_5vris")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
 mesh = SubResource("QuadMesh_neuva")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_keus5")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.35486, 0, 0)
+shape = SubResource("BoxShape3D_5vris")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(17.7578, 9.20096, -0.0496534, -4.16535, 7.94264, -17.8764, -8.20427, 15.8826, 8.96846, 0, 588.005, -179.022)

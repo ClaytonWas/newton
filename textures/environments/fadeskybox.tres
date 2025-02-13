@@ -4,8 +4,8 @@
 
 [resource]
 shader = ExtResource("1_yfa44")
-shader_parameter/color_top = Color(0.975834, 0.313615, 0.50204, 1)
-shader_parameter/color_horizon = Color(0.510932, 0.684515, 0.451009, 1)
+shader_parameter/color_top = Color(0.91, 0.14, 1, 1)
+shader_parameter/color_horizon = Color(1, 0.4, 0.42, 1)
 shader_parameter/color_bottom = Color(1, 0.74, 0.39, 1)
 shader_parameter/exponent_factor_top = 1.0
 shader_parameter/exponent_factor_bottom = 1.0
