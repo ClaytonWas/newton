@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1p0bftyl46pm"]
+
+[ext_resource type="PackedScene" uid="uid://46l6gxn2vvmw" path="res://objects/environments/mines/Mines_Modu.fbx" id="1_82gsp"]
+
+[node name="Mines_Modu" instance=ExtResource("1_82gsp")]
+
+[node name="Mine_08" parent="." index="6"]
+transform = Transform3D(100, 0, 0, 0, -1.19209e-05, 100, 0, -100, -1.19209e-05, 8.96891, 4.41052, 22.2671)
+
+[node name="Mine_11" parent="." index="43"]
+transform = Transform3D(100, 0, 0, 0, -1.19209e-05, 100, 0, -100, -1.19209e-05, -24.3988, 4.3989, -0.286999)
+
+[node name="Mine_001" parent="." index="45"]
+metadata/_edit_group_ = true
+
+[node name="Wood_M_001" parent="." index="46"]
+metadata/_edit_group_ = true
+
+[node name="Rails_02" parent="." index="64"]
+transform = Transform3D(0, 100, 2.98023e-06, 2.98023e-06, 0, 100, 100, 2.98023e-06, 0, 8.43353, 12.5117, 22.3249)
+
+[node name="Elevator" parent="." index="176"]
+transform = Transform3D(100, 0, 0, 0, -1.19209e-05, 100, 0, -100, -1.19209e-05, -24.2551, 4.00113, 5.65535)

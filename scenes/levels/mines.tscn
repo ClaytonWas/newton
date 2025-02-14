@@ -1,20 +1,31 @@
-[gd_scene load_steps=13 format=3 uid="uid://b53f7jdjgsyei"]
+[gd_scene load_steps=19 format=3 uid="uid://b53f7jdjgsyei"]
 
 [ext_resource type="PackedScene" uid="uid://cnxm803p7w416" path="res://scenes/player.tscn" id="1_a5duw"]
 [ext_resource type="Script" path="res://scripts/scene_portal.gd" id="2_gt4dp"]
 [ext_resource type="Shader" path="res://scripts/shaders/outline.gdshader" id="4_leiy5"]
 [ext_resource type="Shader" path="res://scripts/shaders/chromatic_shield.gdshader" id="5_f72ri"]
+[ext_resource type="PackedScene" uid="uid://dph7cj8grvuk3" path="res://scenes/environments/mines/WoodenTunnelPiece.tscn" id="6_d4mq5"]
 [ext_resource type="Texture2D" uid="uid://cdj403s1c7ugt" path="res://textures/environments/mines/Rocks_W.jpg" id="6_jp8qn"]
+[ext_resource type="Texture2D" uid="uid://b6iipunkd7ul1" path="res://textures/environments/mines/MetalBare.jpg" id="7_l2qva"]
+[ext_resource type="PackedScene" uid="uid://b7jtkr5ot3a2d" path="res://scenes/environments/mines/Elevator.tscn" id="7_u4jja"]
+[ext_resource type="ArrayMesh" uid="uid://ct7bypoa03eal" path="res://objects/environments/light.obj" id="7_xvh3c"]
+[ext_resource type="PackedScene" uid="uid://bdnc1rwfs4hcw" path="res://scenes/environments/mines/2WaySplit.tscn" id="8_hy6dm"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_xqcem"]
-size = Vector3(300, 0.1, 300)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_uy1jb"]
+sky_top_color = Color(0.0794473, 0.0518578, 0.00566415, 1)
+sky_horizon_color = Color(0.599294, 0.581279, 0.55683, 1)
+ground_bottom_color = Color(0.317729, 0.273259, 0.221657, 1)
+ground_horizon_color = Color(0.599294, 0.581279, 0.55683, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u2byv"]
-albedo_color = Color(0.3, 0.311667, 1, 1)
+[sub_resource type="Sky" id="Sky_1vhit"]
+sky_material = SubResource("ProceduralSkyMaterial_uy1jb")
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_20fbo"]
-material = SubResource("StandardMaterial3D_u2byv")
-size = Vector2(300, 300)
+[sub_resource type="Environment" id="Environment_67cbj"]
+background_mode = 2
+sky = SubResource("Sky_1vhit")
+tonemap_mode = 2
+glow_enabled = true
+fog_enabled = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lmf2e"]
 render_priority = 0
@@ -39,30 +50,133 @@ section_length = 0.1
 height = 0.5
 radius = 3.0
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1vmfc"]
+albedo_texture = ExtResource("7_l2qva")
+emission_enabled = true
+emission = Color(0.0839486, 0.129025, 0.0796178, 1)
+
 [node name="Mines" type="Node3D"]
 
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+light_color = Color(0.60932, 0.323832, 2.88785e-07, 1)
+light_energy = 0.05
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_67cbj")
+
 [node name="Player" parent="." instance=ExtResource("1_a5duw")]
-transform = Transform3D(0.639761, 0, -0.768574, 0, 1, 0, 0.768574, 0, 0.639761, -100, 1, 100)
-
-[node name="Sand" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.026535, 0.132594, 0.0966415)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand"]
-shape = SubResource("BoxShape3D_xqcem")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand"]
-mesh = SubResource("PlaneMesh_20fbo")
+transform = Transform3D(0.977677, 0, 0.210113, 0, 1, 0, -0.210113, 0, 0.977677, 0.329864, 0.238995, 0.152375)
 
 [node name="HomePortal" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -95.6823, 2.43945, 88.7377)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.45068, 2.43945, -57.7149)
 script = ExtResource("2_gt4dp")
+metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="HomePortal"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 material_override = SubResource("ShaderMaterial_ykkh4")
 mesh = SubResource("TubeTrailMesh_sqlo0")
-skeleton = NodePath("../../Sand/MeshInstance3D")
+skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HomePortal"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("CylinderShape3D_c0kic")
+
+[node name="StartingTunnel" type="Node3D" parent="."]
+
+[node name="WoodenTunnelPiece" parent="StartingTunnel" instance=ExtResource("6_d4mq5")]
+
+[node name="WoodenTunnelPiece2" parent="StartingTunnel" instance=ExtResource("6_d4mq5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.9136)
+
+[node name="WoodenTunnelPiece3" parent="StartingTunnel" instance=ExtResource("6_d4mq5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.65895)
+
+[node name="WoodenTunnelPiece4" parent="StartingTunnel" instance=ExtResource("6_d4mq5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -14.3525)
+
+[node name="WoodenTunnelPiece5" parent="StartingTunnel" instance=ExtResource("6_d4mq5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -19.2661)
+
+[node name="WoodenTunnelPiece6" parent="StartingTunnel" instance=ExtResource("6_d4mq5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -24.0114)
+
+[node name="WoodenTunnelPiece7" parent="StartingTunnel" instance=ExtResource("6_d4mq5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -28.7781)
+
+[node name="WoodenTunnelPiece8" parent="StartingTunnel" instance=ExtResource("6_d4mq5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -33.6917)
+
+[node name="WoodenTunnelPiece9" parent="StartingTunnel" instance=ExtResource("6_d4mq5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -38.437)
+
+[node name="WoodenTunnelPiece10" parent="StartingTunnel" instance=ExtResource("6_d4mq5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -42.9438)
+
+[node name="WoodenTunnelPiece11" parent="StartingTunnel" instance=ExtResource("6_d4mq5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -47.8574)
+
+[node name="Light" type="MeshInstance3D" parent="StartingTunnel"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.0651101, 2.51737, 0.168708)
+material_override = SubResource("StandardMaterial3D_1vmfc")
+mesh = ExtResource("7_xvh3c")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="StartingTunnel/Light"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0.433928, 1.14236, -0.029472)
+light_color = Color(0.552507, 0.481575, 0.118728, 1)
+distance_fade_enabled = true
+
+[node name="Light6" type="MeshInstance3D" parent="StartingTunnel"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.0651101, 3.46497, 12.3761)
+material_override = SubResource("StandardMaterial3D_1vmfc")
+mesh = ExtResource("7_xvh3c")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="StartingTunnel/Light6"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0.433928, 1.14236, -0.029472)
+light_color = Color(0.868204, 0.762376, 0.228002, 1)
+light_energy = 3.59
+distance_fade_enabled = true
+
+[node name="Light2" type="MeshInstance3D" parent="StartingTunnel"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.0651101, 2.41841, -17.0128)
+material_override = SubResource("StandardMaterial3D_1vmfc")
+mesh = ExtResource("7_xvh3c")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="StartingTunnel/Light2"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0.433928, 1.14236, -0.029472)
+light_color = Color(0.552507, 0.481575, 0.118728, 1)
+
+[node name="Light3" type="MeshInstance3D" parent="StartingTunnel"]
+transform = Transform3D(0.0998892, -0.00470056, -0.00021378, 0.00470542, 0.0997861, 0.00453824, 0, -0.00454327, 0.0998967, -0.0651101, 2.51737, -33.4766)
+material_override = SubResource("StandardMaterial3D_1vmfc")
+mesh = ExtResource("7_xvh3c")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="StartingTunnel/Light3"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0.433928, 1.14236, -0.029472)
+light_color = Color(0.552507, 0.481575, 0.118728, 1)
+
+[node name="Light4" type="MeshInstance3D" parent="StartingTunnel"]
+transform = Transform3D(0.0980867, -0.0194679, 0, 0.0194679, 0.0980867, 0, 0, 0, 0.1, -1.11119, 2.58052, -50.0608)
+material_override = SubResource("StandardMaterial3D_1vmfc")
+mesh = ExtResource("7_xvh3c")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="StartingTunnel/Light4"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0.433928, 1.14236, -0.029472)
+light_color = Color(0.552507, 0.481575, 0.118728, 1)
+
+[node name="Light5" type="MeshInstance3D" parent="StartingTunnel"]
+transform = Transform3D(0.0994098, 0.0108485, 0, -0.0108485, 0.0994098, 0, 0, 0, 0.1, 0.99898, 2.68495, -50.0608)
+material_override = SubResource("StandardMaterial3D_1vmfc")
+mesh = ExtResource("7_xvh3c")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="StartingTunnel/Light5"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0.433928, 1.14236, -0.029472)
+light_color = Color(0.552507, 0.481575, 0.118728, 1)
+
+[node name="StaticBody3D" parent="." instance=ExtResource("7_u4jja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0181279, 0.182594, 12.4067)
+
+[node name="2WaySplit" parent="." instance=ExtResource("8_hy6dm")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.169307, 1.80365, -54.7611)
