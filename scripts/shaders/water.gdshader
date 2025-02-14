@@ -47,8 +47,8 @@ void fragment() {
     METALLIC = metallic;
     SPECULAR = specular;
     ROUGHNESS = roughness;
-    float depth = texture(DEPTH_TEXTURE, SCREEN_UV).r;
-    ALBEDO = vec3(depth) + out_color;
+	float depth = texture(DEPTH_TEXTURE, SCREEN_UV).r * 0.5;
+    ALBEDO = mix(out_color, vec3(depth), 0.3);
 
-    ALPHA = 0.5;
+    ALPHA = 0.8;
 }

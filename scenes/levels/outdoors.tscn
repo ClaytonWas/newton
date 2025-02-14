@@ -12,15 +12,15 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bg5ec"]
 shader = ExtResource("1_g6wkd")
-shader_parameter/sky_color = Color(0.0545103, 4.81308e-08, 0.443295, 1)
-shader_parameter/star_base_color = Color(0.707571, 0.689195, 0.292176, 1)
-shader_parameter/star_hue_offset = 0.769
-shader_parameter/star_intensity = 0.054
-shader_parameter/star_twinkle_speed = 0.8
+shader_parameter/sky_color = Color(0.000396824, 0.0010454, 0.07196, 1)
+shader_parameter/star_base_color = Color(0.691366, 0.784418, 1, 1)
+shader_parameter/star_hue_offset = 0.05
+shader_parameter/star_intensity = 0.03
+shader_parameter/star_twinkle_speed = 0.5
 shader_parameter/star_twinkle_intensity = 0.2
-shader_parameter/layer_scale = 30.248
+shader_parameter/layer_scale = 20.0
 shader_parameter/layer_scale_step = 10.0
-shader_parameter/layers_count = 3
+shader_parameter/layers_count = 2
 
 [sub_resource type="Sky" id="Sky_82qnk"]
 sky_material = SubResource("ShaderMaterial_bg5ec")
@@ -32,21 +32,22 @@ ambient_light_color = Color(0.967763, 0.979559, 0.993959, 1)
 ambient_light_sky_contribution = 0.79
 
 [sub_resource type="QuadMesh" id="QuadMesh_neuva"]
+lightmap_size_hint = Vector2i(1502, 1502)
 size = Vector2(300, 300)
-subdivide_width = 512
-subdivide_depth = 256
+subdivide_width = 256
+subdivide_depth = 64
 orientation = 1
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_keus5"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_excqs"]
 render_priority = 0
 shader = ExtResource("2_v7h6p")
-shader_parameter/out_color = Color(0, 0, 0.45, 1)
-shader_parameter/amount = 0.4
-shader_parameter/speed = 1.0
+shader_parameter/out_color = Color(0.000177199, 0.0262636, 0.214039, 1)
+shader_parameter/amount = 0.2
+shader_parameter/speed = 0.7
 shader_parameter/beer_factor = 0.2
-shader_parameter/metallic = 0.0
+shader_parameter/metallic = 100.0
 shader_parameter/specular = 0.5
-shader_parameter/roughness = 0.2
+shader_parameter/roughness = 0.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5vris"]
 size = Vector3(300, 0.1, 300)
@@ -55,19 +56,20 @@ size = Vector3(300, 0.1, 300)
 size = Vector3(300, 0.1, 300)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hoyi2"]
-albedo_color = Color(0.8, 1, 0.98, 1)
+albedo_color = Color(0.49, 0.524, 1, 1)
 albedo_texture = ExtResource("3_k47lw")
 roughness_texture = ExtResource("7_dt4jk")
 normal_enabled = true
+normal_scale = 0.5
 normal_texture = ExtResource("6_6usyd")
 ao_enabled = true
 ao_texture = ExtResource("4_bw4my")
 heightmap_enabled = true
 heightmap_texture = ExtResource("5_mkyti")
-uv1_scale = Vector3(128, 128, 128)
+uv1_scale = Vector3(25, 25, 25)
+uv2_world_triplanar = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_8mmju"]
-lightmap_size_hint = Vector2i(1002, 1002)
 material = SubResource("StandardMaterial3D_hoyi2")
 size = Vector2(300, 300)
 
@@ -78,17 +80,20 @@ environment = SubResource("Environment_kd1xk")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, 0.5, -2.18557e-08, 0, -4.37114e-08, -1, -0.5, -0.866025, 3.78552e-08, 0, 0, 0)
-light_color = Color(0.225693, 0.350234, 0.999952, 1)
-light_angular_distance = 40.74
+light_color = Color(0, 0, 0.77, 1)
+light_energy = 4.0
+light_angular_distance = 15.0
 shadow_enabled = true
 sky_mode = 1
 
 [node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.512537, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.134809, 0)
 mesh = SubResource("QuadMesh_neuva")
 skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("ShaderMaterial_keus5")
+surface_material_override/0 = SubResource("ShaderMaterial_excqs")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("BoxShape3D_5vris")
@@ -103,24 +108,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.026535, 0.132594, 0.096641
 shape = SubResource("BoxShape3D_n0kmd")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.415318, 0)
 mesh = SubResource("PlaneMesh_8mmju")
 
 [node name="Moon" type="Node3D" parent="."]
+transform = Transform3D(0.971487, 0, -0.237092, 0, 1, 0, 0.237092, 0, 0.971487, -1090.94, -0.75769, 649.875)
 
 [node name="Sprite3D" type="Sprite3D" parent="Moon"]
 transform = Transform3D(1.9657, 3.9831, -2.29585, -4.57969, 1.4776, -1.35761, -0.403028, 2.63659, 4.22918, 500, 500, -500)
 cast_shadow = 0
 gi_mode = 0
+billboard = 1
 texture = ExtResource("3_vvtia")
 region_rect = Rect2(361, 536, 258, 260)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Moon"]
-transform = Transform3D(-0.8159, -0.164912, 0.554177, 0.225948, 0.791309, 0.568135, -0.532217, 0.588756, -0.608367, 500, 500, -500)
-light_color = Color(0.548501, 0.57238, 0.595241, 1)
-light_energy = 10000.0
-light_volumetric_fog_energy = 16.0
-light_specular = 5.224
+transform = Transform3D(0.820005, 0.186126, -0.541248, 0.292413, 0.676687, 0.675714, 0.492023, -0.712356, 0.500462, 500, 500, -500)
+light_color = Color(0.252021, 0.377712, 0.770537, 1)
+light_energy = 48.89
+light_specular = 20.0
 spot_range = 999.273
 spot_angle = 7.46423
-spot_angle_attenuation = 4.0
+spot_angle_attenuation = 2.92817
