@@ -1,12 +1,14 @@
-[gd_scene load_steps=17 format=3 uid="uid://b2spxeueapwij"]
+[gd_scene load_steps=19 format=3 uid="uid://b2spxeueapwij"]
 
 [ext_resource type="Shader" path="res://scripts/shaders/starrysky.gdshader" id="1_g6wkd"]
 [ext_resource type="Shader" path="res://scripts/shaders/water.gdshader" id="2_v7h6p"]
-[ext_resource type="Texture2D" uid="uid://dyoa7jrkiogqg" path="res://textures/environments/polyhaven_damp_sand/damp_sand_diff_1k.jpg" id="3_2o4wi"]
+[ext_resource type="Texture2D" uid="uid://b15ncps257o22" path="res://textures/environments/low_poly_sand/Stylized_Sand_002_basecolor.png" id="3_k47lw"]
 [ext_resource type="Texture2D" uid="uid://bj5m2pgiiqhj4" path="res://textures/environments/moon.png" id="3_vvtia"]
+[ext_resource type="Texture2D" uid="uid://btiyo7rrq6ns6" path="res://textures/environments/low_poly_sand/Stylized_Sand_002_ambientOcclusion.png" id="4_bw4my"]
 [ext_resource type="PackedScene" uid="uid://cnxm803p7w416" path="res://scenes/player.tscn" id="4_px3de"]
-[ext_resource type="Texture2D" uid="uid://si6j7ay3rjkt" path="res://textures/environments/polyhaven_damp_sand/damp_sand_nor_gl_1k.jpg" id="4_s7o2b"]
-[ext_resource type="Texture2D" uid="uid://qx4hg81t2d27" path="res://textures/environments/polyhaven_damp_sand/damp_sand_rough_1k.jpg" id="5_yy86p"]
+[ext_resource type="Texture2D" uid="uid://5rap8k2y7xhq" path="res://textures/environments/low_poly_sand/Stylized_Sand_002_height.png" id="5_mkyti"]
+[ext_resource type="Texture2D" uid="uid://cefi8m3lmpk6k" path="res://textures/environments/low_poly_sand/Stylized_Sand_002_normal.png" id="6_6usyd"]
+[ext_resource type="Texture2D" uid="uid://ddvn4im0dym7l" path="res://textures/environments/low_poly_sand/Stylized_Sand_002_roughness.png" id="7_dt4jk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bg5ec"]
 shader = ExtResource("1_g6wkd")
@@ -52,17 +54,21 @@ size = Vector3(300, 0.1, 300)
 [sub_resource type="BoxShape3D" id="BoxShape3D_n0kmd"]
 size = Vector3(300, 0.1, 300)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bgrl1"]
-albedo_texture = ExtResource("3_2o4wi")
-roughness_texture = ExtResource("5_yy86p")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hoyi2"]
+albedo_color = Color(0.59, 0.795, 1, 1)
+albedo_texture = ExtResource("3_k47lw")
+roughness_texture = ExtResource("7_dt4jk")
 normal_enabled = true
-normal_texture = ExtResource("4_s7o2b")
-rim_tint = 1.0
-uv1_scale = Vector3(10, 10, 10)
+normal_texture = ExtResource("6_6usyd")
+ao_enabled = true
+ao_texture = ExtResource("4_bw4my")
+heightmap_enabled = true
+heightmap_texture = ExtResource("5_mkyti")
+uv1_scale = Vector3(128, 128, 128)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_8mmju"]
 lightmap_size_hint = Vector2i(1002, 1002)
-material = SubResource("StandardMaterial3D_bgrl1")
+material = SubResource("StandardMaterial3D_hoyi2")
 size = Vector2(300, 300)
 
 [node name="Outdoors" type="Node3D"]
@@ -72,6 +78,7 @@ environment = SubResource("Environment_kd1xk")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, 0.5, -2.18557e-08, 0, -4.37114e-08, -1, -0.5, -0.866025, 3.78552e-08, 0, 0, 0)
+light_color = Color(0.45, 0.5875, 1, 1)
 light_angular_distance = 39.7
 shadow_enabled = true
 sky_mode = 1
