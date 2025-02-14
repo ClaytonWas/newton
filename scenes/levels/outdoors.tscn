@@ -1,21 +1,24 @@
-[gd_scene load_steps=11 format=3 uid="uid://b2spxeueapwij"]
+[gd_scene load_steps=17 format=3 uid="uid://b2spxeueapwij"]
 
 [ext_resource type="Shader" path="res://scripts/shaders/starrysky.gdshader" id="1_g6wkd"]
 [ext_resource type="Shader" path="res://scripts/shaders/water.gdshader" id="2_v7h6p"]
+[ext_resource type="Texture2D" uid="uid://dyoa7jrkiogqg" path="res://textures/environments/polyhaven_damp_sand/damp_sand_diff_1k.jpg" id="3_2o4wi"]
 [ext_resource type="Texture2D" uid="uid://bj5m2pgiiqhj4" path="res://textures/environments/moon.png" id="3_vvtia"]
 [ext_resource type="PackedScene" uid="uid://cnxm803p7w416" path="res://scenes/player.tscn" id="4_px3de"]
+[ext_resource type="Texture2D" uid="uid://si6j7ay3rjkt" path="res://textures/environments/polyhaven_damp_sand/damp_sand_nor_gl_1k.jpg" id="4_s7o2b"]
+[ext_resource type="Texture2D" uid="uid://qx4hg81t2d27" path="res://textures/environments/polyhaven_damp_sand/damp_sand_rough_1k.jpg" id="5_yy86p"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bg5ec"]
 shader = ExtResource("1_g6wkd")
 shader_parameter/sky_color = Color(0.00422742, 0.013734, 0.0455292, 1)
-shader_parameter/star_base_color = Color(1, 0.55, 0.64, 1)
-shader_parameter/star_hue_offset = 0.318
-shader_parameter/star_intensity = 0.08
-shader_parameter/star_twinkle_speed = 0.479
-shader_parameter/star_twinkle_intensity = 0.167
-shader_parameter/layer_scale = 0.165
-shader_parameter/layer_scale_step = 20.248
-shader_parameter/layers_count = 2
+shader_parameter/star_base_color = Color(0.94, 0.7285, 0.235, 1)
+shader_parameter/star_hue_offset = 0.985
+shader_parameter/star_intensity = 0.021
+shader_parameter/star_twinkle_speed = 0.8
+shader_parameter/star_twinkle_intensity = 0.2
+shader_parameter/layer_scale = 20.0
+shader_parameter/layer_scale_step = 10.0
+shader_parameter/layers_count = 3
 
 [sub_resource type="Sky" id="Sky_82qnk"]
 sky_material = SubResource("ShaderMaterial_bg5ec")
@@ -23,26 +26,44 @@ sky_material = SubResource("ShaderMaterial_bg5ec")
 [sub_resource type="Environment" id="Environment_kd1xk"]
 background_mode = 2
 sky = SubResource("Sky_82qnk")
+ambient_light_color = Color(0.967763, 0.979559, 0.993959, 1)
+ambient_light_sky_contribution = 0.79
 
 [sub_resource type="QuadMesh" id="QuadMesh_neuva"]
-size = Vector2(100, 100)
-subdivide_width = 64
-subdivide_depth = 64
+size = Vector2(300, 300)
+subdivide_width = 128
+subdivide_depth = 128
 orientation = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_keus5"]
 render_priority = 0
 shader = ExtResource("2_v7h6p")
-shader_parameter/out_color = Color(0, 0.2, 1, 1)
-shader_parameter/amount = 0.8
-shader_parameter/speed = 1.0
+shader_parameter/out_color = Color(0, 0.6, 1, 1)
+shader_parameter/amount = 0.5
+shader_parameter/speed = 0.5
 shader_parameter/beer_factor = 0.2
-shader_parameter/metallic = 0.6
-shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/specular = 0.1
 shader_parameter/roughness = 0.05
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5vris"]
-size = Vector3(120.746, 0.1, 150)
+size = Vector3(300, 0.1, 300)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n0kmd"]
+size = Vector3(300, 0.1, 300)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bgrl1"]
+albedo_texture = ExtResource("3_2o4wi")
+roughness_texture = ExtResource("5_yy86p")
+normal_enabled = true
+normal_texture = ExtResource("4_s7o2b")
+rim_tint = 1.0
+uv1_scale = Vector3(10, 10, 10)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8mmju"]
+lightmap_size_hint = Vector2i(1002, 1002)
+material = SubResource("StandardMaterial3D_bgrl1")
+size = Vector2(300, 300)
 
 [node name="Outdoors" type="Node3D"]
 
@@ -51,14 +72,15 @@ environment = SubResource("Environment_kd1xk")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, 0.5, -2.18557e-08, 0, -4.37114e-08, -1, -0.5, -0.866025, 3.78552e-08, 0, 0, 0)
-light_color = Color(0.501961, 0.643137, 0.560784, 1)
-light_energy = 52.5
+light_angular_distance = 39.7
 shadow_enabled = true
+sky_mode = 1
 
 [node name="Area3D" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0398, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.111155, 0)
 mesh = SubResource("QuadMesh_neuva")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_keus5")
@@ -67,9 +89,29 @@ surface_material_override/0 = SubResource("ShaderMaterial_keus5")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.35486, 0, 0)
 shape = SubResource("BoxShape3D_5vris")
 
+[node name="Floor1" type="StaticBody3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.026535, 0.132594, 0.0966415)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D/Floor1"]
+shape = SubResource("BoxShape3D_n0kmd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D/Floor1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.415318, 0)
+mesh = SubResource("PlaneMesh_8mmju")
+
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(17.7578, 9.20096, -0.0496534, -4.16535, 7.94264, -17.8764, -8.20427, 15.8826, 8.96846, 0, 588.005, -179.022)
+transform = Transform3D(17.7578, 9.20096, -0.0496534, -4.16535, 7.94264, -17.8764, -8.20427, 15.8826, 8.96846, 0, 1322.13, -398.796)
 texture = ExtResource("3_vvtia")
 
 [node name="Player" parent="." instance=ExtResource("4_px3de")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.7651, 5.64248, 12.4549)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.0277123, 0.999616, 0, -0.999616, -0.0277123, 21.9452, 67.552, -6.31362)
+light_color = Color(0.548501, 0.57238, 0.595241, 1)
+light_energy = 128.0
+light_volumetric_fog_energy = 16.0
+light_specular = 5.224
+spot_range = 144.819
+spot_angle = 73.06
+spot_angle_attenuation = 4.0
