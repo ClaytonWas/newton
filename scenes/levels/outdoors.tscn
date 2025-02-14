@@ -12,13 +12,13 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bg5ec"]
 shader = ExtResource("1_g6wkd")
-shader_parameter/sky_color = Color(0.00422742, 0.013734, 0.0455292, 1)
-shader_parameter/star_base_color = Color(0.94, 0.7285, 0.235, 1)
-shader_parameter/star_hue_offset = 0.985
-shader_parameter/star_intensity = 0.021
+shader_parameter/sky_color = Color(0.0545103, 4.81308e-08, 0.443295, 1)
+shader_parameter/star_base_color = Color(0.707571, 0.689195, 0.292176, 1)
+shader_parameter/star_hue_offset = 0.769
+shader_parameter/star_intensity = 0.054
 shader_parameter/star_twinkle_speed = 0.8
 shader_parameter/star_twinkle_intensity = 0.2
-shader_parameter/layer_scale = 20.0
+shader_parameter/layer_scale = 30.248
 shader_parameter/layer_scale_step = 10.0
 shader_parameter/layers_count = 3
 
@@ -33,20 +33,20 @@ ambient_light_sky_contribution = 0.79
 
 [sub_resource type="QuadMesh" id="QuadMesh_neuva"]
 size = Vector2(300, 300)
-subdivide_width = 128
-subdivide_depth = 128
+subdivide_width = 512
+subdivide_depth = 256
 orientation = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_keus5"]
 render_priority = 0
 shader = ExtResource("2_v7h6p")
-shader_parameter/out_color = Color(0, 0.6, 1, 1)
-shader_parameter/amount = 0.5
-shader_parameter/speed = 0.5
+shader_parameter/out_color = Color(0, 0, 0.45, 1)
+shader_parameter/amount = 0.4
+shader_parameter/speed = 1.0
 shader_parameter/beer_factor = 0.2
-shader_parameter/metallic = 1.0
-shader_parameter/specular = 0.1
-shader_parameter/roughness = 0.05
+shader_parameter/metallic = 0.0
+shader_parameter/specular = 0.5
+shader_parameter/roughness = 0.2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5vris"]
 size = Vector3(300, 0.1, 300)
@@ -55,7 +55,7 @@ size = Vector3(300, 0.1, 300)
 size = Vector3(300, 0.1, 300)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hoyi2"]
-albedo_color = Color(0.59, 0.795, 1, 1)
+albedo_color = Color(0.8, 1, 0.98, 1)
 albedo_texture = ExtResource("3_k47lw")
 roughness_texture = ExtResource("7_dt4jk")
 normal_enabled = true
@@ -84,41 +84,45 @@ shadow_enabled = true
 sky_mode = 1
 
 [node name="Area3D" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0398, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.111155, 0)
 mesh = SubResource("QuadMesh_neuva")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_keus5")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.35486, 0, 0)
 shape = SubResource("BoxShape3D_5vris")
 
-[node name="Floor1" type="StaticBody3D" parent="Area3D"]
+[node name="Player" parent="." instance=ExtResource("4_px3de")]
+transform = Transform3D(0.639761, 0, -0.768574, 0, 1, 0, 0.768574, 0, 0.639761, -100, 1, 100)
+
+[node name="Floor1" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.026535, 0.132594, 0.0966415)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D/Floor1"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor1"]
 shape = SubResource("BoxShape3D_n0kmd")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D/Floor1"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.415318, 0)
 mesh = SubResource("PlaneMesh_8mmju")
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(17.7578, 9.20096, -0.0496534, -4.16535, 7.94264, -17.8764, -8.20427, 15.8826, 8.96846, 0, 1322.13, -398.796)
+[node name="Moon" type="Node3D" parent="."]
+
+[node name="Sprite3D" type="Sprite3D" parent="Moon"]
+transform = Transform3D(1.9657, 3.9831, -2.29585, -4.57969, 1.4776, -1.35761, -0.403028, 2.63659, 4.22918, 500, 500, -500)
+transparency = 0.19
+cast_shadow = 0
+gi_mode = 0
+modulate = Color(0.952421, 0.947969, 0.989052, 1)
 texture = ExtResource("3_vvtia")
+region_rect = Rect2(361, 536, 258, 260)
 
-[node name="Player" parent="." instance=ExtResource("4_px3de")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.7651, 5.64248, 12.4549)
-
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.0277123, 0.999616, 0, -0.999616, -0.0277123, 21.9452, 67.552, -6.31362)
+[node name="SpotLight3D" type="SpotLight3D" parent="Moon"]
+transform = Transform3D(-0.8159, -0.164912, 0.554177, 0.225948, 0.791309, 0.568135, -0.532217, 0.588756, -0.608367, 500, 500, -500)
 light_color = Color(0.548501, 0.57238, 0.595241, 1)
-light_energy = 128.0
+light_energy = 10000.0
 light_volumetric_fog_energy = 16.0
 light_specular = 5.224
-spot_range = 144.819
-spot_angle = 73.06
+spot_range = 999.273
+spot_angle = 7.46423
 spot_angle_attenuation = 4.0

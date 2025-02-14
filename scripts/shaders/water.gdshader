@@ -50,5 +50,5 @@ void fragment() {
     float depth = texture(DEPTH_TEXTURE, SCREEN_UV).r;
     ALBEDO = vec3(depth) + out_color;
 
-    ALPHA = 0.7;
+    ALPHA = 0.5;
 }
