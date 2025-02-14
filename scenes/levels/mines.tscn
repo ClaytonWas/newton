@@ -1,0 +1,68 @@
+[gd_scene load_steps=13 format=3 uid="uid://b53f7jdjgsyei"]
+
+[ext_resource type="PackedScene" uid="uid://cnxm803p7w416" path="res://scenes/player.tscn" id="1_a5duw"]
+[ext_resource type="Script" path="res://scripts/scene_portal.gd" id="2_gt4dp"]
+[ext_resource type="Shader" path="res://scripts/shaders/outline.gdshader" id="4_leiy5"]
+[ext_resource type="Shader" path="res://scripts/shaders/chromatic_shield.gdshader" id="5_f72ri"]
+[ext_resource type="Texture2D" uid="uid://cdj403s1c7ugt" path="res://textures/environments/mines/Rocks_W.jpg" id="6_jp8qn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xqcem"]
+size = Vector3(300, 0.1, 300)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u2byv"]
+albedo_color = Color(0.3, 0.311667, 1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_20fbo"]
+material = SubResource("StandardMaterial3D_u2byv")
+size = Vector2(300, 300)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lmf2e"]
+render_priority = 0
+shader = ExtResource("4_leiy5")
+shader_parameter/outline_color = Color(0.274161, 0.252791, 0.694012, 1)
+shader_parameter/outline_width = 0.03
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ykkh4"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_lmf2e")
+shader = ExtResource("5_f72ri")
+shader_parameter/warp_ScreenSpace = false
+shader_parameter/texture_albedo = ExtResource("6_jp8qn")
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_sqlo0"]
+radius = 3.0
+radial_steps = 24
+sections = 2
+section_length = 0.1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_c0kic"]
+height = 0.5
+radius = 3.0
+
+[node name="Mines" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_a5duw")]
+transform = Transform3D(0.639761, 0, -0.768574, 0, 1, 0, 0.768574, 0, 0.639761, -100, 1, 100)
+
+[node name="Sand" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.026535, 0.132594, 0.0966415)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand"]
+shape = SubResource("BoxShape3D_xqcem")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand"]
+mesh = SubResource("PlaneMesh_20fbo")
+
+[node name="HomePortal" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -95.6823, 2.43945, 88.7377)
+script = ExtResource("2_gt4dp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="HomePortal"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_ykkh4")
+mesh = SubResource("TubeTrailMesh_sqlo0")
+skeleton = NodePath("../../Sand/MeshInstance3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HomePortal"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_c0kic")
