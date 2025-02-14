@@ -1,0 +1,18 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://behxgsynedpfc"]
+
+[ext_resource type="Shader" path="res://scripts/shaders/outline.gdshader" id="1_slfjw"]
+[ext_resource type="Shader" path="res://scripts/shaders/chromatic_shield.gdshader" id="2_gqyfo"]
+[ext_resource type="Texture2D" uid="uid://bifytv6dx8irw" path="res://textures/environments/Rug_OpenGameArt.png" id="3_a7kct"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lrg1t"]
+render_priority = 0
+shader = ExtResource("1_slfjw")
+shader_parameter/outline_color = Color(0.44, 0.102667, 0, 1)
+shader_parameter/outline_width = 4.0
+
+[resource]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_lrg1t")
+shader = ExtResource("2_gqyfo")
+shader_parameter/warp_ScreenSpace = true
+shader_parameter/texture_albedo = ExtResource("3_a7kct")

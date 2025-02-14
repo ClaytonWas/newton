@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b2spxeueapwij"]
+[gd_scene load_steps=24 format=3 uid="uid://b2spxeueapwij"]
 
 [ext_resource type="Shader" path="res://scripts/shaders/starrysky.gdshader" id="1_g6wkd"]
 [ext_resource type="Shader" path="res://scripts/shaders/water.gdshader" id="2_v7h6p"]
@@ -9,6 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://5rap8k2y7xhq" path="res://textures/environments/low_poly_sand/Stylized_Sand_002_height.png" id="5_mkyti"]
 [ext_resource type="Texture2D" uid="uid://cefi8m3lmpk6k" path="res://textures/environments/low_poly_sand/Stylized_Sand_002_normal.png" id="6_6usyd"]
 [ext_resource type="Texture2D" uid="uid://ddvn4im0dym7l" path="res://textures/environments/low_poly_sand/Stylized_Sand_002_roughness.png" id="7_dt4jk"]
+[ext_resource type="Script" path="res://scripts/scene_portal.gd" id="10_ufjd8"]
+[ext_resource type="PackedScene" uid="uid://b4untvgg5fv5u" path="res://scenes/main.tscn" id="11_r1grg"]
+[ext_resource type="Material" uid="uid://behxgsynedpfc" path="res://textures/general/office_portal.tres" id="12_6aagt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bg5ec"]
 shader = ExtResource("1_g6wkd")
@@ -73,6 +76,17 @@ uv2_world_triplanar = true
 material = SubResource("StandardMaterial3D_hoyi2")
 size = Vector2(300, 300)
 
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_inxva"]
+radius = 3.5
+radial_steps = 16
+sections = 2
+section_length = 1.0
+section_rings = 7
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_fmtj7"]
+height = 0.5
+radius = 3.50428
+
 [node name="Outdoors" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -81,33 +95,32 @@ environment = SubResource("Environment_kd1xk")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, 0.5, -2.18557e-08, 0, -4.37114e-08, -1, -0.5, -0.866025, 3.78552e-08, 0, 0, 0)
 light_color = Color(0, 0, 0.77, 1)
-light_energy = 4.0
 light_angular_distance = 15.0
 shadow_enabled = true
 sky_mode = 1
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="Water" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.512537, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Water"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.134809, 0)
 mesh = SubResource("QuadMesh_neuva")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_excqs")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Water"]
 shape = SubResource("BoxShape3D_5vris")
 
 [node name="Player" parent="." instance=ExtResource("4_px3de")]
 transform = Transform3D(0.639761, 0, -0.768574, 0, 1, 0, 0.768574, 0, 0.639761, -100, 1, 100)
 
-[node name="Floor1" type="StaticBody3D" parent="."]
+[node name="Sand" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.026535, 0.132594, 0.0966415)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor1"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand"]
 shape = SubResource("BoxShape3D_n0kmd")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor1"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand"]
 mesh = SubResource("PlaneMesh_8mmju")
 
 [node name="Moon" type="Node3D" parent="."]
@@ -122,10 +135,25 @@ texture = ExtResource("3_vvtia")
 region_rect = Rect2(361, 536, 258, 260)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Moon"]
-transform = Transform3D(0.820005, 0.186126, -0.541248, 0.292413, 0.676687, 0.675714, 0.492023, -0.712356, 0.500462, 500, 500, -500)
-light_color = Color(0.252021, 0.377712, 0.770537, 1)
-light_energy = 48.89
-light_specular = 20.0
-spot_range = 999.273
-spot_angle = 7.46423
-spot_angle_attenuation = 2.92817
+transform = Transform3D(0.819732, 0.18617, -0.541647, 0.292792, 0.676576, 0.67566, 0.492253, -0.71245, 0.500102, 518.115, 500.391, -504.01)
+light_color = Color(0.579921, 0.684671, 0.94733, 1)
+light_energy = 75.0
+light_specular = 16.0
+spot_range = 1000.0
+spot_angle = 26.4926
+spot_angle_attenuation = 0.901249
+
+[node name="OfficePortal" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66.1273, 2.30686, 63.7007)
+script = ExtResource("10_ufjd8")
+target_scene = ExtResource("11_r1grg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="OfficePortal"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+material_override = ExtResource("12_6aagt")
+mesh = SubResource("TubeTrailMesh_inxva")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="OfficePortal"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_fmtj7")

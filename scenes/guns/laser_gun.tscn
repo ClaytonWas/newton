@@ -3,39 +3,39 @@
 [ext_resource type="Script" path="res://scripts/init_weapon.gd" id="1_oc2lb"]
 [ext_resource type="ArrayMesh" uid="uid://bdgogt0i2a1s" path="res://objects/Rocket SMG.obj" id="2_m1lny"]
 [ext_resource type="Resource" uid="uid://b2k74qk7pwwkn" path="res://objects/laser_gun.tres" id="2_oh6cf"]
+[ext_resource type="Material" uid="uid://cf2gwt7lm43x" path="res://textures/general/outline_shader_material.tres" id="4_fs80f"]
 [ext_resource type="PackedScene" uid="uid://fwd2eml7uj0b" path="res://scenes/guns/muzzle_flash.tscn" id="4_pn81j"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_25t46"]
-albedo_color = Color(0.886275, 0.435294, 0.482353, 1)
-emission_enabled = true
-emission = Color(0.952941, 0.0941176, 0, 1)
-emission_energy_multiplier = 30.0
+next_pass = ExtResource("4_fs80f")
+albedo_color = Color(0.146288, 5.92971e-05, 0.580387, 1)
+emission = Color(1, 1, 1, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cxebm"]
+next_pass = ExtResource("4_fs80f")
 albedo_color = Color(0.423529, 0.423529, 0.419608, 1)
 emission = Color(0.680731, 0.324702, 0.00329176, 1)
 emission_energy_multiplier = 8.37
 emission_operator = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p8qu6"]
-albedo_color = Color(0.172596, 0.0392468, 0.00771033, 1)
+next_pass = ExtResource("4_fs80f")
+albedo_color = Color(0.022, 0.0545, 0.1, 1)
 emission = Color(1, 0, 1, 1)
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_brcke"]
-as_normal_map = true
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4tn60"]
-albedo_color = Color(0.415754, 0.258537, 0.194769, 1)
+next_pass = ExtResource("4_fs80f")
+albedo_color = Color(0.21, 0.219333, 0.25, 1)
 metallic = 1.0
-normal_enabled = true
-normal_texture = SubResource("NoiseTexture2D_brcke")
+normal_scale = 16.0
+uv1_scale = Vector3(0.1, 0.1, 0.1)
 
 [node name="LaserGun" type="Node3D"]
 script = ExtResource("1_oc2lb")
 gun = ExtResource("2_oh6cf")
 
 [node name="OBJ" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.199167, -0.00842767, -0.0161685, -0.00954859, 0.199299, 0.013739, 0.0155329, 0.0144537, -0.198871, 1.41303, 0.8, 0)
+transform = Transform3D(-0.199167, -0.00842767, -0.0161685, -0.00954859, 0.199299, 0.013739, 0.0155329, 0.0144537, -0.198871, 1.41377, 0.807927, 0.00345647)
 mesh = ExtResource("2_m1lny")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_25t46")
@@ -77,3 +77,4 @@ surface_material_override/35 = SubResource("StandardMaterial3D_4tn60")
 
 [node name="muzzle_flash" parent="." instance=ExtResource("4_pn81j")]
 transform = Transform3D(-0.0993988, 4.39353e-10, -0.0109492, 0.00747959, -0.0730305, -0.0679014, -0.00799622, -0.0683121, 0.0725915, 1.65471, 0.516046, -0.0340618)
+visible = false
