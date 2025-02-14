@@ -1,0 +1,98 @@
+[gd_scene load_steps=17 format=3 uid="uid://bhcamgead3h50"]
+
+[ext_resource type="Script" path="res://scripts/scene_portal.gd" id="1_e1ajy"]
+[ext_resource type="Shader" path="res://scripts/shaders/sky.gdshader" id="1_wrvli"]
+[ext_resource type="PackedScene" uid="uid://cnxm803p7w416" path="res://scenes/player.tscn" id="1_xo1mh"]
+[ext_resource type="Shader" path="res://scripts/shaders/outline.gdshader" id="2_jfs6n"]
+[ext_resource type="Shader" path="res://scripts/shaders/chromatic_shield.gdshader" id="3_5nwsy"]
+[ext_resource type="Texture2D" uid="uid://cdj403s1c7ugt" path="res://textures/environments/mines/Rocks_W.jpg" id="4_jmuup"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lcncu"]
+render_priority = 0
+shader = ExtResource("2_jfs6n")
+shader_parameter/outline_color = Color(0.274161, 0.252791, 0.694012, 1)
+shader_parameter/outline_width = 0.03
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_58x65"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_lcncu")
+shader = ExtResource("3_5nwsy")
+shader_parameter/warp_ScreenSpace = false
+shader_parameter/texture_albedo = ExtResource("4_jmuup")
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_o7vcl"]
+radius = 3.0
+radial_steps = 24
+sections = 2
+section_length = 0.1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_b0r1s"]
+height = 0.5
+radius = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wxnnr"]
+shader = ExtResource("1_wrvli")
+shader_parameter/color_top = Color(1, 1, 1, 1)
+shader_parameter/color_horizon = Color(0.73, 0, 0, 1)
+shader_parameter/color_bottom = Color(0.68, 0.2006, 0.0408, 1)
+shader_parameter/exponent_factor_top = 0.1
+shader_parameter/exponent_factor_bottom = 1.0
+shader_parameter/intensity_amp = 1.0
+
+[sub_resource type="Sky" id="Sky_g1s77"]
+sky_material = SubResource("ShaderMaterial_wxnnr")
+
+[sub_resource type="Environment" id="Environment_hqsba"]
+background_mode = 2
+sky = SubResource("Sky_g1s77")
+tonemap_mode = 2
+glow_enabled = true
+volumetric_fog_density = 0.03
+volumetric_fog_emission = Color(0.48, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dc7cd"]
+size = Vector3(300, 0.1, 300)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qagb1"]
+albedo_color = Color(0.3, 0.311667, 1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xej5i"]
+material = SubResource("StandardMaterial3D_qagb1")
+size = Vector2(300, 300)
+
+[node name="Nether" type="Node3D"]
+
+[node name="HomePortal" type="Area3D" parent="."]
+transform = Transform3D(0.643536, 0, 0.765416, 0, 1, 0, -0.765416, 0, 0.643536, -119.656, 2.57204, 88.8343)
+script = ExtResource("1_e1ajy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="HomePortal"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_58x65")
+mesh = SubResource("TubeTrailMesh_o7vcl")
+skeleton = NodePath("../../Sand/MeshInstance3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HomePortal"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_b0r1s")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1.19249e-08, 0.707107, -0.707107, 0, 0.707107, 0.707107, 1, -8.43216e-09, 8.43216e-09, 0, 0, 0)
+light_color = Color(1, 0.472, 0.28, 1)
+light_volumetric_fog_energy = 0.2
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_hqsba")
+
+[node name="Player" parent="." instance=ExtResource("1_xo1mh")]
+transform = Transform3D(0.639761, 0, -0.768574, 0, 1, 0, 0.768574, 0, 0.639761, -100, 1, 100)
+
+[node name="Sand" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.026535, 0.132594, 0.0966415)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand"]
+shape = SubResource("BoxShape3D_dc7cd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand"]
+mesh = SubResource("PlaneMesh_xej5i")

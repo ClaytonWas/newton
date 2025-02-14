@@ -10,6 +10,7 @@
 albedo_texture = ExtResource("2_sulhs")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p6ptc"]
+albedo_color = Color(0.47, 0.47, 0.47, 1)
 albedo_texture = ExtResource("2_sulhs")
 
 [node name="OldGlock" type="Node3D"]
@@ -18,6 +19,7 @@ script = ExtResource("1_442o4")
 gun = ExtResource("2_udgop")
 
 [node name="Glock" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000665784, 0.00468552, -0.00108004)
 mesh = ExtResource("1_ts61r")
 surface_material_override/0 = SubResource("StandardMaterial3D_1qejf")
 surface_material_override/1 = SubResource("StandardMaterial3D_p6ptc")

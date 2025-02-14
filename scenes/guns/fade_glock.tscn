@@ -11,18 +11,8 @@
 albedo_texture = ExtResource("4_ukymu")
 emission = Color(0.728822, 0.728822, 0.728822, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b15b8"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yiabd"]
 albedo_texture = ExtResource("5_bui3h")
-emission = Color(0.696321, 0.0889894, 0.309454, 1)
-emission_energy_multiplier = 6.56
-emission_operator = 1
-emission_texture = ExtResource("5_bui3h")
-subsurf_scatter_enabled = true
-subsurf_scatter_strength = 1.0
-subsurf_scatter_texture = ExtResource("5_bui3h")
-subsurf_scatter_transmittance_boost = 0.75
-backlight = Color(0.214622, 0.385359, 0.772152, 1)
-backlight_texture = ExtResource("5_bui3h")
 
 [node name="fade_glock" type="Node3D"]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
@@ -33,7 +23,7 @@ gun = ExtResource("2_3arh5")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0380358, 0.0215879, 0.00734061)
 mesh = ExtResource("3_t0uqq")
 surface_material_override/0 = SubResource("StandardMaterial3D_fwakb")
-surface_material_override/1 = SubResource("StandardMaterial3D_b15b8")
+surface_material_override/1 = SubResource("StandardMaterial3D_yiabd")
 
 [node name="muzzle_flash" parent="." instance=ExtResource("6_rsxcy")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -2.28488, 1.16, 0.0710919)

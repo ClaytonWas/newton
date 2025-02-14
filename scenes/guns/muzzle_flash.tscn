@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://fwd2eml7uj0b"]
+[gd_scene load_steps=11 format=3 uid="uid://fwd2eml7uj0b"]
 
 [ext_resource type="Script" path="res://scripts/guns/muzzle_flash.gd" id="1_dc0c5"]
 [ext_resource type="Texture2D" uid="uid://hvitirq04ndl" path="res://textures/guns/muzzle_flash.png" id="2_eahd0"]
@@ -11,33 +11,39 @@ specular_mode = 2
 disable_ambient_light = true
 disable_fog = true
 vertex_color_use_as_albedo = true
+albedo_color = Color(0, 0, 0, 1)
 albedo_texture = ExtResource("3_ahclw")
 billboard_mode = 3
 particles_anim_h_frames = 2
 particles_anim_v_frames = 2
 particles_anim_loop = false
 
-[sub_resource type="Curve" id="Curve_8uxsa"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_rl13g"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.346341, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_i67us"]
-curve = SubResource("Curve_8uxsa")
+[sub_resource type="CurveTexture" id="CurveTexture_ryvv5"]
+curve = SubResource("Curve_rl13g")
+
+[sub_resource type="Curve" id="Curve_2lox1"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.302439, 1), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_h6fj2"]
+curve = SubResource("Curve_2lox1")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a2xhw"]
 direction = Vector3(-1, 0, 0)
-spread = 5.0
-initial_velocity_min = 50.0
-initial_velocity_max = 50.0
-gravity = Vector3(0, -0.5, 0)
-linear_accel_min = -1.0
-linear_accel_max = 2.0
+spread = 10.0
+initial_velocity_min = 10.0
+initial_velocity_max = 25.0
+gravity = Vector3(0, -2, 0)
 scale_curve = SubResource("CurveTexture_h6fj2")
 color = Color(0.564706, 0.564706, 0.564706, 0.639216)
-alpha_curve = SubResource("CurveTexture_i67us")
+alpha_curve = SubResource("CurveTexture_ryvv5")
 anim_offset_max = 1.0
+turbulence_noise_strength = 20.0
+turbulence_noise_scale = 0.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_2t1gg"]
 
@@ -61,6 +67,9 @@ omni_range = 1.08848
 
 [node name="Smoke" type="GPUParticles3D" parent="."]
 material_override = SubResource("StandardMaterial3D_nipce")
+amount = 4
+lifetime = 0.1
+speed_scale = 0.25
 process_material = SubResource("ParticleProcessMaterial_a2xhw")
 draw_pass_1 = SubResource("QuadMesh_2t1gg")
 
