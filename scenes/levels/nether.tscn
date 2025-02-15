@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bhcamgead3h50"]
+[gd_scene load_steps=18 format=3 uid="uid://bhcamgead3h50"]
 
 [ext_resource type="Script" path="res://scripts/scene_portal.gd" id="1_e1ajy"]
 [ext_resource type="Shader" path="res://scripts/shaders/sky.gdshader" id="1_wrvli"]
@@ -6,6 +6,7 @@
 [ext_resource type="Shader" path="res://scripts/shaders/outline.gdshader" id="2_jfs6n"]
 [ext_resource type="Shader" path="res://scripts/shaders/chromatic_shield.gdshader" id="3_5nwsy"]
 [ext_resource type="Texture2D" uid="uid://cdj403s1c7ugt" path="res://textures/environments/mines/Rocks_W.jpg" id="4_jmuup"]
+[ext_resource type="PackedScene" uid="uid://bj6xkn5ow1lg5" path="res://scenes/enemies/mutant_boss.tscn" id="7_t3j33"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lcncu"]
 render_priority = 0
@@ -96,3 +97,5 @@ shape = SubResource("BoxShape3D_dc7cd")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sand"]
 mesh = SubResource("PlaneMesh_xej5i")
+
+[node name="MutantBoss" parent="." instance=ExtResource("7_t3j33")]
