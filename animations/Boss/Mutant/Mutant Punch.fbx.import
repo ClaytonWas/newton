@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b1waer7lj6qhg"
-path="res://.godot/imported/Mutant Run.fbx-da9f6e2d0d60e15b8494ffa2dc0b80ab.scn"
+uid="uid://by7iyr7juwx5r"
+path="res://.godot/imported/Mutant Punch.fbx-fa450d78fbfabad37766bd18b0494d26.scn"
 
 [deps]
 
-source_file="res://animations/Mutant Run.fbx"
-dest_files=["res://.godot/imported/Mutant Run.fbx-da9f6e2d0d60e15b8494ffa2dc0b80ab.scn"]
+source_file="res://animations/Boss/Mutant/Mutant Punch.fbx"
+dest_files=["res://.godot/imported/Mutant Punch.fbx-fa450d78fbfabad37766bd18b0494d26.scn"]
 
 [params]
 
@@ -36,7 +36,7 @@ _subresources={
 "mixamo_com": {
 "save_to_file/enabled": true,
 "save_to_file/keep_custom_tracks": "",
-"save_to_file/path": "res://animations/mutant_run.res",
+"save_to_file/path": "res://animations/Boss/Mutant/mutant_punch.res",
 "settings/loop_mode": 0,
 "slice_1/end_frame": 0,
 "slice_1/loop_mode": 0,
