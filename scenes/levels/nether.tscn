@@ -99,4 +99,4 @@ shape = SubResource("BoxShape3D_dc7cd")
 mesh = SubResource("PlaneMesh_xej5i")
 
 [node name="MutantBoss" parent="." instance=ExtResource("7_3ospy")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -60, 0, 54)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -67.7301, 0, 80.0648)

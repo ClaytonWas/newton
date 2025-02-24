@@ -1,4 +1,4 @@
-extends "res://scripts/enemies/enemy.gd"
+extends Enemy
 
 var is_shooting: bool = false
 

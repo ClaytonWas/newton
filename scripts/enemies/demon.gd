@@ -1,4 +1,4 @@
-extends "res://scripts/enemies/enemy.gd"
+extends Enemy
 
 func _ready():
 	walk_speed = 15

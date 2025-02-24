@@ -6,6 +6,12 @@ const headbob_shake := 0.025
 const headbob_frequency := 0.5
 @export var headbob_time := 0.0
 
+@export_category("Player Stats")
+@export var health: float = 100	#Total health
+@export var heal_rate: float = 3	#Time interval of healing
+@export var heal_interval: float = 20	#Amount healed per interval
+var is_dead: bool = false
+
 @export_category("Movement Variables")
 @export var walk_speed := 30.0
 @export var sprint_speed := 100.0
@@ -46,12 +52,12 @@ func _input(event):
 			
 #Swap between weapons
 	if event.is_action_pressed("slot1"):
-		changeWeapon(inventory[0])
+		change_weapon(inventory[0])
 		
 	if event.is_action_pressed("slot2"):
-		changeWeapon(inventory[1])
+		change_weapon(inventory[1])
 	if event.is_action_pressed("slot3"):
-		changeWeapon(inventory[2])
+		change_weapon(inventory[2])
 		
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
@@ -125,7 +131,7 @@ func _air_physics(delta) -> void:
 		self.velocity += current_acceleration * desired_direction
 	
 
-func changeWeapon(gun:Weapon):
+func change_weapon(gun:Weapon):
 	#Hide current weapon
 	var old_gun = equipped_weapon
 	equipped_weapon_node.visible = false
@@ -186,5 +192,10 @@ func reload():
 		timer.wait_time = equipped_weapon.reload_time
 		timer.start()
 		
-		
 		equipped_weapon.reload()
+
+func take_damage(dmg:int):
+		health -= dmg
+		
+		if health <= 0:
+			is_dead = true
