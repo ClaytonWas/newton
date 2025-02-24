@@ -168,6 +168,13 @@ func shoot():
 			if "Demon" in hit_object.name:
 				print("Hit: ", hit_object.name)
 				hit_object.takeDamage(equipped_weapon.damage)
+				
+			elif "Physical Bone" in hit_object.name:	#Shot Boss
+				var root = hit_object.get_parent()  # Get the immediate parent
+				while root and not root is CharacterBody3D:  
+					root = root.get_parent()  
+				print('Hit Boss ', root.name)
+				root.take_damage(equipped_weapon.damage)
 			else:
 				#Spawn bullet hole
 				var bullet_hole = load("res://scenes/guns/bullet_hole.tscn").instantiate()

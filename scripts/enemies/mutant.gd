@@ -11,7 +11,10 @@ extends CharacterBody3D
 @export var heavy_dmg: float = 55
 var is_attacking: bool = false
 var is_running: bool = false
+var is_dead: bool = false
 var movement_vector : Vector3 = Vector3.ZERO
+
+var target : CharacterBody3D
 
 
 func _ready() -> void:
@@ -26,21 +29,52 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	
-	if is_running:
-		move_and_collide(movement_vector * delta)
+	if is_running and target != null:
+		movement_vector = (target.global_transform.origin - global_transform.origin).normalized() * run_speed
+		movement_vector *= Vector3(1,0,1)
+		var collision = move_and_collide(movement_vector * delta)
+	
+		global_transform.origin += movement_vector * delta
+		
+		if collision:
+			if collision.get_collider().name == 'Player':
+				attack()
 	else:
 		movement_vector = Vector3.ZERO
 
 func _on_vision_area_body_entered(body: Node3D) -> void:
-	movement_vector = (body.global_transform.origin - global_transform.origin).normalized() * run_speed
+	#Prevent vertical movement while running
 	#When vision area is entered
 	if not is_attacking:
 		print('Boss spotted Player')
+
 		anim_state.travel('mutant_run')
 		is_running = true
+		
+		if body.name == 'Player': target = body
 
+func attack():
+	#When attack radius is entered
+	is_running = false
+	is_attacking = true
+	print('Boss attacking')
+	anim_state.travel('mutant_punch')
+	
 func _on_attack_area_body_entered(body: Node3D) -> void:	
 	#When attack radius is entered
 	is_running = false
+	is_attacking = true
 	print('Boss attacking')
 	anim_state.travel('mutant_punch')
+
+
+func _on_attack_area_body_exited(body: Node3D) -> void:
+	is_attacking = false
+
+func take_damage(dmg:int):		#Use composition
+		health -= dmg
+		
+		if health <= 0:
+			is_dead = true
+			print('Boss Died')
+			visible = false
