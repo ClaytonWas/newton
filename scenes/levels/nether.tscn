@@ -6,7 +6,7 @@
 [ext_resource type="Shader" path="res://scripts/shaders/outline.gdshader" id="2_jfs6n"]
 [ext_resource type="Shader" path="res://scripts/shaders/chromatic_shield.gdshader" id="3_5nwsy"]
 [ext_resource type="Texture2D" uid="uid://cdj403s1c7ugt" path="res://textures/environments/mines/Rocks_W.jpg" id="4_jmuup"]
-[ext_resource type="PackedScene" uid="uid://bj6xkn5ow1lg5" path="res://scenes/enemies/mutant.tscn" id="7_t0vwr"]
+[ext_resource type="PackedScene" uid="uid://cuoadhq443oe6" path="res://scenes/enemies/mutant_boss.tscn" id="7_3ospy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lcncu"]
 render_priority = 0
@@ -98,5 +98,5 @@ shape = SubResource("BoxShape3D_dc7cd")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sand"]
 mesh = SubResource("PlaneMesh_xej5i")
 
-[node name="Mutant" parent="." instance=ExtResource("7_t0vwr")]
-transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -84.2064, 0, 50.8919)
+[node name="MutantBoss" parent="." instance=ExtResource("7_3ospy")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -60, 0, 54)
