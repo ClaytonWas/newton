@@ -1,17 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://c3hldvhjiu47q"]
-
-[ext_resource type="Script" path="res://scripts/UI/hud.gd" id="1_y8iqb"]
+[gd_scene format=3 uid="uid://t8ey3xw6ft8"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_y8iqb")
-ch_length = 20.0
-ch_radius = 1.0
-ch_color = Color(0.273936, 0.288411, 0.414544, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 40.0
+grow_vertical = 0
+text = "8"
+vertical_alignment = 2

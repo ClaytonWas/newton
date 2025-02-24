@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cuoksi8gn05bj" path="res://scenes/guns/fade_glock.tscn" id="7_jcwfb"]
 [ext_resource type="PackedScene" uid="uid://c575uv334iglo" path="res://scenes/guns/laser_gun.tscn" id="8_7qm2k"]
 [ext_resource type="Resource" uid="uid://b2k74qk7pwwkn" path="res://objects/laser_gun.tres" id="9_751et"]
-[ext_resource type="PackedScene" uid="uid://c3hldvhjiu47q" path="res://scenes/UI/hud.tscn" id="11_jutak"]
+[ext_resource type="PackedScene" uid="uid://c3hldvhjiu47q" path="res://scenes/UI/crosshair.tscn" id="12_k6evy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ykk5e"]
 height = 1.77674
@@ -71,7 +71,11 @@ visible = false
 [node name="AudioPlayer" type="AudioStreamPlayer3D" parent="."]
 unique_name_in_owner = true
 
-[node name="HUD" parent="." instance=ExtResource("11_jutak")]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Crosshair" parent="CanvasLayer" instance=ExtResource("12_k6evy")]
+offset_top = -1.0
+offset_bottom = -1.0
 ch_length = 5.0
 ch_radius = 15.0
 ch_color = Color(0.820553, 0.124072, 0.202695, 1)

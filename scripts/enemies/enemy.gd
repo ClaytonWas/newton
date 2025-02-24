@@ -1,4 +1,4 @@
-extends CharacterBody3D
+class_name Enemy extends CharacterBody3D
 
 @onready var sprite = $AnimatedSprite3D
 @onready var detectionArea = $DetectionArea
@@ -31,7 +31,7 @@ func _physics_process(delta: float) -> void:
 	if collision:
 		print(collision.get_collider().name)
 
-func takeDamage(amount):
+func takeDamage(amount):			#Change this to composition 
 	health -= amount
 	print("Health remaining: ", health)
 	if health <= 0:
