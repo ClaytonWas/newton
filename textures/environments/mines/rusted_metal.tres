@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://caxfhvavmy1b3"]
+
+[ext_resource type="Texture2D" uid="uid://b1mhnlqiu8sbl" path="res://textures/environments/mines/MetalRusted.jpg" id="1_x7s2y"]
+
+[resource]
+albedo_texture = ExtResource("1_x7s2y")
