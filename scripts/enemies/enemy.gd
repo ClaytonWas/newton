@@ -3,8 +3,11 @@ extends CharacterBody3D
 @onready var sprite = $AnimatedSprite3D
 @onready var detectionArea = $DetectionArea
 var movement_vector = Vector3(0, 0, 0)
-var walk_speed = 10
-var health = 100
+@export_category("Enemy Stats")
+@export var walk_speed = 10
+@export var health = 100
+@export var attack_dmg = 20
+@export var vision_radius = 50
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

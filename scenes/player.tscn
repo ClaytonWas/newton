@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cnxm803p7w416"]
+[gd_scene load_steps=15 format=3 uid="uid://cnxm803p7w416"]
 
 [ext_resource type="Script" path="res://scripts/playermovement.gd" id="1_2ak50"]
 [ext_resource type="Script" path="res://scripts/weaponResource.gd" id="2_2mino"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cuoksi8gn05bj" path="res://scenes/guns/fade_glock.tscn" id="7_jcwfb"]
 [ext_resource type="PackedScene" uid="uid://c575uv334iglo" path="res://scenes/guns/laser_gun.tscn" id="8_7qm2k"]
 [ext_resource type="Resource" uid="uid://b2k74qk7pwwkn" path="res://objects/laser_gun.tres" id="9_751et"]
+[ext_resource type="PackedScene" uid="uid://c3hldvhjiu47q" path="res://scenes/UI/hud.tscn" id="11_jutak"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ykk5e"]
 height = 1.77674
@@ -69,3 +70,8 @@ visible = false
 
 [node name="AudioPlayer" type="AudioStreamPlayer3D" parent="."]
 unique_name_in_owner = true
+
+[node name="HUD" parent="." instance=ExtResource("11_jutak")]
+ch_length = 5.0
+ch_radius = 15.0
+ch_color = Color(0.820553, 0.124072, 0.202695, 1)
