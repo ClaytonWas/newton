@@ -27,4 +27,3 @@ surface_material_override/1 = SubResource("StandardMaterial3D_yiabd")
 
 [node name="muzzle_flash" parent="." instance=ExtResource("6_rsxcy")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -2.28488, 1.16, 0.0710919)
-visible = false

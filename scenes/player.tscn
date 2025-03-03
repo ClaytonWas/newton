@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://cnxm803p7w416"]
+[gd_scene load_steps=16 format=3 uid="uid://cnxm803p7w416"]
 
 [ext_resource type="Script" path="res://scripts/playermovement.gd" id="1_2ak50"]
 [ext_resource type="Script" path="res://scripts/weaponResource.gd" id="2_2mino"]
+[ext_resource type="Script" path="res://scripts/player_shoot.gd" id="3_0hi0p"]
 [ext_resource type="Resource" uid="uid://daj1kmkgd1b7a" path="res://resources/old_glock.tres" id="3_nn53y"]
 [ext_resource type="Resource" uid="uid://ksjqhws7tms6" path="res://resources/fade_glock.tres" id="4_cow4m"]
 [ext_resource type="Shader" path="res://scripts/shaders/camera.gdshader" id="6_jexjg"]
@@ -9,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://b2fwofkviwqga" path="res://scenes/guns/old_glock.tscn" id="6_p1v6h"]
 [ext_resource type="PackedScene" uid="uid://cuoksi8gn05bj" path="res://scenes/guns/fade_glock.tscn" id="7_jcwfb"]
 [ext_resource type="PackedScene" uid="uid://c575uv334iglo" path="res://scenes/guns/laser_gun.tscn" id="8_7qm2k"]
-[ext_resource type="Resource" uid="uid://b2k74qk7pwwkn" path="res://objects/laser_gun.tres" id="9_751et"]
+[ext_resource type="Resource" uid="uid://b2k74qk7pwwkn" path="res://resources/laser_gun.tres" id="9_751et"]
 [ext_resource type="PackedScene" uid="uid://c3hldvhjiu47q" path="res://scenes/UI/crosshair.tscn" id="12_k6evy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ykk5e"]
@@ -29,7 +30,6 @@ material = SubResource("ShaderMaterial_7crhn")
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_2ak50")
 mouse_sensitivity = 0.005
-inventory = Array[ExtResource("2_2mino")]([ExtResource("3_nn53y"), ExtResource("4_cow4m"), ExtResource("9_751et")])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9096, 0)
@@ -52,6 +52,8 @@ mesh = SubResource("QuadMesh_vu8or")
 [node name="right_hand" type="Node3D" parent="HeadPivot"]
 unique_name_in_owner = true
 transform = Transform3D(0.0175106, -0.003185, -0.999842, -0.0174523, 0.999842, -0.00349065, 0.999694, 0.0175107, 0.0174523, 0.707, -0.7, -0.37)
+script = ExtResource("3_0hi0p")
+inventory = Array[ExtResource("2_2mino")]([ExtResource("4_cow4m"), ExtResource("9_751et"), ExtResource("3_nn53y")])
 
 [node name="Gun" type="Node3D" parent="HeadPivot/right_hand"]
 transform = Transform3D(1, -1.86265e-09, -1.86265e-09, -1.86265e-09, 1, -1.45519e-10, 1.86265e-09, 5.82077e-11, 1, 0, 0, 0)
@@ -78,4 +80,4 @@ offset_top = -1.0
 offset_bottom = -1.0
 ch_length = 5.0
 ch_radius = 15.0
-ch_color = Color(0.820553, 0.124072, 0.202695, 1)
+ch_color = Color(1, 1, 1, 1)

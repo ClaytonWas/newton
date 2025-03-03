@@ -19,9 +19,9 @@ class_name Weapon extends Resource
 var is_reloading: bool = false	#Flag to avoid reload spam
 var mag: int = magazine_size	#Current amount of bullets loaded
 
-func _ready():
-	reserve_ammo += magazine_size
-	update_ammo(magazine_size)
+func _init():
+	mag = magazine_size
+
 
 
 func get_damage():return damage
