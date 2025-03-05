@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bbvufmb6hqcvc"
-path="res://.godot/imported/Weapon_02.fbx-2088306d9d3f089183599c5d4023822f.scn"
+valid=false
 
 [deps]
 
 source_file="res://objects/Weapons/Weapon_02.fbx"
-dest_files=["res://.godot/imported/Weapon_02.fbx-2088306d9d3f089183599c5d4023822f.scn"]
 
 [params]
 

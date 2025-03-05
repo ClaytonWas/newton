@@ -59,28 +59,17 @@ func shoot():
 		%AudioPlayer.stream = equipped_weapon.fire_sound	#Play sound
 		%AudioPlayer.play()
 		
-		var raycast =  self.get_parent_node_3d().find_child("Camera3D").find_child("RayCast3D")
+		var raycast =  %RayCast3D
 		var hit_object = raycast.get_collider()
 		var hit_point = raycast.get_collision_point()
 		
-		if raycast.is_colliding():
-			if "Demon" in hit_object.name:
-				print("Hit: ", hit_object.name)
-				hit_object.takeDamage(equipped_weapon.damage)
-				
-			elif "Physical Bone" in hit_object.name:	#Shot Boss
-				var root = hit_object.get_parent()  # Get the immediate parent
-				while root and not root is CharacterBody3D:  
-					root = root.get_parent()  
-				print('Hit Boss ', root.name)
-				root.take_damage(equipped_weapon.damage)
-			else:
-				#Spawn bullet hole
-				var bullet_hole = load("res://scenes/guns/bullet_hole.tscn").instantiate()
-				#bullet_hole.global_transform.origin = hit_point.position
-				
-				#hit_object.add_child_scene(bullet_hole)
-				print('Missed, hit instead: ', hit_object, hit_point)
+		if hit_object.has_node("HitboxComponent"):
+			var hitbox : HitboxComponent = hit_object.find_child("HitboxComponent")
+			var amount = equipped_weapon.damage
+			hitbox.damage(amount)
+		else:
+			print(hit_object.name)
+	
 	else:
 		print("Out of ammo!")
 		%AudioPlayer.stream = equipped_weapon.dryfire_sound	#Play dry fire sound

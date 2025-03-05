@@ -43,6 +43,7 @@ unique_name_in_owner = true
 fov = 105.0
 
 [node name="RayCast3D" type="RayCast3D" parent="HeadPivot/Camera3D"]
+unique_name_in_owner = true
 target_position = Vector3(0, 0, -101)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="HeadPivot/Camera3D"]
