@@ -1,5 +1,6 @@
-[gd_scene load_steps=36 format=3 uid="uid://bhcamgead3h50"]
+[gd_scene load_steps=37 format=3 uid="uid://bhcamgead3h50"]
 
+[ext_resource type="Script" path="res://scripts/nether_boss_target.gd" id="1_26koj"]
 [ext_resource type="Script" path="res://scripts/scene_portal.gd" id="1_e1ajy"]
 [ext_resource type="Shader" path="res://scripts/shaders/sky.gdshader" id="1_wrvli"]
 [ext_resource type="PackedScene" uid="uid://cnxm803p7w416" path="res://scenes/player.tscn" id="1_xo1mh"]
@@ -83,6 +84,10 @@ size = Vector2(300, 300)
 size = Vector3(73.2159, 0.001, 123.509)
 
 [node name="Nether" type="Node3D"]
+script = ExtResource("1_26koj")
+linear_speed_max = 50.0
+linear_acceleration_max = 10.0
+angular_accel_max = 730
 
 [node name="HomePortal" type="Area3D" parent="."]
 transform = Transform3D(0.643536, 0, 0.765416, 0, 1, 0, -0.765416, 0, 0.643536, -119.656, 2.57204, 88.8343)
@@ -127,6 +132,7 @@ transform = Transform3D(0.00516611, 0, -0.999987, 0, 1, 0, 0.999987, 0, 0.005166
 navigation_mesh = SubResource("NavigationMesh_ko78a")
 
 [node name="MutantBoss" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("7_3ospy")]
+unique_name_in_owner = true
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -118, 0, -2)
 target_node = NodePath("../Player")
 

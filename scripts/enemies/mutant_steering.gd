@@ -15,6 +15,9 @@ func _physics_process(delta: float) -> void:
 	target.position.y = transform.origin.y
 	blend.calculate_steering(accel)
 	agent._apply_steering(accel, delta)
+	
+	if velocity > Vector3.ZERO:
+		print("Running")
 
 
 func setup(
@@ -26,7 +29,7 @@ func setup(
 	arrival_tolerance: float,
 	linear_acceleration_max: float,
 	linear_speed_max: float,
-	_target: Node3D
+	_target: CharacterBody3D
 ) -> void:
 	agent.linear_speed_max = linear_speed_max
 	agent.linear_acceleration_max = linear_acceleration_max
@@ -45,3 +48,7 @@ func setup(
 	self.target.position = target_node.transform.origin
 	blend.add(arrive, 1)
 	blend.add(face, 1)
+	print('Monster is setup for ',target_node.name)
+
+func _ready():
+	pass
