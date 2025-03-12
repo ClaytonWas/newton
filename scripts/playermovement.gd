@@ -108,11 +108,15 @@ func take_damage(dmg:int):
 		health -= dmg
 		
 		if health <= 0:
-			emit_signal("death_screen")
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-
+			death_state()
 
 func _on_timer_timeout():
-	$CollisionShape3D.queue_free()
+	death_state()
+
+func death_state():
+	is_dead = true
 	emit_signal("death_screen")
+	$BodyCollisionShape.queue_free()
+	walk_speed = 0
+	sprint_speed = 30
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
