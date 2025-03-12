@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+signal death_screen
+
 @export_category("Camera Controls")
 @export var mouse_sensitivity := 0.002
 const headbob_shake := 0.025
@@ -107,4 +109,11 @@ func take_damage(dmg:int):
 		health -= dmg
 		
 		if health <= 0:
-			is_dead = true
+			emit_signal("death_screen")
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+
+func _on_timer_timeout():
+	$CollisionShape3D.queue_free()
+	emit_signal("death_screen")
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
