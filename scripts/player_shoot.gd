@@ -63,12 +63,13 @@ func shoot():
 		var hit_object = raycast.get_collider()
 		var hit_point = raycast.get_collision_point()
 		
-		if hit_object.has_node("HitboxComponent"):
-			var hitbox : HitboxComponent = hit_object.find_child("HitboxComponent")
-			var amount = equipped_weapon.damage
-			hitbox.damage(amount)
-		else:
-			print(hit_object.name)
+		if hit_object:
+			if hit_object.has_node("HitboxComponent"):
+				var hitbox : HitboxComponent = hit_object.find_child("HitboxComponent")
+				var amount = equipped_weapon.damage
+				hitbox.damage(amount)
+			else:
+				print(hit_object.name)
 	
 	else:
 		print("Out of ammo!")

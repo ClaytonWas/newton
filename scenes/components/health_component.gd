@@ -12,4 +12,5 @@ func damage(amount):
 	health -= amount
 	
 	if health <= 0:
+		GlobalDeathSignals.enemy_died.emit()
 		get_parent().queue_free()

@@ -20,5 +20,5 @@ func _physics_process(delta: float) -> void:
 
 	if collision:
 		if collision.get_collider().name == 'Player':
-			print('Player hit by demon melee.')
-			$AnimatedSprite3D.modulate = Color(1, 0, 0)
+			var hitbox : HitboxComponent = collision.get_collider().find_child("HitboxComponent")
+			print("detecting player hitbox")
