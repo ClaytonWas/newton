@@ -4,7 +4,7 @@ extends CharacterBody3D
 @onready var anim_state = anim_tree.get("parameters/playback")
 
 @export_category("Boss Stats")
-@export var run_speed: float	#TODO change to composition from enemy
+@export var run_speed: float = 10	#TODO change to composition from enemy
 @export var health: float = 500
 
 @export var light_dmg: float = 25

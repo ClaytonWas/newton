@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyv3g7xm5565x"]
+
+[ext_resource type="PackedScene" uid="uid://bv0jhxfsxnyog" path="res://objects/LowpolyForestPack/Trees/DeadOak3.fbx" id="1_oh60v"]
+
+[node name="DeadOak" type="Node3D"]
+
+[node name="DeadOak3" parent="." instance=ExtResource("1_oh60v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.84562, 0, -27.8466)

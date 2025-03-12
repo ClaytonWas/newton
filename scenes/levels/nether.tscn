@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bhcamgead3h50"]
+[gd_scene load_steps=36 format=3 uid="uid://bhcamgead3h50"]
 
 [ext_resource type="Script" path="res://scripts/scene_portal.gd" id="1_e1ajy"]
 [ext_resource type="Shader" path="res://scripts/shaders/sky.gdshader" id="1_wrvli"]
@@ -7,6 +7,22 @@
 [ext_resource type="Shader" path="res://scripts/shaders/chromatic_shield.gdshader" id="3_5nwsy"]
 [ext_resource type="Texture2D" uid="uid://cdj403s1c7ugt" path="res://textures/environments/mines/Rocks_W.jpg" id="4_jmuup"]
 [ext_resource type="PackedScene" uid="uid://cuoadhq443oe6" path="res://scenes/enemies/mutant_boss.tscn" id="7_3ospy"]
+[ext_resource type="PackedScene" uid="uid://bwmdhvo17iueq" path="res://scenes/environments/Foliage/dead_spruce_2.tscn" id="7_qce54"]
+[ext_resource type="PackedScene" uid="uid://vtt7go0rfwov" path="res://objects/LowpolyForestPack/Rocks/BigRock5.fbx" id="9_ivtvt"]
+[ext_resource type="PackedScene" uid="uid://bf470rysn4631" path="res://objects/LowpolyForestPack/Rocks/BigRock3.fbx" id="10_rbuc5"]
+[ext_resource type="PackedScene" uid="uid://bmtaly6deld8i" path="res://objects/LowpolyForestPack/Rocks/BigRock2.fbx" id="11_5byqs"]
+[ext_resource type="PackedScene" uid="uid://c5i4vsfdjgq16" path="res://objects/LowpolyForestPack/Rocks/Rock3.fbx" id="12_u4j7v"]
+[ext_resource type="PackedScene" uid="uid://d0mu6avlj5j37" path="res://objects/LowpolyForestPack/Rocks/Rock5.fbx" id="13_1hj0q"]
+[ext_resource type="PackedScene" uid="uid://71e7on7fbhe5" path="res://objects/LowpolyForestPack/Rocks/Rock_20.fbx" id="14_ch7mi"]
+[ext_resource type="PackedScene" uid="uid://qdsviwq3w0ef" path="res://scenes/environments/Foliage/dead_spruce_1.tscn" id="15_ogkur"]
+[ext_resource type="PackedScene" uid="uid://drpag5a7m34p7" path="res://objects/LowpolyForestPack/Rocks/Rock_25.fbx" id="15_uyo4c"]
+[ext_resource type="PackedScene" uid="uid://dd75bv0wcko0t" path="res://objects/LowpolyForestPack/Rocks/BigRock4.fbx" id="17_1mww7"]
+[ext_resource type="PackedScene" uid="uid://fmkaupuk74r6" path="res://objects/LowpolyForestPack/Rocks/BigRock1.fbx" id="18_76tbq"]
+[ext_resource type="PackedScene" uid="uid://c0xo8rdt88wrw" path="res://scenes/environments/Foliage/dead_spruce_3.tscn" id="19_tqmh5"]
+[ext_resource type="PackedScene" uid="uid://dyv3g7xm5565x" path="res://scenes/environments/Foliage/dead_oak.tscn" id="20_6duds"]
+[ext_resource type="Script" path="res://scripts/random_forest.gd" id="21_2uuda"]
+[ext_resource type="PackedScene" uid="uid://d0j04rjw0nual" path="res://scenes/environments/Foliage/Bigrock1.tscn" id="21_wintm"]
+[ext_resource type="PackedScene" uid="uid://cjbj45nkp0ded" path="res://scenes/environments/Foliage/BigRock5.tscn" id="22_6b5a3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lcncu"]
 render_priority = 0
@@ -61,6 +77,11 @@ albedo_color = Color(0.3, 0.311667, 1, 1)
 material = SubResource("StandardMaterial3D_qagb1")
 size = Vector2(300, 300)
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_ko78a"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mgyan"]
+size = Vector3(73.2159, 0.001, 123.509)
+
 [node name="Nether" type="Node3D"]
 
 [node name="HomePortal" type="Area3D" parent="."]
@@ -87,10 +108,11 @@ shadow_enabled = true
 environment = SubResource("Environment_hqsba")
 
 [node name="Player" parent="." instance=ExtResource("1_xo1mh")]
+unique_name_in_owner = true
 transform = Transform3D(0.639761, 0, -0.768574, 0, 1, 0, 0.768574, 0, 0.639761, -100, 1, 100)
 
 [node name="Sand" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.026535, 0.132594, 0.0966415)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.38837, 0.132594, 0.0966415)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sand"]
 shape = SubResource("BoxShape3D_dc7cd")
@@ -98,5 +120,153 @@ shape = SubResource("BoxShape3D_dc7cd")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sand"]
 mesh = SubResource("PlaneMesh_xej5i")
 
-[node name="MutantBoss" parent="." instance=ExtResource("7_3ospy")]
+[node name="DeadSpruce2" parent="Sand" instance=ExtResource("7_qce54")]
+transform = Transform3D(0.00516611, 0, -0.999987, 0, 1, 0, 0.999987, 0, 0.00516611, 64.7029, 0.0499997, 22.6799)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="Sand"]
+navigation_mesh = SubResource("NavigationMesh_ko78a")
+
+[node name="MutantBoss" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("7_3ospy")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -118, 0, -2)
+target_node = NodePath("../Player")
+
+[node name="BorderRocks" type="Node3D" parent="."]
+
+[node name="BorderRock5" parent="BorderRocks" instance=ExtResource("9_ivtvt")]
+transform = Transform3D(10, 0, 0, 0, 5, 0, 0, 0, 8, -9.67729, 3.46783, 327.572)
+
+[node name="BorderRock4" parent="BorderRocks" instance=ExtResource("17_1mww7")]
+transform = Transform3D(24.941, -0.00921519, -0.342967, 0.161662, 3.49449, 0.278632, 1.70847, -0.196135, 4.98044, 218.644, 27.1324, 415.93)
+
+[node name="BorderRock3" parent="BorderRocks" instance=ExtResource("10_rbuc5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 113.795, 0, 128.721)
+
+[node name="CornerRock1" parent="BorderRocks" instance=ExtResource("18_76tbq")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -97.9011, 0.182597, -23.6042)
+
+[node name="ConnerRock2" parent="BorderRocks" instance=ExtResource("11_5byqs")]
+transform = Transform3D(-0.624106, 0, -1.90013, 0, 2, 0, 1.90013, 0, -0.624106, -204.784, 2.7069, 91.5465)
+
+[node name="BorderRock6" parent="BorderRocks" instance=ExtResource("10_rbuc5")]
+transform = Transform3D(19.8928, 0, -1.03418, 0, 8, 0, 2.06835, 0, 9.94638, -355.177, 10.9418, 160.488)
+
+[node name="BorderRock7" parent="BorderRocks" instance=ExtResource("17_1mww7")]
+transform = Transform3D(6, 0, 0, 0, 5, 0, 0, 0, 25, -131.973, 19.1957, 1218.7)
+
+[node name="Trees" type="Node3D" parent="."]
+
+[node name="DeadSpruce1" parent="Trees" instance=ExtResource("15_ogkur")]
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 41, 0, 31)
+
+[node name="DeadSpruce2" parent="Trees" instance=ExtResource("15_ogkur")]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 51.8838, 0.182593, 31.5535)
+
+[node name="DeadSpruce4" parent="Trees" instance=ExtResource("7_qce54")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.4669, 0.182593, 29.5732)
+
+[node name="DeadSpruce3" parent="Trees" instance=ExtResource("7_qce54")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.7801, 0.182593, 41.6407)
+
+[node name="DeadSpruce5" parent="Trees" instance=ExtResource("7_qce54")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.171, 0.182593, 56.8987)
+
+[node name="DeadSpruce6" parent="Trees" instance=ExtResource("19_tqmh5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.75, 0.182593, 45.7904)
+
+[node name="DeadSpruce7" parent="Trees" instance=ExtResource("19_tqmh5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.93, 0.182593, 71.5034)
+
+[node name="DeadSpruce8" parent="Trees" instance=ExtResource("19_tqmh5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.633, 0.182597, 98.8057)
+
+[node name="DeadSpruce9" parent="Trees" instance=ExtResource("19_tqmh5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.5113, 0.182597, 8.70869)
+
+[node name="DeadOak" parent="Trees" instance=ExtResource("20_6duds")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.1561, 0.182597, 20.3898)
+
+[node name="DeadOak2" parent="Trees" instance=ExtResource("20_6duds")]
+transform = Transform3D(0.451485, 0, -0.892279, 0, 1, 0, 0.892279, 0, 0.451485, 54.7625, 0.182597, 87.0404)
+
+[node name="DeadOak3" parent="Trees" instance=ExtResource("20_6duds")]
+transform = Transform3D(0.732745, 0, 0.680503, 0, 1, 0, -0.680503, 0, 0.732745, 54.6233, 0.182597, 52.2843)
+
+[node name="DeadSpruce10" parent="Trees" instance=ExtResource("7_qce54")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 53, 0, 60)
+
+[node name="DeadSpruce11" parent="Trees" instance=ExtResource("15_ogkur")]
+transform = Transform3D(0.714496, 0, 0.359854, 0, 1.15, 0, -0.359854, 0, 0.714496, 54.5096, 0, 95.3341)
+
+[node name="DeadSpruce12" parent="Trees" instance=ExtResource("7_qce54")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 63.1738, 1.90735e-06, 23.2395)
+
+[node name="DeadSpruce13" parent="Trees" instance=ExtResource("19_tqmh5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.269, 0, 27.4565)
+
+[node name="DeadSpruce14" parent="Trees" instance=ExtResource("7_qce54")]
+transform = Transform3D(0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, 0.5, 53, 0, 67)
+
+[node name="DeadSpruce15" parent="Trees" instance=ExtResource("7_qce54")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 0, 33)
+
+[node name="DeadSpruce16" parent="Trees" instance=ExtResource("19_tqmh5")]
+transform = Transform3D(0.66, 0, 0, 0, 0.66, 0, 0, 0, 0.66, 51.2405, 0, 27.6732)
+
+[node name="DeadSpruce17" parent="Trees" instance=ExtResource("7_qce54")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52, 0, 91)
+
+[node name="DeadSpruce18" parent="Trees" instance=ExtResource("7_qce54")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 0, 76)
+
+[node name="DeadSpruce19" parent="Trees" instance=ExtResource("7_qce54")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53, 0, 81)
+
+[node name="DeadSpruce20" parent="Trees" instance=ExtResource("15_ogkur")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 0, 104)
+
+[node name="DeadSpruce21" parent="Trees" instance=ExtResource("15_ogkur")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 59, 0, 91)
+
+[node name="DeadSpruce22" parent="Trees" instance=ExtResource("19_tqmh5")]
+transform = Transform3D(0.7, 0, 0, 0, 1.1, 0, 0, 0, 0.7, 56, 0, 112)
+
+[node name="DeadSpruce23" parent="Trees" instance=ExtResource("15_ogkur")]
+transform = Transform3D(0.0109573, 0, 0.639906, 0, 1.3225, 0, -0.639906, 0, 0.0109573, 55.2379, 0, 75.0475)
+
+[node name="DeadSpruce24" parent="Trees" instance=ExtResource("7_qce54")]
+transform = Transform3D(-0.33973, 0, -1.56352, 0, 1.6008, 0, 1.56352, 0, -0.33973, 58.3903, 0.182594, 13.9195)
+
+[node name="RandomForest" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 102.186, 0.4995, 62.8738)
+disable_mode = 1
+script = ExtResource("21_2uuda")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RandomForest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.938961)
+shape = SubResource("BoxShape3D_mgyan")
+
+[node name="DecorRocks" type="Node3D" parent="."]
+
+[node name="BigRock3" parent="DecorRocks" instance=ExtResource("10_rbuc5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 79)
+
+[node name="Rock3" parent="DecorRocks/BigRock3" instance=ExtResource("12_u4j7v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -40)
+
+[node name="Rock5" parent="DecorRocks/BigRock3" instance=ExtResource("13_1hj0q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -42)
+
+[node name="Rock_25" parent="DecorRocks" instance=ExtResource("15_uyo4c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108, 0, -59)
+
+[node name="BigRock2" parent="DecorRocks" instance=ExtResource("11_5byqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -101.059, 0, 53.111)
+
+[node name="BigRock4" parent="DecorRocks" instance=ExtResource("21_wintm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.6126, 0, 46.1227)
+
+[node name="bigRock5" parent="DecorRocks" instance=ExtResource("22_6b5a3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.7294, -3.8147e-06, -28.7543)
+
+[node name="Rock_20" parent="DecorRocks/bigRock5" instance=ExtResource("14_ch7mi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)

@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://c3hldvhjiu47q" path="res://scenes/UI/crosshair.tscn" id="12_k6evy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ykk5e"]
-height = 1.77674
+height = 1.99585
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7crhn"]
 render_priority = 0
@@ -32,7 +32,7 @@ script = ExtResource("1_2ak50")
 mouse_sensitivity = 0.005
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9096, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01108, 0)
 shape = SubResource("CapsuleShape3D_ykk5e")
 
 [node name="HeadPivot" type="Node3D" parent="."]
@@ -81,3 +81,5 @@ offset_bottom = -1.0
 ch_length = 5.0
 ch_radius = 15.0
 ch_color = Color(1, 1, 1, 1)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
