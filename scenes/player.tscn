@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cnxm803p7w416"]
+[gd_scene load_steps=20 format=3 uid="uid://cnxm803p7w416"]
 
 [ext_resource type="Script" path="res://scripts/playermovement.gd" id="1_2ak50"]
 [ext_resource type="Script" path="res://scripts/weaponResource.gd" id="2_2mino"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://scripts/UI/death_screen.gd" id="12_f3lf3"]
 [ext_resource type="PackedScene" uid="uid://c3hldvhjiu47q" path="res://scenes/UI/crosshair.tscn" id="12_k6evy"]
 [ext_resource type="Script" path="res://scenes/timer.gd" id="13_g3pfr"]
+[ext_resource type="Script" path="res://scripts/UI/clock_face.gd" id="15_b7v5p"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ykk5e"]
 height = 1.77674
@@ -84,24 +85,31 @@ visible = false
 script = ExtResource("12_f3lf3")
 
 [node name="ColorRect" type="ColorRect" parent="DeathScreen"]
-offset_right = 1156.0
-offset_bottom = 649.0
-color = Color(1, 0, 0, 0.352941)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.215686, 0.0431373, 0.654902)
 
-[node name="Button" type="Button" parent="DeathScreen"]
-offset_left = 539.0
-offset_top = 400.0
-offset_right = 620.0
-offset_bottom = 431.0
-text = "Try Again"
+[node name="VBoxContainer" type="VBoxContainer" parent="DeathScreen"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -43.0
+offset_top = 216.0
+offset_right = 44.0
+offset_bottom = 276.0
+grow_horizontal = 2
 
-[node name="Label" type="Label" parent="DeathScreen"]
-offset_left = 540.0
-offset_top = 231.0
-offset_right = 627.0
-offset_bottom = 254.0
+[node name="Label" type="Label" parent="DeathScreen/VBoxContainer"]
+layout_mode = 2
 text = "Game Over
 "
+
+[node name="Button" type="Button" parent="DeathScreen/VBoxContainer"]
+layout_mode = 2
+text = "Try Again"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -128,6 +136,15 @@ script = ExtResource("13_g3pfr")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.022377, 1.51539, -0.10498)
 shape = SubResource("BoxShape3D_yh1i5")
 
+[node name="left_hand" type="Node3D" parent="."]
+
+[node name="clock_face" type="Node2D" parent="left_hand"]
+position = Vector2(250, 447)
+script = ExtResource("15_b7v5p")
+
+[node name="SecondHand" type="Line2D" parent="left_hand/clock_face"]
+points = PackedVector2Array(0, 0, 100, 0)
+
 [connection signal="death_screen" from="." to="DeathScreen" method="_on_player_death_screen"]
-[connection signal="pressed" from="DeathScreen/Button" to="DeathScreen" method="_on_button_pressed"]
+[connection signal="pressed" from="DeathScreen/VBoxContainer/Button" to="DeathScreen" method="_on_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

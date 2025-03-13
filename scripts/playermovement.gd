@@ -117,6 +117,9 @@ func death_state():
 	is_dead = true
 	emit_signal("death_screen")
 	$BodyCollisionShape.queue_free()
-	walk_speed = 0
-	sprint_speed = 30
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	set_script(null)
+
+
+func _on_death_zone_body_entered(body: Node3D) -> void:
+	emit_signal("death_screen")
