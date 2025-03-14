@@ -233,19 +233,19 @@ surface_material_override/0 = SubResource("ShaderMaterial_excqs")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.89254, 0)
 shape = SubResource("WorldBoundaryShape3D_fgawh")
 
-[node name="OfficePortal2" type="Area3D" parent="."]
+[node name="SewersPortal" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.902, 3, 79.4583)
 script = ExtResource("10_ufjd8")
-scene_path = "res://scenes/levels/office/main.tscn"
+scene_path = "res://scenes/levels/sewers/main.tscn"
 metadata/_edit_group_ = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="OfficePortal2"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SewersPortal"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 material_override = SubResource("ShaderMaterial_jcgg6")
 mesh = SubResource("TubeTrailMesh_h55cq")
 skeleton = NodePath("../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="OfficePortal2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SewersPortal"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("CylinderShape3D_sk2h0")
 
