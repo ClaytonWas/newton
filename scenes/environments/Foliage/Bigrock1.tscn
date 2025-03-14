@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0j04rjw0nual"]
+
+[ext_resource type="PackedScene" uid="uid://fmkaupuk74r6" path="res://objects/LowpolyForestPack/Rocks/BigRock1.fbx" id="1_3grri"]
+
+[node name="BigRock1" type="StaticBody3D"]
+
+[node name="BigRock1" parent="." instance=ExtResource("1_3grri")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.7437, 0, 32.572)
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]

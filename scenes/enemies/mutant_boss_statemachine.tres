@@ -1,0 +1,49 @@
+[gd_resource type="AnimationNodeStateMachine" load_steps=10 format=3 uid="uid://xd7356mk08iy"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bcrmm"]
+animation = &"mutant_breathing_idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_875mr"]
+animation = &"mutant_jump_attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_n2gxy"]
+animation = &"mutant_punch"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ye5v8"]
+animation = &"mutant_roaring"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_23il1"]
+animation = &"mutant_run_(1)"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_krrhg"]
+animation = &"mutant_swiping"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dqpst"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n5p4s"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gvki6"]
+switch_mode = 2
+advance_mode = 2
+
+[resource]
+allow_transition_to_self = true
+states/End/position = Vector2(990, 100)
+states/Start/position = Vector2(224, 100)
+states/mutant_idle/node = SubResource("AnimationNodeAnimation_bcrmm")
+states/mutant_idle/position = Vector2(413, 66)
+states/mutant_jump_attack/node = SubResource("AnimationNodeAnimation_875mr")
+states/mutant_jump_attack/position = Vector2(651, 317)
+states/mutant_punch/node = SubResource("AnimationNodeAnimation_n2gxy")
+states/mutant_punch/position = Vector2(651, 205)
+states/mutant_roaring/node = SubResource("AnimationNodeAnimation_ye5v8")
+states/mutant_roaring/position = Vector2(403, 142)
+states/mutant_run/node = SubResource("AnimationNodeAnimation_23il1")
+states/mutant_run/position = Vector2(403, 226)
+states/mutant_swiping/node = SubResource("AnimationNodeAnimation_krrhg")
+states/mutant_swiping/position = Vector2(651, 116)
+transitions = ["mutant_swiping", "mutant_roaring", SubResource("AnimationNodeStateMachineTransition_dqpst"), "mutant_roaring", "mutant_idle", SubResource("AnimationNodeStateMachineTransition_n5p4s"), "mutant_punch", "mutant_swiping", SubResource("AnimationNodeStateMachineTransition_gvki6")]

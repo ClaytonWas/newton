@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://qdsviwq3w0ef"]
+
+[ext_resource type="PackedScene" uid="uid://vmvdl5ebud4p" path="res://objects/LowpolyForestPack/Trees/DeadSpruce1.fbx" id="1_04nb3"]
+
+[node name="DeadSpruce1" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+
+[node name="DeadTree1" parent="." instance=ExtResource("1_04nb3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)

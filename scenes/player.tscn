@@ -17,7 +17,7 @@
 [ext_resource type="Script" path="res://scripts/UI/clock_face.gd" id="15_b7v5p"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ykk5e"]
-height = 1.77674
+height = 1.99585
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7crhn"]
 render_priority = 0
