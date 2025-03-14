@@ -20,15 +20,15 @@ void fragment() {
 	vec3 normal_sample_1 = texture(normal_map_texture, UV + vec2(-1, 1) * time).xyz * 2.0 - 1.0;
 	vec3 normal_sample_2 = texture(normal_map_texture, -UV + vec2(0, 1) * time).xyz * 2.0 - 1.0;
 	vec3 normal_map = vec3(normal_sample_1.xy + normal_sample_2.xy, 0.0);
-	
+
 	// Set NORMAL directly since we need to use it later
 	NORMAL_MAP_DEPTH = 1.0;
 	normal_map.z = sqrt(max(0.0, 1.0 - dot(normal_map.xy, normal_map.xy)));
 	NORMAL = normalize(mix(NORMAL, TANGENT * normal_map.x + BINORMAL * normal_map.y + NORMAL * normal_map.z, NORMAL_MAP_DEPTH));
-	
+
 	vec2 distorted_uv = SCREEN_UV - normal_map.xy * 20.0 / length(VERTEX);
 	ALBEDO = texture(screen_texture, distorted_uv).rgb;
-	
+
 	// Apply Snell's window mask to water surface when viewed from below
 	if(!FRONT_FACING) {
 		float mask = snells_window(NORMAL, VIEW, index_of_refraction);
