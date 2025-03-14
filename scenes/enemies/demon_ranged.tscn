@@ -1,10 +1,12 @@
-[gd_scene load_steps=26 format=3 uid="uid://c26jbd6ors1x0"]
+[gd_scene load_steps=28 format=3 uid="uid://c26jbd6ors1x0"]
 
 [ext_resource type="Script" path="res://scripts/enemies/demon_ranged.gd" id="1_ryxmw"]
 [ext_resource type="Texture2D" uid="uid://156js7f0qeqb" path="res://textures/enemies/DemonSpritesheet.png" id="2_7rs85"]
+[ext_resource type="PackedScene" uid="uid://dwsw3a2j15dtf" path="res://scenes/components/HealthComponent.tscn" id="3_2rek5"]
+[ext_resource type="PackedScene" uid="uid://cmqrs35b4snep" path="res://scenes/components/HitboxComponent.tscn" id="4_6q8oa"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_awknd"]
-size = Vector3(1.4312, 0.879303, 1.12637)
+size = Vector3(0.124011, 0.66659, 0.141092)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_grdds"]
 atlas = ExtResource("2_7rs85")
@@ -174,16 +176,16 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_a2mln"]
-height = 2.85844
-radius = 7.053
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0jquy"]
+radius = 0.34847
+height = 0.83808
 
 [node name="Demon_Ranged" type="CharacterBody3D"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 script = ExtResource("1_ryxmw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0125961, 0, -0.0126872)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0244436, 0)
 shape = SubResource("BoxShape3D_awknd")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
@@ -191,7 +193,11 @@ modulate = Color(0.290196, 1, 1, 1)
 sprite_frames = SubResource("SpriteFrames_vpn0s")
 animation = &"walkBack"
 
-[node name="DetectionArea" type="Area3D" parent="."]
+[node name="HealthComponent" parent="." instance=ExtResource("3_2rek5")]
+max_health = 75
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
-shape = SubResource("CylinderShape3D_a2mln")
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_6q8oa")]
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
+shape = SubResource("CapsuleShape3D_0jquy")

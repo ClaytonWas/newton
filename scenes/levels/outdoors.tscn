@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://b2spxeueapwij"]
+[gd_scene load_steps=31 format=3 uid="uid://b2spxeueapwij"]
 
 [ext_resource type="Shader" path="res://scripts/shaders/starrysky.gdshader" id="1_g6wkd"]
 [ext_resource type="Shader" path="res://scripts/shaders/water.gdshader" id="2_v7h6p"]
@@ -114,6 +114,8 @@ shader_parameter/metallic = 1.0
 shader_parameter/specular = 0.5
 shader_parameter/roughness = 0.05
 
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_fgawh"]
+
 [node name="Outdoors" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -200,3 +202,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.478904, 0)
 mesh = SubResource("QuadMesh_neuva")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_excqs")
+
+[node name="DeathZone" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DeathZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.89254, 0)
+shape = SubResource("WorldBoundaryShape3D_fgawh")
+
+[connection signal="body_entered" from="DeathZone" to="Player" method="_on_death_zone_body_entered"]

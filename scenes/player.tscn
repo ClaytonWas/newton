@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cnxm803p7w416"]
+[gd_scene load_steps=20 format=3 uid="uid://cnxm803p7w416"]
 
 [ext_resource type="Script" path="res://scripts/playermovement.gd" id="1_2ak50"]
 [ext_resource type="Script" path="res://scripts/weaponResource.gd" id="2_2mino"]
@@ -11,7 +11,10 @@
 [ext_resource type="PackedScene" uid="uid://cuoksi8gn05bj" path="res://scenes/guns/fade_glock.tscn" id="7_jcwfb"]
 [ext_resource type="PackedScene" uid="uid://c575uv334iglo" path="res://scenes/guns/laser_gun.tscn" id="8_7qm2k"]
 [ext_resource type="Resource" uid="uid://b2k74qk7pwwkn" path="res://resources/laser_gun.tres" id="9_751et"]
+[ext_resource type="Script" path="res://scripts/UI/death_screen.gd" id="12_f3lf3"]
 [ext_resource type="PackedScene" uid="uid://c3hldvhjiu47q" path="res://scenes/UI/crosshair.tscn" id="12_k6evy"]
+[ext_resource type="Script" path="res://scenes/timer.gd" id="13_g3pfr"]
+[ext_resource type="Script" path="res://scripts/UI/clock_face.gd" id="15_b7v5p"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ykk5e"]
 height = 1.99585
@@ -27,12 +30,15 @@ shader_parameter/noise_offset_intensity = 0.002
 [sub_resource type="QuadMesh" id="QuadMesh_vu8or"]
 material = SubResource("ShaderMaterial_7crhn")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_yh1i5"]
+size = Vector3(0.226547, 0.33667, 0.37793)
+
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_2ak50")
 mouse_sensitivity = 0.005
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01108, 0)
+[node name="BodyCollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9096, 0)
 shape = SubResource("CapsuleShape3D_ykk5e")
 
 [node name="HeadPivot" type="Node3D" parent="."]
@@ -43,6 +49,7 @@ unique_name_in_owner = true
 fov = 105.0
 
 [node name="RayCast3D" type="RayCast3D" parent="HeadPivot/Camera3D"]
+unique_name_in_owner = true
 target_position = Vector3(0, 0, -101)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="HeadPivot/Camera3D"]
@@ -73,6 +80,37 @@ visible = false
 [node name="AudioPlayer" type="AudioStreamPlayer3D" parent="."]
 unique_name_in_owner = true
 
+[node name="DeathScreen" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("12_f3lf3")
+
+[node name="ColorRect" type="ColorRect" parent="DeathScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.215686, 0.0431373, 0.654902)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DeathScreen"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -43.0
+offset_top = 216.0
+offset_right = 44.0
+offset_bottom = 276.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="DeathScreen/VBoxContainer"]
+layout_mode = 2
+text = "Game Over
+"
+
+[node name="Button" type="Button" parent="DeathScreen/VBoxContainer"]
+layout_mode = 2
+text = "Try Again"
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Crosshair" parent="CanvasLayer" instance=ExtResource("12_k6evy")]
@@ -82,4 +120,31 @@ ch_length = 5.0
 ch_radius = 15.0
 ch_color = Color(1, 1, 1, 1)
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+[node name="TimerDisplay" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 30.0
+one_shot = true
+autostart = true
+script = ExtResource("13_g3pfr")
+
+[node name="HeadCollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.022377, 1.51539, -0.10498)
+shape = SubResource("BoxShape3D_yh1i5")
+
+[node name="left_hand" type="Node3D" parent="."]
+
+[node name="clock_face" type="Node2D" parent="left_hand"]
+position = Vector2(250, 447)
+script = ExtResource("15_b7v5p")
+
+[node name="SecondHand" type="Line2D" parent="left_hand/clock_face"]
+points = PackedVector2Array(0, 0, 100, 0)
+
+[connection signal="death_screen" from="." to="DeathScreen" method="_on_player_death_screen"]
+[connection signal="pressed" from="DeathScreen/VBoxContainer/Button" to="DeathScreen" method="_on_button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

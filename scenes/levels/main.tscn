@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://b4untvgg5fv5u"]
+[gd_scene load_steps=34 format=3 uid="uid://b4untvgg5fv5u"]
 
 [ext_resource type="Material" uid="uid://cj54grl1sx8e4" path="res://textures/environments/fadeskybox.tres" id="1_he3p1"]
 [ext_resource type="PackedScene" uid="uid://da6akh7ukg2bu" path="res://scenes/LongHall.tscn" id="2_jfx1u"]
@@ -84,6 +84,9 @@ section_length = 0.1
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_bmfa3"]
 height = 0.5
 radius = 3.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2u8ps"]
+size = Vector3(4, 1, 2)
 
 [node name="Main" type="Node3D"]
 
@@ -220,3 +223,9 @@ skeleton = NodePath("../../Sand/MeshInstance3D")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HomePortal"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("CylinderShape3D_bmfa3")
+
+[node name="DeathBarrier" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.40665, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DeathBarrier"]
+shape = SubResource("BoxShape3D_2u8ps")

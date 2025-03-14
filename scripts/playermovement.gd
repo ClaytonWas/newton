@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+signal death_screen
+
 @export_category("Camera Controls")
 @export var mouse_sensitivity := 0.002
 const headbob_shake := 0.025
@@ -30,7 +32,6 @@ var desired_direction := Vector3.ZERO
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
 		
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
@@ -107,4 +108,18 @@ func take_damage(dmg:int):
 		health -= dmg
 		
 		if health <= 0:
-			is_dead = true
+			death_state()
+
+func _on_timer_timeout():
+	death_state()
+
+func death_state():
+	is_dead = true
+	emit_signal("death_screen")
+	$BodyCollisionShape.queue_free()
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	set_script(null)
+
+
+func _on_death_zone_body_entered(body: Node3D) -> void:
+	emit_signal("death_screen")
