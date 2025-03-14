@@ -85,8 +85,8 @@ size = Vector3(73.2159, 0.001, 123.509)
 
 [node name="Nether" type="Node3D"]
 script = ExtResource("1_26koj")
-linear_speed_max = 50.0
-linear_acceleration_max = 10.0
+linear_speed_max = 75.0
+linear_acceleration_max = 27.1
 angular_accel_max = 730
 
 [node name="HomePortal" type="Area3D" parent="."]
