@@ -33,4 +33,5 @@ shape = SubResource("BoxShape3D_4vm12")
 wait_time = 10.0
 autostart = true
 
+[connection signal="body_entered" from="HitboxComponent" to="." method="_on_hitbox_component_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

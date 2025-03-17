@@ -4,10 +4,13 @@
 [ext_resource type="PackedScene" uid="uid://fwd2eml7uj0b" path="res://scenes/guns/muzzle_flash.tscn" id="2_1j6js"]
 
 [node name="Mac10" type="Node3D"]
-transform = Transform3D(-3.5, 0, -5.28485e-07, 0, 3.5, 0, 5.28485e-07, 0, -3.5, -0.2, 0.499, 0)
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -0.2, 0.499, 0)
 
 [node name="mac102" parent="." instance=ExtResource("1_ktm5r")]
 
 [node name="muzzle_flash" parent="." instance=ExtResource("2_1j6js")]
 transform = Transform3D(-0.01, 0, -8.74227e-10, 0, 0.01, 0, 8.74227e-10, 0, -0.01, 0.129506, 0, 0)
 visible = false
+
+[node name="bullet_spawn" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.11864, 0, 1.79141e-08)

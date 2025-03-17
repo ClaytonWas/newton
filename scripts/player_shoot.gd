@@ -108,7 +108,11 @@ func fire_bullet(gun):
 	
 	#projectile.position = equipped_weapon_node.find_child('muzzle_flash').global_position
 	#projectile.transform.basis = equipped_weapon_node.find_child('muzzle_flash').global_transform.basis
-	%right_hand.add_child(projectile)
+	#equipped_weapon_node.find_child('bullet_spawn').add_child(projectile)
+	projectile.position = equipped_weapon_node.find_child('bullet_spawn').global_position
+	projectile.transform.basis = equipped_weapon_node.find_child('bullet_spawn').global_transform.basis
+	#self = right_hand
+	get_parent().get_parent().get_parent().add_child(projectile)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

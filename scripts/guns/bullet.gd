@@ -14,3 +14,8 @@ func _process(delta: float) -> void:
 
 func _on_timer_timeout() -> void:
 	queue_free()
+
+
+func _on_hitbox_component_body_entered(body: Node3D) -> void:
+	print(self.name, ' bullet hit ', body.name)
+	queue_free()
