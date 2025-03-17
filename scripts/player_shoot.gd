@@ -10,7 +10,7 @@ func _ready() -> void:
 	equipped_weapon = inventory[0]
 	equipped_weapon.mag = equipped_weapon.magazine_size
 	
-	var gun_node = load("res://scenes/guns/" + equipped_weapon.weapon_name + ".tscn")
+	#var gun_node = load("res://scenes/guns/" + equipped_weapon.weapon_name + ".tscn")
 
 	equipped_weapon_node = self.find_child(equipped_weapon.weapon_name)
 	equipped_weapon_node.visible = true

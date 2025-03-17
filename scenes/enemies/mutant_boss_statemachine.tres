@@ -1,4 +1,7 @@
-[gd_resource type="AnimationNodeStateMachine" load_steps=10 format=3 uid="uid://xd7356mk08iy"]
+[gd_resource type="AnimationNodeStateMachine" load_steps=11 format=3 uid="uid://xd7356mk08iy"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h8qie"]
+animation = &"mixamo_com"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bcrmm"]
 animation = &"mutant_breathing_idle"
@@ -34,6 +37,8 @@ advance_mode = 2
 allow_transition_to_self = true
 states/End/position = Vector2(990, 100)
 states/Start/position = Vector2(224, 100)
+states/mixamo_com/node = SubResource("AnimationNodeAnimation_h8qie")
+states/mixamo_com/position = Vector2(789, 79)
 states/mutant_idle/node = SubResource("AnimationNodeAnimation_bcrmm")
 states/mutant_idle/position = Vector2(413, 66)
 states/mutant_jump_attack/node = SubResource("AnimationNodeAnimation_875mr")
