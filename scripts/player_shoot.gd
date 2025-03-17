@@ -117,7 +117,7 @@ func fire_bullet(gun, dir):
 	
 	print(projectile.position,projectile.direction)
 	#self is right_hand
-	get_parent().get_parent().get_parent().add_child(projectile) #Add to world screen
+	get_parent().get_parent().get_parent().get_parent().add_child(projectile) #Add to world screen
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

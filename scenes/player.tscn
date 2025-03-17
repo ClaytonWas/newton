@@ -58,28 +58,28 @@ target_position = Vector3(0, 0, -100)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.340858)
 mesh = SubResource("QuadMesh_vu8or")
 
-[node name="right_hand" type="Node3D" parent="HeadPivot"]
+[node name="right_hand" type="Node3D" parent="HeadPivot/Camera3D"]
 unique_name_in_owner = true
 transform = Transform3D(0.0175106, -0.003185, -0.999842, -0.0174523, 0.999842, -0.00349065, 0.999694, 0.0175107, 0.0174523, 0.707, -0.7, -0.37)
 script = ExtResource("3_0hi0p")
 inventory = Array[ExtResource("2_2mino")]([ExtResource("4_cow4m"), ExtResource("9_751et"), ExtResource("3_nn53y"), ExtResource("8_nf3gp")])
 
-[node name="Gun" type="Node3D" parent="HeadPivot/right_hand"]
+[node name="Gun" type="Node3D" parent="HeadPivot/Camera3D/right_hand"]
 transform = Transform3D(1, -1.86265e-09, -1.86265e-09, -1.86265e-09, 1, -1.45519e-10, 1.86265e-09, 5.82077e-11, 1, 0, 0, 0)
 visible = false
 script = ExtResource("6_mesns")
 
-[node name="old_glock" parent="HeadPivot/right_hand" instance=ExtResource("6_p1v6h")]
+[node name="old_glock" parent="HeadPivot/Camera3D/right_hand" instance=ExtResource("6_p1v6h")]
 visible = false
 
-[node name="fade_glock" parent="HeadPivot/right_hand" instance=ExtResource("7_jcwfb")]
+[node name="fade_glock" parent="HeadPivot/Camera3D/right_hand" instance=ExtResource("7_jcwfb")]
 visible = false
 
-[node name="LaserGun" parent="HeadPivot/right_hand" instance=ExtResource("8_7qm2k")]
+[node name="LaserGun" parent="HeadPivot/Camera3D/right_hand" instance=ExtResource("8_7qm2k")]
 transform = Transform3D(-0.7, 1.58325e-08, -1.49012e-07, 1.76951e-08, 0.75, 9.8953e-10, 1.04308e-07, 6.98492e-10, -1, -0.151277, -0.0569464, 0.269655)
 visible = false
 
-[node name="Mac10" parent="HeadPivot/right_hand" instance=ExtResource("12_6jph3")]
+[node name="Mac10" parent="HeadPivot/Camera3D/right_hand" instance=ExtResource("12_6jph3")]
 visible = false
 
 [node name="AudioPlayer" type="AudioStreamPlayer3D" parent="."]
