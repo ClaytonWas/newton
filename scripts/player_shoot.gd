@@ -45,7 +45,7 @@ func change_weapon(gun:Weapon):
 	equipped_weapon_node.visible = true
 	var gun_node = load("res://scenes/guns/" + gun.weapon_name + ".tscn")
 
-	if (gun.mag==0):
+	if (gun.mag==0):	#Fix guns spawning unloaded
 		gun.mag = gun.magazine_size
 	print('Switched to ',gun.weapon_name,' dealing ',gun.damage,' per shot.')
 
@@ -61,12 +61,14 @@ func shoot():
 		%AudioPlayer.stream = equipped_weapon.fire_sound	#Play sound
 		%AudioPlayer.play()
 		
-		fire_bullet(equipped_weapon)
-		
 		var raycast =  %RayCast3D
 		var hit_object = raycast.get_collider()
 		var hit_point = raycast.get_collision_point()
+		#var bullet_direction = (raycast.target_position - raycast.global_position).normalized()
 		
+		var target_pos = raycast.global_transform.origin + raycast.target_position
+		
+		fire_bullet(equipped_weapon, target_pos)
 		#if hit_object:
 			#if hit_object.has_node("HitboxComponent"):
 				#var hitbox : HitboxComponent = hit_object.find_child("HitboxComponent")
@@ -94,25 +96,28 @@ func reload():
 		
 		equipped_weapon.reload()
 
-func fire_bullet(gun):
+func fire_bullet(gun, dir):
 	# Intakes Weapon resource and global position as params
 	# Instantiates a bullet
 	var bullet 
-	print(gun.bullet_type)
+
 	if (gun.bullet_type == 'light'):
 		bullet = load('res://scenes/guns/bullet.tscn')
 	elif (gun.bullet_type == 'laser'):
 		bullet = load('res://scenes/guns/laser_bullet.tscn')
-	
-	
+	elif (gun.bullet_type == 'shotgun'):
+		bullet = load('res://scenes/guns/pellet.tscn')
 	
 	var projectile = bullet.instantiate()
-	
+
 	projectile.damage = equipped_weapon.get_damage()
 	projectile.position = equipped_weapon_node.find_child('bullet_spawn').global_position
 	projectile.transform.basis = equipped_weapon_node.find_child('bullet_spawn').global_transform.basis
-	#self = right_hand
-	get_parent().get_parent().get_parent().add_child(projectile)
+	#projectile.direction = (projectile.position - dir).normalized()
+	
+	print(projectile.position,projectile.direction)
+	#self is right_hand
+	get_parent().get_parent().get_parent().add_child(projectile) #Add to world screen
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
