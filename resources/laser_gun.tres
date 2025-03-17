@@ -1,11 +1,15 @@
-[gd_resource type="Resource" script_class="Weapon" load_steps=3 format=3 uid="uid://b2k74qk7pwwkn"]
+[gd_resource type="Resource" script_class="Weapon" load_steps=5 format=3 uid="uid://b2k74qk7pwwkn"]
 
+[ext_resource type="AudioStream" uid="uid://d3iabcqetetgr" path="res://sounds/laser_shot.mp3" id="1_3p0uc"]
 [ext_resource type="ArrayMesh" uid="uid://bdgogt0i2a1s" path="res://objects/Rocket SMG.obj" id="1_rb6up"]
 [ext_resource type="Script" path="res://scripts/weaponResource.gd" id="2_i27r0"]
+[ext_resource type="AudioStream" uid="uid://k3jac34h4eu8" path="res://sounds/laser_reload.mp3" id="3_st2l2"]
 
 [resource]
 script = ExtResource("2_i27r0")
 weapon_name = &"LaserGun"
+fire_sound = ExtResource("1_3p0uc")
+reload_sound = ExtResource("3_st2l2")
 mesh = ExtResource("1_rb6up")
 bullet_type = "laser"
 damage = 80.0

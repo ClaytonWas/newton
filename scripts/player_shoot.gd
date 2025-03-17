@@ -67,13 +67,13 @@ func shoot():
 		var hit_object = raycast.get_collider()
 		var hit_point = raycast.get_collision_point()
 		
-		if hit_object:
-			if hit_object.has_node("HitboxComponent"):
-				var hitbox : HitboxComponent = hit_object.find_child("HitboxComponent")
-				var amount = equipped_weapon.damage
-				hitbox.damage(amount)
-			else:
-				print(hit_object.name)
+		#if hit_object:
+			#if hit_object.has_node("HitboxComponent"):
+				#var hitbox : HitboxComponent = hit_object.find_child("HitboxComponent")
+				#var amount = equipped_weapon.damage
+				#hitbox.damage(amount)
+			#else:
+				#print(hit_object.name)
 	
 	else:
 		print("Out of ammo!")
@@ -103,12 +103,12 @@ func fire_bullet(gun):
 		bullet = load('res://scenes/guns/bullet.tscn')
 	elif (gun.bullet_type == 'laser'):
 		bullet = load('res://scenes/guns/laser_bullet.tscn')
+	
+	
+	
 	var projectile = bullet.instantiate()
 	
-	
-	#projectile.position = equipped_weapon_node.find_child('muzzle_flash').global_position
-	#projectile.transform.basis = equipped_weapon_node.find_child('muzzle_flash').global_transform.basis
-	#equipped_weapon_node.find_child('bullet_spawn').add_child(projectile)
+	projectile.damage = equipped_weapon.get_damage()
 	projectile.position = equipped_weapon_node.find_child('bullet_spawn').global_position
 	projectile.transform.basis = equipped_weapon_node.find_child('bullet_spawn').global_transform.basis
 	#self = right_hand

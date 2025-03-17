@@ -9,8 +9,7 @@ transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -0.2, 
 [node name="mac102" parent="." instance=ExtResource("1_ktm5r")]
 
 [node name="muzzle_flash" parent="." instance=ExtResource("2_1j6js")]
-transform = Transform3D(-0.01, 0, -8.74227e-10, 0, 0.01, 0, 8.74227e-10, 0, -0.01, 0.129506, 0, 0)
-visible = false
+transform = Transform3D(-0.03, 0, -4.52987e-09, 0, 0.03, 0, 4.52987e-09, 0, -0.03, 0.461273, -0.00418192, 5.00954e-08)
 
 [node name="bullet_spawn" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.11864, 0, 1.79141e-08)

@@ -1,10 +1,10 @@
 extends Node3D
 
 @export var speed = 20.0
+var damage:int	#Damage value to be set from Player_shoot script
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	print(self.name,' loaded with ', damage, ' damage.')
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -19,3 +19,7 @@ func _on_timer_timeout() -> void:
 func _on_hitbox_component_body_entered(body: Node3D) -> void:
 	print(self.name, ' bullet hit ', body.name)
 	queue_free()
+	
+	if body.has_node("HitboxComponent"): #Change for attack component?
+		var hitbox : HitboxComponent = body.find_child("HitboxComponent")
+		hitbox.damage(damage)
