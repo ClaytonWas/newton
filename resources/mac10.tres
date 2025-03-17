@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=2 format=3 uid="uid://cb6lprpexrmxu"]
+
+[ext_resource type="Script" path="res://scripts/weaponResource.gd" id="1_xmobv"]
+
+[resource]
+script = ExtResource("1_xmobv")
+weapon_name = &"Mac10"
+damage = 15.0
+magazine_size = 30
+reserve_ammo = 0
+reload_time = 1.0
+spread = 0.0
+is_melee = false
+is_fullauto = true

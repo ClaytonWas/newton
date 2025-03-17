@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjbialvl7u4kf"]
+
+[ext_resource type="PackedScene" uid="uid://bskpdk0lfk8vu" path="res://resources/Styloo Guns Asset Pack GLTF FBX V1.1/Normal version Color and NormalMap/GLB/mac10.glb" id="1_ktm5r"]
+[ext_resource type="PackedScene" uid="uid://fwd2eml7uj0b" path="res://scenes/guns/muzzle_flash.tscn" id="2_1j6js"]
+
+[node name="Mac10" type="Node3D"]
+transform = Transform3D(-3.5, 0, -5.28485e-07, 0, 3.5, 0, 5.28485e-07, 0, -3.5, -0.2, 0.499, 0)
+
+[node name="mac102" parent="." instance=ExtResource("1_ktm5r")]
+
+[node name="muzzle_flash" parent="." instance=ExtResource("2_1j6js")]
+transform = Transform3D(-0.01, 0, -8.74227e-10, 0, 0.01, 0, 8.74227e-10, 0, -0.01, 0.129506, 0, 0)
+visible = false

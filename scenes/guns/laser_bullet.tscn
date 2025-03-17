@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://cx2fgih8845j6"]
+
+[ext_resource type="PackedScene" uid="uid://cmqrs35b4snep" path="res://scenes/components/HitboxComponent.tscn" id="1_au3u1"]
+[ext_resource type="Script" path="res://scripts/guns/bullet.gd" id="1_qcpx2"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_hpae6"]
+size = Vector3(0.05, 0.05, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0s6sq"]
+albedo_color = Color(0.94394, 0, 0.149031, 1)
+emission_enabled = true
+emission = Color(1, 0.0909423, 0.0594644, 1)
+emission_energy_multiplier = 8.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4vm12"]
+size = Vector3(0.05, 0.05, 0.4)
+
+[node name="LaserBullet" type="Node3D"]
+script = ExtResource("1_qcpx2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("BoxMesh_hpae6")
+surface_material_override/0 = SubResource("StandardMaterial3D_0s6sq")
+
+[node name="HitboxComponent" parent="." instance=ExtResource("1_au3u1")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
+shape = SubResource("BoxShape3D_4vm12")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

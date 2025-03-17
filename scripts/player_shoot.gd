@@ -8,6 +8,7 @@ var equipped_weapon_node: Node3D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	equipped_weapon = inventory[0]
+	equipped_weapon.mag = equipped_weapon.magazine_size
 	
 	var gun_node = load("res://scenes/guns/" + equipped_weapon.weapon_name + ".tscn")
 
@@ -28,6 +29,8 @@ func _input(event):
 		change_weapon(inventory[1])
 	if event.is_action_pressed("slot3"):
 		change_weapon(inventory[2])
+	if event.is_action_pressed("slot4"):
+		change_weapon(inventory[3])
 		
 func change_weapon(gun:Weapon):
 	#Hide current weapon
@@ -42,8 +45,8 @@ func change_weapon(gun:Weapon):
 	equipped_weapon_node.visible = true
 	var gun_node = load("res://scenes/guns/" + gun.weapon_name + ".tscn")
 
-	#%right_hand.find_child(old_gun.weapon_name).visible = false
-	#%right_hand.find_child(equipped_weapon.weapon_name).visible = true
+	if (gun.mag==0):
+		gun.mag = gun.magazine_size
 	print('Switched to ',gun.weapon_name,' dealing ',gun.damage,' per shot.')
 
 func shoot():
@@ -54,10 +57,11 @@ func shoot():
 
 		equipped_weapon_node.find_child('muzzle_flash').visible=true	#Show muzzle flash
 		equipped_weapon_node.find_child('muzzle_flash').find_child('FlashTimer').start()
-		
-		print(equipped_weapon.dryfire_sound, equipped_weapon.fire_sound)
+
 		%AudioPlayer.stream = equipped_weapon.fire_sound	#Play sound
 		%AudioPlayer.play()
+		
+		fire_bullet(equipped_weapon)
 		
 		var raycast =  %RayCast3D
 		var hit_object = raycast.get_collider()
@@ -89,6 +93,22 @@ func reload():
 		timer.start()
 		
 		equipped_weapon.reload()
+
+func fire_bullet(gun):
+	# Intakes Weapon resource and global position as params
+	# Instantiates a bullet
+	var bullet 
+	print(gun.bullet_type)
+	if (gun.bullet_type == 'light'):
+		bullet = load('res://scenes/guns/bullet.tscn')
+	elif (gun.bullet_type == 'laser'):
+		bullet = load('res://scenes/guns/laser_bullet.tscn')
+	var projectile = bullet.instantiate()
+	
+	
+	#projectile.position = equipped_weapon_node.find_child('muzzle_flash').global_position
+	#projectile.transform.basis = equipped_weapon_node.find_child('muzzle_flash').global_transform.basis
+	%right_hand.add_child(projectile)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
