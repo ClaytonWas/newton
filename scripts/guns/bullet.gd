@@ -1,7 +1,7 @@
 extends Node3D
 
 @export var speed = 20.0
-var direction: Vector3
+var offset: Vector3		# Values to offset shotgun bullets
 var damage:int	#Damage value to be set from Player_shoot script
 
 func _ready() -> void:
@@ -9,7 +9,10 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	position += transform.basis * Vector3(-speed,0, 0) * delta 
+	if (offset):
+		position += transform.basis * (offset + Vector3(-speed,0,0)) * delta 
+	else:
+		position += transform.basis * Vector3(-speed,0,0) * delta 
 	#position += global_position.lerp(direction, speed * delta)
 	#position += direction * speed * delta
 	

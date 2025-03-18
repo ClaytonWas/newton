@@ -14,10 +14,12 @@ class_name Weapon extends Resource
 @export var magazine_size: int	#maxmimum amount of bullets weapon can load
 
 @export var reload_time: float = 1	#Timer duration
-@export var spread: float	#Bloom multiplier
 @export var is_melee: bool = false
 @export var is_fullauto: bool 
 @export var fire_rate: float
+@export_category('Shotgun Options')
+@export var pellet_count: int	#Number of pellets to be fired
+@export var spread: float	#Bullet displacement
 
 var is_reloading: bool = false	#Flag to avoid reload spam
 var mag: int = magazine_size	#Current amount of bullets loaded

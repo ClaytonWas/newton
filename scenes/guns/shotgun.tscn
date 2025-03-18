@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://v1nfdxx3d3u4"]
+
+[ext_resource type="PackedScene" uid="uid://fwd2eml7uj0b" path="res://scenes/guns/muzzle_flash.tscn" id="2_5sfw2"]
+[ext_resource type="PackedScene" uid="uid://5lfvdndbeb6h" path="res://resources/Styloo Guns Asset Pack GLTF FBX V1.1/zEmission version Color only/GLB/shotgun.glb" id="2_g2fo2"]
+
+[node name="Shotgun" type="Node3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="muzzle_flash" parent="." instance=ExtResource("2_5sfw2")]
+transform = Transform3D(-0.03, 0, -4.52987e-09, 0, 0.03, 0, 4.52987e-09, 0, -0.03, 1.1206, 0.150306, 0.00243652)
+visible = false
+
+[node name="bullet_spawn" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.08696, 0.183769, 0.00358584)
+
+[node name="shotgun2" parent="." instance=ExtResource("2_g2fo2")]

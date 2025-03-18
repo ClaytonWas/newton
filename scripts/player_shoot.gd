@@ -19,11 +19,13 @@ func _ready() -> void:
 
 func _input(event):	
 	if Input.is_action_pressed("shoot"):
-		if (equipped_weapon.is_fullauto):
-			is_shooting = true
+		if equipped_weapon.bullet_type == 'shotgun':	#Fire shotgun
+			shoot()
+		else:
+			shoot()	
+			if (equipped_weapon.is_fullauto):	#Manage full auto
+				is_shooting = true
 			
-		
-		shoot()
 	if Input.is_action_just_pressed("reload"):
 		reload()		
 	
@@ -41,6 +43,8 @@ func _input(event):
 		change_weapon(inventory[2])
 	if event.is_action_pressed("slot4"):
 		change_weapon(inventory[3])
+	if event.is_action_pressed("slot5"):
+		change_weapon(inventory[4])
 		
 func change_weapon(gun:Weapon):
 	#Hide current weapon
@@ -60,6 +64,7 @@ func change_weapon(gun:Weapon):
 	print('Switched to ',gun.weapon_name,' dealing ',gun.damage,' per shot.')
 
 func shoot():
+	#Fires one bullet from equipped gun
 	if equipped_weapon.mag > 0:
 		print("Shooting from ",equipped_weapon.weapon_name)
 		
@@ -71,23 +76,21 @@ func shoot():
 		%AudioPlayer.stream = equipped_weapon.fire_sound	#Play sound
 		%AudioPlayer.play()
 		
-		var raycast =  %RayCast3D
-		var hit_object = raycast.get_collider()
-		var hit_point = raycast.get_collision_point()
-		#var bullet_direction = (raycast.target_position - raycast.global_position).normalized()
-		
-		var target_pos = raycast.global_transform.origin + raycast.target_position
-		
-		fire_bullet(equipped_weapon)
-
-	
+		if equipped_weapon.bullet_type == 'shotgun':
+			var spread = equipped_weapon.spread
+			for i in range (0,equipped_weapon.pellet_count):
+				var bullet_offset = Vector3(	#Shotgun spread simulation
+									randf_range(-spread, spread),
+									randf_range(-spread, spread),
+									randf_range(-spread, spread)
+								)
+				fire_bullet(equipped_weapon, bullet_offset)
+		else:
+			fire_bullet(equipped_weapon, Vector3.ZERO)
 	else:
 		print("Out of ammo!")
 		%AudioPlayer.stream = equipped_weapon.dryfire_sound	#Play dry fire sound
 		%AudioPlayer.play()
-
-func shoot_full_auto():
-	pass
 
 func reload():
 	if (equipped_weapon.mag != equipped_weapon.magazine_size):	#Only reload if clip isnt full
@@ -103,31 +106,33 @@ func reload():
 		
 		equipped_weapon.reload()
 
-func fire_bullet(gun):
+func fire_bullet(gun, offset):
 	# Intakes Weapon resource and global position as params
 	# Instantiates a bullet
-	var bullet 
-
+	# Params: gun : Weapon, offset : Vector3 - bullet offset
+	var bullet
+	
 	if (gun.bullet_type == 'light'):
 		bullet = load('res://scenes/guns/bullet.tscn')
+	
 	elif (gun.bullet_type == 'laser'):
 		bullet = load('res://scenes/guns/laser_bullet.tscn')
-	elif (gun.bullet_type == 'shotgun'):
+
+	if (gun.bullet_type == 'shotgun'):
 		bullet = load('res://scenes/guns/pellet.tscn')
 	
 	var projectile = bullet.instantiate()
 
 	projectile.damage = equipped_weapon.get_damage()
+	projectile.offset = offset
 	projectile.position = equipped_weapon_node.find_child('bullet_spawn').global_position
 	projectile.transform.basis = equipped_weapon_node.find_child('bullet_spawn').global_transform.basis
-	#projectile.direction = (projectile.position - dir).normalized()
-	
+
 	#self is right_hand
 	get_parent().get_parent().get_parent().get_parent().add_child(projectile) #Add to world screen
 	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if is_shooting:
+	if is_shooting:		# Full auto bullet firing
 		shot_interval += delta
 	
 		if shot_interval >= equipped_weapon.fire_rate:
