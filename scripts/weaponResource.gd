@@ -17,13 +17,13 @@ class_name Weapon extends Resource
 @export var spread: float	#Bloom multiplier
 @export var is_melee: bool = false
 @export var is_fullauto: bool 
+@export var fire_rate: float
+
 var is_reloading: bool = false	#Flag to avoid reload spam
 var mag: int = magazine_size	#Current amount of bullets loaded
 
 func _init():
 	mag = magazine_size
-
-
 
 func get_damage():return damage
 func update_ammo(shots: int = 0):

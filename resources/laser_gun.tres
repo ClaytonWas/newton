@@ -18,3 +18,4 @@ reload_time = 5.0
 spread = 0.0
 is_melee = false
 is_fullauto = true
+fire_rate = 1.0

@@ -82,3 +82,7 @@ func _on_attack_area_body_entered(body: Node3D) -> void:
 
 func _on_attack_area_body_exited(body: Node3D) -> void:
 	is_attacking = false
+
+
+func _on_hitbox_component_body_entered(body: Node3D) -> void:
+	print('Headshot!') # Replace with function body.

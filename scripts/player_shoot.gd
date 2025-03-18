@@ -4,6 +4,8 @@ extends Node3D
 @export var inventory: Array[Weapon] = []
 @export var equipped_weapon : Weapon
 var equipped_weapon_node: Node3D
+var is_shooting = false
+var shot_interval: float = 0.0		#Time elapsed counter for full auto
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,11 +18,19 @@ func _ready() -> void:
 	equipped_weapon_node.visible = true
 
 func _input(event):	
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_pressed("shoot"):
+		if (equipped_weapon.is_fullauto):
+			is_shooting = true
+			
+		
 		shoot()
 	if Input.is_action_just_pressed("reload"):
 		reload()		
-			
+	
+	if Input.is_action_just_released("shoot"):	
+		is_shooting = false
+		if (equipped_weapon.is_fullauto):
+			%AudioPlayer.stop()
 #Swap between weapons
 	if event.is_action_pressed("slot1"):
 		change_weapon(inventory[0])
@@ -68,19 +78,16 @@ func shoot():
 		
 		var target_pos = raycast.global_transform.origin + raycast.target_position
 		
-		fire_bullet(equipped_weapon, target_pos)
-		#if hit_object:
-			#if hit_object.has_node("HitboxComponent"):
-				#var hitbox : HitboxComponent = hit_object.find_child("HitboxComponent")
-				#var amount = equipped_weapon.damage
-				#hitbox.damage(amount)
-			#else:
-				#print(hit_object.name)
+		fire_bullet(equipped_weapon)
+
 	
 	else:
 		print("Out of ammo!")
 		%AudioPlayer.stream = equipped_weapon.dryfire_sound	#Play dry fire sound
 		%AudioPlayer.play()
+
+func shoot_full_auto():
+	pass
 
 func reload():
 	if (equipped_weapon.mag != equipped_weapon.magazine_size):	#Only reload if clip isnt full
@@ -96,7 +103,7 @@ func reload():
 		
 		equipped_weapon.reload()
 
-func fire_bullet(gun, dir):
+func fire_bullet(gun):
 	# Intakes Weapon resource and global position as params
 	# Instantiates a bullet
 	var bullet 
@@ -115,10 +122,14 @@ func fire_bullet(gun, dir):
 	projectile.transform.basis = equipped_weapon_node.find_child('bullet_spawn').global_transform.basis
 	#projectile.direction = (projectile.position - dir).normalized()
 	
-	print(projectile.position,projectile.direction)
 	#self is right_hand
 	get_parent().get_parent().get_parent().get_parent().add_child(projectile) #Add to world screen
-
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if is_shooting:
+		shot_interval += delta
+	
+		if shot_interval >= equipped_weapon.fire_rate:
+			shot_interval = 0.0  # Reset timer
+			shoot()
