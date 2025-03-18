@@ -1,4 +1,4 @@
-[gd_scene load_steps=123 format=4 uid="uid://c3286p8uffrt8"]
+[gd_scene load_steps=125 format=4 uid="uid://c3286p8uffrt8"]
 
 [ext_resource type="PackedScene" uid="uid://cnxm803p7w416" path="res://scenes/player.tscn" id="1_8pdfp"]
 [ext_resource type="Texture2D" uid="uid://coyfxjg0hslqj" path="res://textures/environments/sewers/Textures/bricks.jpg" id="2_4veb8"]
@@ -1229,7 +1229,6 @@ subdivide_depth = 10
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_leq75"]
 resource_name = "debris_02"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 albedo_texture = ExtResource("11_dwbv6")
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
@@ -1484,6 +1483,12 @@ orientation = 2
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_5k7vx"]
 data = PackedVector3Array(5, -3, 0, -5, -3, 0, 5, 3, 0, -5, -3, 0, -5, 3, 0, 5, 3, 0)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_lid26"]
+data = PackedVector3Array(4.15, -3, 0, -4.15, -3, 0, 4.15, 3, 0, -4.15, -3, 0, -4.15, 3, 0, 4.15, 3, 0)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_bsa8q"]
+data = PackedVector3Array(4.15, -3, 0, -4.15, -3, 0, 4.15, 3, 0, -4.15, -3, 0, -4.15, 3, 0, 4.15, 3, 0)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_salx4"]
 data = PackedVector3Array(4.15, -3, 0, -4.15, -3, 0, 4.15, 3, 0, -4.15, -3, 0, -4.15, 3, 0, 4.15, 3, 0)
@@ -2207,26 +2212,22 @@ shape = SubResource("ConcavePolygonShape3D_5k7vx")
 [node name="Corner2" type="Node3D" parent="LowerEntrance/LowerEntrance"]
 
 [node name="Wall" type="StaticBody3D" parent="LowerEntrance/LowerEntrance/Corner2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.686, -2.356, -3.727)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.18432, -2.5, -3.26022)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="LowerEntrance/LowerEntrance/Corner2/Wall"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.192451, 0, 0.00759888)
 mesh = SubResource("PlaneMesh_l3il8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LowerEntrance/LowerEntrance/Corner2/Wall"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.192451, 0, 0.00759888)
-shape = SubResource("ConcavePolygonShape3D_salx4")
+shape = SubResource("ConcavePolygonShape3D_lid26")
 
-[node name="Wall4" type="StaticBody3D" parent="LowerEntrance/LowerEntrance/Corner2"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3.803, -2.356, -8.74484)
+[node name="Wall2" type="StaticBody3D" parent="LowerEntrance/LowerEntrance/Corner2"]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 4.03951, -2.5, -7.41376)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="LowerEntrance/LowerEntrance/Corner2/Wall4"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0749817, 0, -0.0271301)
-mesh = SubResource("PlaneMesh_15eo8")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LowerEntrance/LowerEntrance/Corner2/Wall2"]
+mesh = SubResource("PlaneMesh_l3il8")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LowerEntrance/LowerEntrance/Corner2/Wall4"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0749817, 0, -0.0271301)
-shape = SubResource("ConcavePolygonShape3D_k3uoi")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LowerEntrance/LowerEntrance/Corner2/Wall2"]
+shape = SubResource("ConcavePolygonShape3D_bsa8q")
 
 [node name="Corner4" type="Node3D" parent="LowerEntrance/LowerEntrance"]
 transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 0, 0, 0)
