@@ -11,13 +11,18 @@ config_version=5
 [application]
 
 config/name="FPS Movement1"
-run/main_scene="res://scenes/levels/outdoors.tscn"
+run/main_scene="res://scenes/levels/start_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 GlobalDeathSignals="*res://scripts/global_death_signals.gd"
+
+[display]
+
+window/size/viewport_width=1307
+window/size/mode=3
 
 [editor_plugins]
 

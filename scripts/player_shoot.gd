@@ -31,8 +31,8 @@ func _input(event):
 	
 	if Input.is_action_just_released("shoot"):	
 		is_shooting = false
-		if (equipped_weapon.is_fullauto):
-			%AudioPlayer.stop()
+		#if (equipped_weapon.is_fullauto):
+		#	%AudioPlayer.stop()
 #Swap between weapons
 	if event.is_action_pressed("slot1"):
 		change_weapon(inventory[0])

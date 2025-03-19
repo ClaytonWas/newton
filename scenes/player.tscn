@@ -122,6 +122,10 @@ text = "Game Over
 layout_mode = 2
 text = "Try Again"
 
+[node name="QuitButton" type="Button" parent="DeathScreen/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Crosshair" parent="CanvasLayer" instance=ExtResource("12_k6evy")]
@@ -158,4 +162,6 @@ points = PackedVector2Array(0, 0, 100, 0)
 
 [connection signal="death_screen" from="." to="DeathScreen" method="_on_player_death_screen"]
 [connection signal="pressed" from="DeathScreen/VBoxContainer/Button" to="DeathScreen" method="_on_button_pressed"]
+[connection signal="button_down" from="DeathScreen/VBoxContainer/QuitButton" to="DeathScreen" method="_on_quit_button_button_down"]
+[connection signal="pressed" from="DeathScreen/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

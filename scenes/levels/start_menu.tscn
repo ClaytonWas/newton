@@ -1,0 +1,95 @@
+[gd_scene load_steps=4 format=3 uid="uid://olmf7sj4hxhq"]
+
+[ext_resource type="Texture2D" uid="uid://drcqu2d8mvafk" path="res://textures/general/BG-title.png" id="1_u7kat"]
+[ext_resource type="Script" path="res://scripts/UI/start_menu.gd" id="1_v6ll3"]
+[ext_resource type="FontFile" uid="uid://1ocjgmtw3srp" path="res://fonts/doomed/doomed.ttf" id="2_lb7cy"]
+
+[node name="StartMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v6ll3")
+
+[node name="BG" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -965.0
+offset_top = -538.0
+offset_right = 1011.0
+offset_bottom = 561.0
+texture = ExtResource("1_u7kat")
+expand_mode = 1
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -183.0
+offset_top = -174.0
+offset_right = 198.0
+offset_bottom = 288.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 145.0
+offset_top = 74.0
+offset_right = 265.0
+offset_bottom = 122.0
+theme_override_fonts/font = ExtResource("2_lb7cy")
+text = "Play"
+
+[node name="HowToPlayButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 165.0
+offset_right = 270.0
+offset_bottom = 213.0
+theme_override_fonts/font = ExtResource("2_lb7cy")
+text = "How to Play"
+
+[node name="SettingButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 243.0
+offset_right = 270.0
+offset_bottom = 291.0
+theme_override_fonts/font = ExtResource("2_lb7cy")
+text = "Settings
+"
+
+[node name="quitButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 336.0
+offset_right = 270.0
+offset_bottom = 384.0
+action_mode = 0
+text = "Quit
+"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -71.0
+offset_top = -319.0
+offset_right = 135.0
+offset_bottom = -207.0
+grow_vertical = 0
+theme_override_fonts/normal_font = ExtResource("2_lb7cy")
+theme_override_font_sizes/normal_font_size = 50
+text = "GLOOM"
+tab_size = 5
+
+[connection signal="button_down" from="Panel/PlayButton" to="." method="_on_play_button_button_down"]
+[connection signal="button_down" from="Panel/quitButton" to="." method="_on_quit_button_button_down"]
