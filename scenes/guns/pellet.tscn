@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://d0nweftj505vc"]
+
+[ext_resource type="Script" path="res://scenes/components/hitbox_component.gd" id="1_gsiak"]
+[ext_resource type="Script" path="res://scripts/guns/bullet.gd" id="1_udgjf"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_wfoq3"]
+radius = 0.02
+height = 0.04
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_b07rk"]
+radius = 0.02
+
+[node name="Pellet" type="RigidBody3D"]
+gravity_scale = 0.0
+script = ExtResource("1_udgjf")
+speed = 15.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_wfoq3")
+
+[node name="HitboxComponent" type="Area3D" parent="."]
+script = ExtResource("1_gsiak")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
+shape = SubResource("SphereShape3D_b07rk")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[connection signal="body_entered" from="HitboxComponent" to="." method="_on_hitbox_component_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

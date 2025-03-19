@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=4 format=3 uid="uid://c452ux5y8o5na"]
+
+[ext_resource type="Script" path="res://scripts/weaponResource.gd" id="1_kpegh"]
+[ext_resource type="AudioStream" uid="uid://djn1oh6ojyql1" path="res://sounds/shotgun_fire.mp3" id="1_pg4eu"]
+[ext_resource type="AudioStream" uid="uid://da0gpedljq2hc" path="res://sounds/shotgun_reload.mp3" id="2_sqbq4"]
+
+[resource]
+script = ExtResource("1_kpegh")
+weapon_name = &"Shotgun"
+fire_sound = ExtResource("1_pg4eu")
+reload_sound = ExtResource("2_sqbq4")
+bullet_type = "shotgun"
+damage = 20.0
+magazine_size = 5
+reload_time = 1.0
+is_melee = false
+is_fullauto = false
+fire_rate = 0.0
+pellet_count = 6
+spread = 0.5
