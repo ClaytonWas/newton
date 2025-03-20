@@ -131,7 +131,7 @@ func fire_bullet(gun, offset):
 	#self is right_hand
 	get_parent().get_parent().get_parent().get_parent().add_child(projectile) #Add to world screen
 	
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if is_shooting:		# Full auto bullet firing
 		shot_interval += delta
 	

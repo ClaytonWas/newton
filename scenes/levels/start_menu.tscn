@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://olmf7sj4hxhq"]
+[gd_scene load_steps=5 format=3 uid="uid://olmf7sj4hxhq"]
 
-[ext_resource type="Texture2D" uid="uid://drcqu2d8mvafk" path="res://textures/general/BG-title.png" id="1_u7kat"]
 [ext_resource type="Script" path="res://scripts/UI/start_menu.gd" id="1_v6ll3"]
+[ext_resource type="Texture2D" uid="uid://dvbnqdbj74jhk" path="res://textures/general/BG-title.svg" id="2_2spui"]
 [ext_resource type="FontFile" uid="uid://1ocjgmtw3srp" path="res://fonts/doomed/doomed.ttf" id="2_lb7cy"]
+[ext_resource type="FontFile" uid="uid://drptivkdwroo6" path="res://fonts/kids_knowledge_2/Kid Knowledge 2 Rustic.otf" id="4_qxtai"]
 
 [node name="StartMenu" type="Control"]
 layout_mode = 3
@@ -16,15 +17,40 @@ grow_vertical = 2
 script = ExtResource("1_v6ll3")
 
 [node name="BG" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = -965.0
-offset_top = -538.0
-offset_right = 1011.0
-offset_bottom = 561.0
-texture = ExtResource("1_u7kat")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -998.0
+offset_top = -561.0
+offset_right = 1016.0
+offset_bottom = 672.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_2spui")
 expand_mode = 1
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Title" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -92.5
+offset_top = -356.0
+offset_right = 151.5
+offset_bottom = -160.0
+grow_vertical = 0
+theme_override_fonts/normal_font = ExtResource("2_lb7cy")
+theme_override_font_sizes/normal_font_size = 60
+bbcode_enabled = true
+text = "[tornado] GLOOM[/tornado]
+[wave] GLOOM[/wave]"
+tab_size = 5
+
+[node name="ButtonPanel" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -38,7 +64,7 @@ offset_bottom = 288.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PlayButton" type="Button" parent="Panel"]
+[node name="PlayButton" type="Button" parent="ButtonPanel"]
 layout_mode = 0
 offset_left = 145.0
 offset_top = 74.0
@@ -47,7 +73,7 @@ offset_bottom = 122.0
 theme_override_fonts/font = ExtResource("2_lb7cy")
 text = "Play"
 
-[node name="HowToPlayButton" type="Button" parent="Panel"]
+[node name="HowToPlayButton" type="Button" parent="ButtonPanel"]
 layout_mode = 0
 offset_left = 150.0
 offset_top = 165.0
@@ -56,7 +82,7 @@ offset_bottom = 213.0
 theme_override_fonts/font = ExtResource("2_lb7cy")
 text = "How to Play"
 
-[node name="SettingButton" type="Button" parent="Panel"]
+[node name="SettingButton" type="Button" parent="ButtonPanel"]
 layout_mode = 0
 offset_left = 150.0
 offset_top = 243.0
@@ -66,30 +92,166 @@ theme_override_fonts/font = ExtResource("2_lb7cy")
 text = "Settings
 "
 
-[node name="quitButton" type="Button" parent="Panel"]
+[node name="quitButton" type="Button" parent="ButtonPanel"]
 layout_mode = 0
 offset_left = 150.0
 offset_top = 336.0
 offset_right = 270.0
 offset_bottom = 384.0
+theme_override_fonts/font = ExtResource("2_lb7cy")
 action_mode = 0
 text = "Quit
 "
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="IntructionsPanel" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = -71.0
-offset_top = -319.0
-offset_right = 135.0
-offset_bottom = -207.0
-grow_vertical = 0
-theme_override_fonts/normal_font = ExtResource("2_lb7cy")
-theme_override_font_sizes/normal_font_size = 50
-text = "GLOOM"
-tab_size = 5
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -356.0
+offset_top = -171.0
+offset_right = 381.0
+offset_bottom = 362.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[connection signal="button_down" from="Panel/PlayButton" to="." method="_on_play_button_button_down"]
-[connection signal="button_down" from="Panel/quitButton" to="." method="_on_quit_button_button_down"]
+[node name="Label" type="Label" parent="IntructionsPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -81.5
+offset_top = 12.0
+offset_right = 81.5
+offset_bottom = 66.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_lb7cy")
+theme_override_font_sizes/font_size = 36
+text = "How To Play"
+
+[node name="BackButton" type="Button" parent="IntructionsPanel"]
+layout_mode = 0
+offset_left = -8.5
+offset_top = 562.0
+offset_right = 94.5
+offset_bottom = 635.0
+theme_override_fonts/font = ExtResource("2_lb7cy")
+theme_override_font_sizes/font_size = 30
+text = "Back"
+
+[node name="Objective" type="Control" parent="IntructionsPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -309.5
+offset_top = -205.5
+offset_right = 351.5
+offset_bottom = -102.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="IntructionsPanel/Objective"]
+layout_mode = 2
+offset_right = 78.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_lb7cy")
+theme_override_font_sizes/font_size = 24
+text = "Objective:"
+
+[node name="Label2" type="Label" parent="IntructionsPanel/Objective"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -305.5
+offset_top = -10.5
+offset_right = 295.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_qxtai")
+theme_override_font_sizes/font_size = 18
+text = "Navigate and Survive the terrain to defeat the monsters before time runs out."
+
+[node name="Controls" type="Control" parent="IntructionsPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -311.5
+offset_top = -356.0
+offset_right = 321.5
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="IntructionsPanel/Controls"]
+layout_mode = 1
+offset_right = 66.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_lb7cy")
+theme_override_font_sizes/font_size = 24
+text = "Controls"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="IntructionsPanel/Controls"]
+layout_mode = 0
+offset_left = 111.0
+offset_top = 34.0
+offset_right = 556.0
+offset_bottom = 346.0
+theme_override_fonts/normal_font = ExtResource("4_qxtai")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "[img=48x48]res://textures/general/Gerald's Keys/Keys/W-Key.png[/img] [img=48x48]res://textures/general/Gerald's Keys/Keys/A-Key.png[/img] [img=48x48]res://textures/general/Gerald's Keys/Keys/S-Key.png[/img] [img=48x48]res://textures/general/Gerald's Keys/Keys/D-Key.png[/img]		-		Walk/Move
+					[img=72x48]res://textures/general/Gerald's Keys/Keys/Shift-Key.png[/img] 				-		Sprint (Hold)
+			   	 [img=96x48]res://textures/general/Gerald's Keys/Keys/Space-Key.png[/img] 				-		Jump
+	[img=48x48]res://textures/general/Gerald's Keys/Keys/1-Key.png[/img]		 [img=48x48]res://textures/general/Gerald's Keys/Keys/2-Key.png[/img]	 [img=48x48]res://textures/general/Gerald's Keys/Keys/3-Key.png[/img] 		-		Change Weapons
+				 [img=94x94]res://textures/general/mouse.png[/img] 				-		Shoot"
+
+[node name="SettingsPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -355.0
+offset_top = -171.0
+offset_right = 385.0
+offset_bottom = 261.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="SettingsPanel"]
+layout_mode = 0
+offset_right = 163.0
+offset_bottom = 54.0
+theme_override_fonts/font = ExtResource("2_lb7cy")
+text = "Settings"
+
+[node name="BackButton" type="Button" parent="SettingsPanel"]
+layout_mode = 0
+offset_left = -6.0
+offset_top = 510.0
+offset_right = 97.0
+offset_bottom = 583.0
+theme_override_fonts/font = ExtResource("2_lb7cy")
+theme_override_font_sizes/font_size = 30
+text = "Back"
+
+[connection signal="button_down" from="ButtonPanel/PlayButton" to="." method="_on_play_button_button_down"]
+[connection signal="button_down" from="ButtonPanel/HowToPlayButton" to="." method="_on_how_to_play_button_button_down"]
+[connection signal="button_down" from="ButtonPanel/SettingButton" to="." method="_on_setting_button_button_down"]
+[connection signal="button_down" from="ButtonPanel/quitButton" to="." method="_on_quit_button_button_down"]
+[connection signal="button_down" from="IntructionsPanel/BackButton" to="." method="_on_back_button_button_down"]
+[connection signal="button_down" from="SettingsPanel/BackButton" to="." method="_on_back_button_button_down"]
