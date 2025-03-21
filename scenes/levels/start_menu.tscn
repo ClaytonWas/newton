@@ -37,16 +37,16 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = -92.5
-offset_top = -356.0
-offset_right = 151.5
+offset_left = -92.0
+offset_top = -317.0
+offset_right = 152.0
 offset_bottom = -160.0
 grow_vertical = 0
 theme_override_fonts/normal_font = ExtResource("2_lb7cy")
 theme_override_font_sizes/normal_font_size = 60
 bbcode_enabled = true
 text = "[tornado] GLOOM[/tornado]
-[wave] GLOOM[/wave]"
+"
 tab_size = 5
 
 [node name="ButtonPanel" type="Panel" parent="."]
@@ -113,7 +113,7 @@ anchor_bottom = 0.5
 offset_left = -356.0
 offset_top = -171.0
 offset_right = 381.0
-offset_bottom = 362.0
+offset_bottom = 397.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -134,9 +134,9 @@ text = "How To Play"
 [node name="BackButton" type="Button" parent="IntructionsPanel"]
 layout_mode = 0
 offset_left = -8.5
-offset_top = 562.0
+offset_top = 612.0
 offset_right = 94.5
-offset_bottom = 635.0
+offset_bottom = 685.0
 theme_override_fonts/font = ExtResource("2_lb7cy")
 theme_override_font_sizes/font_size = 30
 text = "Back"
@@ -149,13 +149,13 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -309.5
-offset_top = -205.5
+offset_top = -209.5
 offset_right = 351.5
-offset_bottom = -102.5
+offset_bottom = -106.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="IntructionsPanel/Objective"]
+[node name="Title" type="Label" parent="IntructionsPanel/Objective"]
 layout_mode = 2
 offset_right = 78.0
 offset_bottom = 23.0
@@ -163,7 +163,7 @@ theme_override_fonts/font = ExtResource("2_lb7cy")
 theme_override_font_sizes/font_size = 24
 text = "Objective:"
 
-[node name="Label2" type="Label" parent="IntructionsPanel/Objective"]
+[node name="Desc" type="Label" parent="IntructionsPanel/Objective"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -177,7 +177,7 @@ offset_bottom = 12.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("4_qxtai")
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 20
 text = "Navigate and Survive the terrain to defeat the monsters before time runs out."
 
 [node name="Controls" type="Control" parent="IntructionsPanel"]
@@ -188,13 +188,13 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -311.5
-offset_top = -356.0
+offset_top = -389.0
 offset_right = 321.5
-offset_bottom = -36.0
+offset_bottom = -17.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Label" type="Label" parent="IntructionsPanel/Controls"]
+[node name="Title" type="Label" parent="IntructionsPanel/Controls"]
 layout_mode = 1
 offset_right = 66.0
 offset_bottom = 23.0
@@ -207,15 +207,16 @@ layout_mode = 0
 offset_left = 111.0
 offset_top = 34.0
 offset_right = 556.0
-offset_bottom = 346.0
+offset_bottom = 385.0
 theme_override_fonts/normal_font = ExtResource("4_qxtai")
-theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "[img=48x48]res://textures/general/Gerald's Keys/Keys/W-Key.png[/img] [img=48x48]res://textures/general/Gerald's Keys/Keys/A-Key.png[/img] [img=48x48]res://textures/general/Gerald's Keys/Keys/S-Key.png[/img] [img=48x48]res://textures/general/Gerald's Keys/Keys/D-Key.png[/img]		-		Walk/Move
 					[img=72x48]res://textures/general/Gerald's Keys/Keys/Shift-Key.png[/img] 				-		Sprint (Hold)
-			   	 [img=96x48]res://textures/general/Gerald's Keys/Keys/Space-Key.png[/img] 				-		Jump
-	[img=48x48]res://textures/general/Gerald's Keys/Keys/1-Key.png[/img]		 [img=48x48]res://textures/general/Gerald's Keys/Keys/2-Key.png[/img]	 [img=48x48]res://textures/general/Gerald's Keys/Keys/3-Key.png[/img] 		-		Change Weapons
-				 [img=94x94]res://textures/general/mouse.png[/img] 				-		Shoot"
+			   	 [img=96x48]res://textures/general/Gerald's Keys/Keys/Space-Key.png[/img] 			-		Jump
+		[img=48x48]res://textures/general/Gerald's Keys/Keys/1-Key.png[/img]	[img=48x48]res://textures/general/Gerald's Keys/Keys/2-Key.png[/img]	[img=48x48]res://textures/general/Gerald's Keys/Keys/3-Key.png[/img] 		-		Change Weapons
+				 [img=94x94]res://textures/general/mouse.png[/img] 			-		Shoot
+					 [img=48x48]res://textures/general/Gerald's Keys/Keys/Esc-Key.png[/img] 					-		Pause"
 
 [node name="SettingsPanel" type="Panel" parent="."]
 visible = false
@@ -232,7 +233,7 @@ offset_bottom = 261.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="SettingsPanel"]
+[node name="Title" type="Label" parent="SettingsPanel"]
 layout_mode = 0
 offset_right = 163.0
 offset_bottom = 54.0

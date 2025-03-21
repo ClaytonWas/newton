@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cnxm803p7w416"]
+[gd_scene load_steps=26 format=3 uid="uid://cnxm803p7w416"]
 
 [ext_resource type="Script" path="res://scripts/playermovement.gd" id="1_2ak50"]
 [ext_resource type="Script" path="res://scripts/weaponResource.gd" id="2_2mino"]
@@ -19,6 +19,8 @@
 [ext_resource type="Script" path="res://scenes/timer.gd" id="13_g3pfr"]
 [ext_resource type="PackedScene" uid="uid://v1nfdxx3d3u4" path="res://scenes/guns/shotgun.tscn" id="14_gbkgs"]
 [ext_resource type="Script" path="res://scripts/UI/clock_face.gd" id="15_b7v5p"]
+[ext_resource type="FontFile" uid="uid://1ocjgmtw3srp" path="res://fonts/doomed/doomed.ttf" id="20_ksctb"]
+[ext_resource type="FontFile" uid="uid://drptivkdwroo6" path="res://fonts/kids_knowledge_2/Kid Knowledge 2 Rustic.otf" id="21_eyui1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ykk5e"]
 height = 1.99585
@@ -140,6 +142,19 @@ unique_name_in_owner = true
 offset_right = 40.0
 offset_bottom = 23.0
 
+[node name="AmmoLabel" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -56.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Ammo:"
+
 [node name="Timer" type="Timer" parent="."]
 unique_name_in_owner = true
 wait_time = 30.0
@@ -160,8 +175,70 @@ script = ExtResource("15_b7v5p")
 [node name="SecondHand" type="Line2D" parent="left_hand/clock_face"]
 points = PackedVector2Array(0, 0, 100, 0)
 
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="Panel" type="Panel" parent="PauseMenu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -163.5
+offset_top = -290.0
+offset_right = 155.5
+offset_bottom = 256.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PausedTitle" type="RichTextLabel" parent="PauseMenu/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -72.5
+offset_top = 47.0
+offset_right = 68.5
+offset_bottom = 102.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("20_ksctb")
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+text = "[wave]PAUSED[/wave]"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.5
+offset_top = -60.0
+offset_right = 54.5
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Resume" type="Button" parent="PauseMenu/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("21_eyui1")
+theme_override_font_sizes/font_size = 24
+text = "Resume"
+
+[node name="QuitButton" type="Button" parent="PauseMenu/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("21_eyui1")
+theme_override_font_sizes/font_size = 24
+text = "Quit"
+
 [connection signal="death_screen" from="." to="DeathScreen" method="_on_player_death_screen"]
 [connection signal="pressed" from="DeathScreen/VBoxContainer/Button" to="DeathScreen" method="_on_button_pressed"]
 [connection signal="button_down" from="DeathScreen/VBoxContainer/QuitButton" to="DeathScreen" method="_on_quit_button_button_down"]
 [connection signal="pressed" from="DeathScreen/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="button_down" from="PauseMenu/Panel/VBoxContainer/Resume" to="." method="_on_resume_button_down"]
+[connection signal="button_down" from="PauseMenu/Panel/VBoxContainer/QuitButton" to="DeathScreen" method="_on_quit_button_button_down"]
