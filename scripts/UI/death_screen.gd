@@ -23,3 +23,7 @@ func _on_button_pressed():
 func _on_quit_button_button_down() -> void:
 	print('Pressed quit\n\n\n')
 	get_tree().quit()
+
+
+func _on_restart_button_down() -> void:
+	_on_button_pressed()

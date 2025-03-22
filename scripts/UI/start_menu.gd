@@ -1,7 +1,7 @@
 extends Control
 
 @export_category('Scenes')
-@export var main_scene_path: String = "res://scenes/levels/outdoors.tscn"
+@export var main_scene_path: String = "res://scenes/UI/shop.tscn"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

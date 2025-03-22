@@ -1,18 +1,11 @@
-[gd_scene load_steps=26 format=3 uid="uid://cnxm803p7w416"]
+[gd_scene load_steps=19 format=3 uid="uid://cnxm803p7w416"]
 
 [ext_resource type="Script" path="res://scripts/playermovement.gd" id="1_2ak50"]
-[ext_resource type="Script" path="res://scripts/weaponResource.gd" id="2_2mino"]
 [ext_resource type="Script" path="res://scripts/player_shoot.gd" id="3_0hi0p"]
-[ext_resource type="Resource" uid="uid://daj1kmkgd1b7a" path="res://resources/old_glock.tres" id="3_nn53y"]
-[ext_resource type="Resource" uid="uid://ksjqhws7tms6" path="res://resources/fade_glock.tres" id="4_cow4m"]
 [ext_resource type="Shader" path="res://scripts/shaders/camera.gdshader" id="6_jexjg"]
-[ext_resource type="Script" path="res://scripts/init_weapon.gd" id="6_mesns"]
 [ext_resource type="PackedScene" uid="uid://b2fwofkviwqga" path="res://scenes/guns/old_glock.tscn" id="6_p1v6h"]
 [ext_resource type="PackedScene" uid="uid://cuoksi8gn05bj" path="res://scenes/guns/fade_glock.tscn" id="7_jcwfb"]
 [ext_resource type="PackedScene" uid="uid://c575uv334iglo" path="res://scenes/guns/laser_gun.tscn" id="8_7qm2k"]
-[ext_resource type="Resource" uid="uid://cb6lprpexrmxu" path="res://resources/mac10.tres" id="8_nf3gp"]
-[ext_resource type="Resource" uid="uid://b2k74qk7pwwkn" path="res://resources/laser_gun.tres" id="9_751et"]
-[ext_resource type="Resource" uid="uid://c452ux5y8o5na" path="res://resources/shotgun.tres" id="9_mkwjk"]
 [ext_resource type="PackedScene" uid="uid://cjbialvl7u4kf" path="res://scenes/guns/mac_10.tscn" id="12_6jph3"]
 [ext_resource type="Script" path="res://scripts/UI/death_screen.gd" id="12_f3lf3"]
 [ext_resource type="PackedScene" uid="uid://c3hldvhjiu47q" path="res://scenes/UI/crosshair.tscn" id="12_k6evy"]
@@ -66,12 +59,6 @@ mesh = SubResource("QuadMesh_vu8or")
 unique_name_in_owner = true
 transform = Transform3D(0.0175106, -0.003185, -0.999842, -0.0174523, 0.999842, -0.00349065, 0.999694, 0.0175107, 0.0174523, 0.707, -0.7, -0.37)
 script = ExtResource("3_0hi0p")
-inventory = Array[ExtResource("2_2mino")]([ExtResource("4_cow4m"), ExtResource("9_751et"), ExtResource("3_nn53y"), ExtResource("8_nf3gp"), ExtResource("9_mkwjk")])
-
-[node name="Gun" type="Node3D" parent="HeadPivot/Camera3D/right_hand"]
-transform = Transform3D(1, -1.86265e-09, -1.86265e-09, -1.86265e-09, 1, -1.45519e-10, 1.86265e-09, 5.82077e-11, 1, 0, 0, 0)
-visible = false
-script = ExtResource("6_mesns")
 
 [node name="old_glock" parent="HeadPivot/Camera3D/right_hand" instance=ExtResource("6_p1v6h")]
 visible = false
@@ -94,6 +81,7 @@ visible = false
 unique_name_in_owner = true
 
 [node name="DeathScreen" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
 visible = false
 script = ExtResource("12_f3lf3")
 
@@ -128,21 +116,22 @@ text = "Try Again"
 layout_mode = 2
 text = "Quit"
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="HUD" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
 
-[node name="Crosshair" parent="CanvasLayer" instance=ExtResource("12_k6evy")]
+[node name="Crosshair" parent="HUD" instance=ExtResource("12_k6evy")]
 offset_top = -1.0
 offset_bottom = -1.0
 ch_length = 5.0
 ch_radius = 15.0
 ch_color = Color(1, 1, 1, 1)
 
-[node name="TimerDisplay" type="Label" parent="CanvasLayer"]
+[node name="TimerDisplay" type="Label" parent="HUD"]
 unique_name_in_owner = true
 offset_right = 40.0
 offset_bottom = 23.0
 
-[node name="AmmoLabel" type="Label" parent="CanvasLayer"]
+[node name="AmmoLabel" type="Label" parent="HUD"]
 unique_name_in_owner = true
 anchors_preset = 3
 anchor_left = 1.0
@@ -229,6 +218,12 @@ theme_override_fonts/font = ExtResource("21_eyui1")
 theme_override_font_sizes/font_size = 24
 text = "Resume"
 
+[node name="Restart" type="Button" parent="PauseMenu/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("21_eyui1")
+theme_override_font_sizes/font_size = 24
+text = "Restart"
+
 [node name="QuitButton" type="Button" parent="PauseMenu/Panel/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("21_eyui1")
@@ -241,4 +236,5 @@ text = "Quit"
 [connection signal="pressed" from="DeathScreen/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="button_down" from="PauseMenu/Panel/VBoxContainer/Resume" to="." method="_on_resume_button_down"]
+[connection signal="button_down" from="PauseMenu/Panel/VBoxContainer/Restart" to="DeathScreen" method="_on_restart_button_down"]
 [connection signal="button_down" from="PauseMenu/Panel/VBoxContainer/QuitButton" to="DeathScreen" method="_on_quit_button_button_down"]
