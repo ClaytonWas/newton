@@ -32,12 +32,20 @@ var desired_direction := Vector3.ZERO
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	#If health booster - add health
+	if GameScript.add_health > 0.0:
+		health += GameScript.add_health
+		GameScript.add_health = 0
 		
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		%PauseMenu.visible = false
 	elif event.is_action_pressed("ui_cancel"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		toggle_pause()		#Pause game on esc key
+		
 		
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
@@ -123,3 +131,17 @@ func death_state():
 
 func _on_death_zone_body_entered(body: Node3D) -> void:
 	emit_signal("death_screen")
+
+func toggle_pause() -> void:
+	#Toggles pause game menu & functionality
+	if Engine.time_scale > 0.0:
+		Engine.time_scale = 0.0
+	else:
+		Engine.time_scale = 1.0
+	if %PauseMenu.visible:
+		%PauseMenu.visible = false
+	else:
+		%PauseMenu.visible = true
+
+func _on_resume_button_down() -> void:
+	toggle_pause()
