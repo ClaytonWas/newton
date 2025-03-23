@@ -1,11 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://da6m0b4ofar1f"]
+[gd_scene load_steps=5 format=3 uid="uid://da6m0b4ofar1f"]
 
 [ext_resource type="StyleBox" uid="uid://bbxjt88sjs2g8" path="res://textures/general/shop_upgrade_panel.tres" id="1_m85fy"]
 [ext_resource type="FontFile" uid="uid://b37i10y1miif5" path="res://fonts/kids_knowledge_2/Kid Knowledge 2 Clean.otf" id="2_qy2xk"]
+[ext_resource type="FontFile" uid="uid://1ocjgmtw3srp" path="res://fonts/doomed/doomed.ttf" id="3_kahgx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tmr7k"]
+bg_color = Color(1, 0.843137, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 15.0
+expand_margin_top = 5.0
+expand_margin_right = 15.0
+expand_margin_bottom = 5.0
+shadow_size = 1
 
 [node name="Upgrade" type="Button"]
 offset_right = 306.0
-offset_bottom = 132.0
+offset_bottom = 59.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/normal = ExtResource("1_m85fy")
@@ -16,7 +34,10 @@ offset_left = 11.0
 offset_top = 8.0
 offset_right = 300.0
 offset_bottom = 48.0
+theme_override_colors/default_color = Color(0, 1, 0, 1)
 bbcode_enabled = true
+text = "Upgrade Type"
+fit_content = true
 
 [node name="Image" type="RichTextLabel" parent="."]
 layout_mode = 1
@@ -29,6 +50,8 @@ offset_right = 72.0
 offset_bottom = 21.0
 grow_vertical = 2
 bbcode_enabled = true
+text = "Pic"
+fit_content = true
 
 [node name="Desc" type="RichTextLabel" parent="."]
 layout_mode = 1
@@ -38,11 +61,34 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -44.0
-offset_top = -26.0
-offset_right = 133.0
-offset_bottom = 62.0
+offset_top = -25.5
+offset_right = 136.0
+offset_bottom = -0.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/normal_font = ExtResource("2_qy2xk")
 theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
+text = "Description"
+fit_content = true
+
+[node name="BuyButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -67.0
+offset_top = -39.0
+offset_right = -26.0
+offset_bottom = -12.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("3_kahgx")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tmr7k")
+text = "BUY: "

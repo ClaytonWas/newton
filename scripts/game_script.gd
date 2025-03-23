@@ -8,13 +8,14 @@ const GUN_POOL = [
 	preload('res://resources/shotgun.tres')
 ]
 
-const LEVELS =  [
+const LEVELS =  [		#Names of level scenes as navigation path 
 	'res://scenes/levels/outdoors.tscn',
 	'res://scenes/levels/main.tscn',
 	'res://scenes/levels/mines.tscn',
 	'res://scenes/levels/nether.tscn'
 ]
 
+#Ordered list: First-In-First-Out & iterated through by array.pop() 
 var level_order = [LEVELS[0], LEVELS[1], LEVELS[3]]
 
 var player_inventory: Array[Weapon] = [GUN_POOL[0]]
@@ -33,3 +34,6 @@ func next_scene():
 	var temp = level_order[0]
 	level_order.pop_front()
 	return temp
+
+func add_weapon(gun: Weapon) -> void:
+	player_inventory.append(gun)
