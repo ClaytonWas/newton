@@ -35,6 +35,10 @@ size = Vector3(0.226547, 0.33667, 0.37793)
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_2ak50")
 mouse_sensitivity = 0.005
+sprint_speed = 60.0
+ground_speed_acceleration = 5.0
+ground_speed_deceleration = 20.0
+ground_friction = 3
 
 [node name="BodyCollisionShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9096, 0)
@@ -146,7 +150,7 @@ text = "Ammo:"
 
 [node name="Timer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 30.0
+wait_time = 100.0
 one_shot = true
 autostart = true
 script = ExtResource("13_g3pfr")

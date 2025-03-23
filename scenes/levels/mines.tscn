@@ -621,7 +621,6 @@ shadow_mesh = SubResource("ArrayMesh_uuij1")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n066u"]
 resource_name = "SoilRough"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 albedo_texture = ExtResource("17_dsuqu")
 emission_enabled = true
 emission = Color(1, 1, 1, 1)

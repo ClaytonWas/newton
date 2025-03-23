@@ -3,12 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bbvufmb6hqcvc"
-valid=false
+uid="uid://dd5nqvyajm6el"
+path="res://.godot/imported/Sewers.dae-c31329e68b06ba5b9a3707e056413303.scn"
 
 [deps]
 
-source_file="res://objects/Weapons/Weapon_02.fbx"
+source_file="res://textures/environments/sewers/Models/Sewers.dae"
+dest_files=["res://.godot/imported/Sewers.dae-c31329e68b06ba5b9a3707e056413303.scn"]
 
 [params]
 
@@ -26,11 +27,8 @@ meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
 animation/fps=30
-animation/trimming=true
+animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={}
-fbx/importer=1
-fbx/allow_geometry_helper_nodes=false
-fbx/embedded_image_handling=1

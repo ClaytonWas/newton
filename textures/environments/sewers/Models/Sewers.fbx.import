@@ -3,12 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bbvufmb6hqcvc"
-valid=false
+uid="uid://bglr8pnvtf75i"
+path="res://.godot/imported/Sewers.fbx-d5f458aa6aa99acaba3fe6c39fb12ac3.scn"
 
 [deps]
 
-source_file="res://objects/Weapons/Weapon_02.fbx"
+source_file="res://textures/environments/sewers/Models/Sewers.fbx"
+dest_files=["res://.godot/imported/Sewers.fbx-d5f458aa6aa99acaba3fe6c39fb12ac3.scn"]
 
 [params]
 
@@ -31,6 +32,6 @@ animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={}
-fbx/importer=1
+fbx/importer=0
 fbx/allow_geometry_helper_nodes=false
 fbx/embedded_image_handling=1
