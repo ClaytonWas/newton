@@ -150,3 +150,6 @@ func _physics_process(delta: float) -> void:
 
 func update_ammo_UI(value: int) -> void:
 	%HUD.get_node("AmmoLabel").set_text(str(value))
+
+func _process(delta: float) -> void:
+	GameScript.equipped_weapon = equipped_weapon

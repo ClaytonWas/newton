@@ -26,20 +26,27 @@ func update_shop_label(upgrade):
 	var type_label = panel.find_child('TypeLabel')	#Element variables
 	var image = panel.find_child('Image')
 	var desc = panel.find_child('Desc')
+	var button = panel.find_child('BuyButton')
 	
 	if (upgrade is Weapon): #Gun upgrade - Choose Random Weapon
 		type_label.text = 'New Weapon Upgrade: \t\t%s' % [upgrade.weapon_name]
 		desc.text = 'Name: %s \t-\t%s\nBullet Type: %s\nDamage: %d\nAmmo Capacity: %d' % [upgrade.weapon_name,"Full-Auto" if upgrade.is_fullauto else "Semi-Auto", upgrade.bullet_type, upgrade.damage, upgrade.magazine_size]
 		#Click listener to add weapon
-		#.connect("pressed", self, "add_weapon_to_player").bind(upgrade)
-		print('DEBUG: ',panel.get_node("BuyButton"))
+		button.pressed.connect(self.add_weapon_to_player.bind(upgrade))
 		
 	else:	#Abilities upgrade
-		var found = UPGRADE_TYPES.find(func(x): return upgrade.has(x))
-		type_label.text = UPGRADE_TYPES[found] + ' Upgrade'
+		#Choose random gun
+		var gun = GameScript.player_inventory[randi() % GameScript.player_inventory.size()]
 		
-		desc.text = upgrade # add gun name
-	
+		#Decypher type
+		for type in UPGRADE_TYPES:
+			if upgrade.contains(type):
+				type_label.text = type + ' Upgrade'
+				
+		# add gun name to message
+		desc.text = upgrade if upgrade.contains('Health') else upgrade + gun.weapon_name
+		
+		button.pressed.connect(self.add_ability_upgrade.bind(upgrade))
 	%VBoxUpgrades.add_child(panel)
 	
 func build_ability_upgrade(ability: String):
@@ -66,8 +73,6 @@ func build_ability_upgrade(ability: String):
 	#Random number between range with step
 	var variance = range[0] + (randi() % ((range[1] - range[0]) / step + 1)) * step
 	return message % [variance]
-	
-	
 
 func generate_upgrades():
 	#Shop offers one new weapon upgrade & one abilities upgrade
@@ -85,7 +90,23 @@ func generate_upgrades():
 	
 func add_weapon_to_player(gun: Weapon):
 	#Adds Weapon (WeaponResource.gd) to player_inventory in game_script.gd
+	#Connects to gun upgrade 'buy' button
 	GameScript.add_weapon(gun)
 	
 func add_ability_upgrade(ability):
-	pass
+	#Isolate number from message
+	var value = float(ability.split('+')[1].substr(0,2))
+	
+	#Health case
+	if ability.contains(UPGRADE_TYPES[0]):
+		GameScript.add_health = value
+		print('Adding %d HP to player.' % [value])
+	
+	#Damage Case
+	elif ability.contains(UPGRADE_TYPES[1]):
+		GameScript.upgrade_damage(value)
+		print('Adding %d Damage to %s.' % [value, GameScript.equipped_weapon.weapon_name])
+	# Ammo case
+	elif ability.contains(UPGRADE_TYPES[2]):
+		GameScript.upgrade_ammo(value)
+		print('Adding %d bullets to clip of %s.' % [value, GameScript.equipped_weapon.weapon_name])
