@@ -2,8 +2,8 @@
 
 [ext_resource type="Shader" path="res://scripts/shaders/starrysky.gdshader" id="1_g6wkd"]
 [ext_resource type="Shader" path="res://scripts/shaders/water.gdshader" id="2_v7h6p"]
+[ext_resource type="Texture2D" uid="uid://cd7bf8wy2er0e" path="res://textures/environments/moon_overlay.png" id="3_3ett0"]
 [ext_resource type="Texture2D" uid="uid://b15ncps257o22" path="res://textures/environments/low_poly_sand/Stylized_Sand_002_basecolor.png" id="3_k47lw"]
-[ext_resource type="Texture2D" uid="uid://bj5m2pgiiqhj4" path="res://textures/environments/moon.png" id="3_vvtia"]
 [ext_resource type="Texture2D" uid="uid://btiyo7rrq6ns6" path="res://textures/environments/low_poly_sand/Stylized_Sand_002_ambientOcclusion.png" id="4_bw4my"]
 [ext_resource type="PackedScene" uid="uid://cnxm803p7w416" path="res://scenes/player.tscn" id="4_px3de"]
 [ext_resource type="Texture2D" uid="uid://5rap8k2y7xhq" path="res://textures/environments/low_poly_sand/Stylized_Sand_002_height.png" id="5_mkyti"]
@@ -158,11 +158,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 1, 100)
 transform = Transform3D(0.971487, 0, -0.237092, 0, 1, 0, 0.237092, 0, 0.971487, -1090.94, -0.75769, 649.875)
 
 [node name="Sprite3D" type="Sprite3D" parent="Moon"]
-transform = Transform3D(1.9657, 3.9831, -2.29585, -4.57969, 1.4776, -1.35761, -0.403028, 2.63659, 4.22918, 500, 500, -500)
+transform = Transform3D(39.314, 79.662, -45.9171, -91.5938, 29.5521, -27.1522, -8.06056, 52.7318, 84.5836, -1404.98, 3004.39, 1108.86)
 cast_shadow = 0
 gi_mode = 0
 billboard = 1
-texture = ExtResource("3_vvtia")
+texture = ExtResource("3_3ett0")
 region_rect = Rect2(361, 536, 258, 260)
 
 [node name="OfficePortal" type="Area3D" parent="."]
