@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://tax105blpqrr"]
+
+[ext_resource type="PackedScene" uid="uid://sw4qpapb28ks" path="res://resources/Styloo Guns Asset Pack GLTF FBX V1.1/Normal version Color and NormalMap/GLB/bulletshotgun.glb" id="1_lu7aq"]
+[ext_resource type="Texture2D" uid="uid://cbvllqinrr8xn" path="res://textures/guns/Luger1.png" id="2_hn6kk"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_o86y2"]
+size = Vector3(0.15, 0.4, 0.04)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o4o2g"]
+albedo_texture = ExtResource("2_hn6kk")
+
+[node name="Clip" type="Node3D"]
+
+[node name="shotgun" parent="." instance=ExtResource("1_lu7aq")]
+
+[node name="mag" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_o86y2")
+surface_material_override/0 = SubResource("StandardMaterial3D_o4o2g")

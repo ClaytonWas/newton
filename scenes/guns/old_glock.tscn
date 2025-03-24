@@ -14,19 +14,20 @@ albedo_color = Color(0.47, 0.47, 0.47, 1)
 albedo_texture = ExtResource("2_sulhs")
 
 [node name="OldGlock" type="Node3D"]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
 script = ExtResource("1_442o4")
 gun = ExtResource("2_udgop")
 
 [node name="Glock" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000665784, 0.00468552, -0.00108004)
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.000665784, 0.00468552, -0.00108004)
 mesh = ExtResource("1_ts61r")
 surface_material_override/0 = SubResource("StandardMaterial3D_1qejf")
 surface_material_override/1 = SubResource("StandardMaterial3D_p6ptc")
 
-[node name="muzzle_flash" parent="." instance=ExtResource("5_cptg7")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -2.28488, 1.16, 0.0710919)
-visible = false
-
 [node name="bullet_spawn" type="Node3D" parent="."]
-transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -1.92639, 1.27979, 0)
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -0.842011, 0.497375, 0.0710919)
+
+[node name="clip_spawn" type="Node3D" parent="."]
+
+[node name="muzzle_flash" parent="." instance=ExtResource("5_cptg7")]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, -0.842011, 0.437355, 0.0710919)
+visible = false

@@ -6,7 +6,7 @@ extends Control
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	change_panel($ButtonPanel)
-
+	GameScript.start_game() #Resets game loop variables
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

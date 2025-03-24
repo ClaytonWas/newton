@@ -16,14 +16,22 @@ const LEVELS =  [		#Names of level scenes as navigation path
 ]
 
 #Ordered list: First-In-First-Out & iterated through by array.pop() 
-var level_order = [LEVELS[0], LEVELS[1], LEVELS[3]]
+var level_order : Array[String]
 
-var player_inventory: Array[Weapon] = [GUN_POOL[0]]
-var equipped_weapon: Weapon = player_inventory[0]# Tracks current equipped weapon
-var add_health: float = 0.0	#Variable to add based on ability booster
+var player_inventory: Array[Weapon] 
+var equipped_weapon: Weapon # Tracks current equipped weapon
+var add_health: float = 0.0	# Flag Variable to add HP based on ability booster - checked in playermovement.gd
+var is_sprinting: bool = false	# Tracks if player is sprinting
 
+func start_game():
+	#Resets variables for fresh game runs
+	randomize()
+	player_inventory = [GUN_POOL[0], GUN_POOL[4], GUN_POOL[3]]	#Set starting weapon
+	equipped_weapon= player_inventory[0]
+	level_order = [LEVELS[0], LEVELS[1], LEVELS[3]]
+	
 func _ready() -> void:
-	pass # Replace with function body.
+	start_game()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -63,8 +63,12 @@ func _headbob_effect(delta) -> void:
 
 func get_move_speed() -> float:
 	if Input.is_action_pressed("sprint"):
+		GameScript.is_sprinting = true
+		%AnimationPlayer.play('sprint')	
 		return sprint_speed 
 	else:
+		GameScript.is_sprinting = false
+		
 		return walk_speed	
 
 func _physics_process(delta):

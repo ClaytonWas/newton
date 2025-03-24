@@ -81,3 +81,6 @@ visible = false
 
 [node name="bullet_spawn" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.29261, 0.573003, 0)
+
+[node name="clip_spawn" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.489711, 0.228794, 0)

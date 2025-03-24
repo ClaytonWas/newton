@@ -26,6 +26,9 @@ surface_material_override/1 = SubResource("StandardMaterial3D_yiabd")
 
 [node name="muzzle_flash" parent="." instance=ExtResource("6_rsxcy")]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, -0.842011, 0.437355, 0.0710919)
+visible = false
 
 [node name="bullet_spawn" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.842011, 0.497375, 0.0710919)
+
+[node name="clip_spawn" type="Node3D" parent="."]
