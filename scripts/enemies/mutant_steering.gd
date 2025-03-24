@@ -86,3 +86,8 @@ func _on_attack_area_body_exited(body: Node3D) -> void:
 
 func _on_hitbox_component_body_entered(body: Node3D) -> void:
 	print('Headshot!') # Replace with function body.
+
+
+func _on_tree_exiting() -> void:
+	# When Boss dies
+	GameScript.game_won = true

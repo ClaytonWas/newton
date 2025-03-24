@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=3 uid="uid://djuj854nu2mgl"]
+
+[ext_resource type="PackedScene" uid="uid://cbxm55rblf2uo" path="res://objects/wallclock.glb" id="1_0uq8d"]
+[ext_resource type="Script" path="res://scripts/UI/clock_face_3d.gd" id="1_wra0v"]
+[ext_resource type="FontFile" uid="uid://b37i10y1miif5" path="res://fonts/kids_knowledge_2/Kid Knowledge 2 Clean.otf" id="3_fbfey"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_06ulk"]
+size = Vector3(0.3, 3.5, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x23s8"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="TextMesh" id="TextMesh_nnle7"]
+text = "0.00"
+font = ExtResource("3_fbfey")
+font_size = 100
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7hndh"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jbnih"]
+size = Vector3(0.3, 0.5, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mpuaq"]
+albedo_color = Color(0.968234, 0.00364619, 3.85046e-07, 1)
+
+[node name="Clock" type="Node3D" node_paths=PackedStringArray("clock_axis")]
+script = ExtResource("1_wra0v")
+clock_axis = NodePath("Center")
+
+[node name="wallclock" parent="." instance=ExtResource("1_0uq8d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.85527, 0, -1.068)
+
+[node name="Center" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Hand1" type="MeshInstance3D" parent="Center"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.18134, -0.765242)
+mesh = SubResource("BoxMesh_06ulk")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_x23s8")
+
+[node name="TimeLeft" type="MeshInstance3D" parent="Center"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.601846)
+mesh = SubResource("TextMesh_nnle7")
+surface_material_override/0 = SubResource("StandardMaterial3D_7hndh")
+
+[node name="Tick0" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.69417, -0.793163)
+mesh = SubResource("BoxMesh_jbnih")
+surface_material_override/0 = SubResource("StandardMaterial3D_mpuaq")
+
+[node name="Tick1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.71172, -0.793163)
+mesh = SubResource("BoxMesh_jbnih")
+surface_material_override/0 = SubResource("StandardMaterial3D_mpuaq")
+
+[node name="Tick2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 3.72355, 0, -0.793)
+mesh = SubResource("BoxMesh_jbnih")
+surface_material_override/0 = SubResource("StandardMaterial3D_mpuaq")
+
+[node name="Tick3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -3.70672, 0, -0.793)
+mesh = SubResource("BoxMesh_jbnih")
+surface_material_override/0 = SubResource("StandardMaterial3D_mpuaq")

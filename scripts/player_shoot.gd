@@ -183,7 +183,7 @@ func _physics_process(delta: float) -> void:
 		#Animation playing
 		if %AnimationPlayer.current_animation == "sprint" and not GameScript.is_sprinting:
 			%AnimationPlayer.play('RESET')
-			#pass
+			
 
 func update_ammo_UI(value: int) -> void:
 	%HUD.get_node("AmmoLabel").set_text(str(value))
@@ -191,4 +191,6 @@ func update_ammo_UI(value: int) -> void:
 func _process(delta: float) -> void:
 	GameScript.equipped_weapon = equipped_weapon
 
-	
+	# Check game over
+	if GameScript.game_won:
+		%DeathScreen.make_win_screen()

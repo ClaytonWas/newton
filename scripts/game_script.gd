@@ -22,6 +22,7 @@ var player_inventory: Array[Weapon]
 var equipped_weapon: Weapon # Tracks current equipped weapon
 var add_health: float = 0.0	# Flag Variable to add HP based on ability booster - checked in playermovement.gd
 var is_sprinting: bool = false	# Tracks if player is sprinting
+var game_won: bool	# Global won game flag
 
 func start_game():
 	#Resets variables for fresh game runs
@@ -29,6 +30,7 @@ func start_game():
 	player_inventory = [GUN_POOL[0], GUN_POOL[2], GUN_POOL[3]]	#Set starting weapon
 	equipped_weapon= player_inventory[0]
 	level_order = [LEVELS[0], LEVELS[1], LEVELS[3]]
+	game_won = false
 	
 func _ready() -> void:
 	start_game()
@@ -42,6 +44,7 @@ func next_scene():
 	#Function to return the next scene in layout order & pop from list
 	var temp = level_order[0]
 	level_order.pop_front()
+	Engine.time_scale = 1.0
 	return temp
 
 func add_weapon(gun: Weapon) -> void:

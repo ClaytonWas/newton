@@ -1,0 +1,493 @@
+[gd_scene load_steps=28 format=3 uid="uid://cnxm803p7w416"]
+
+[ext_resource type="Script" path="res://scripts/playermovement.gd" id="1_2ak50"]
+[ext_resource type="Script" path="res://scripts/player_shoot.gd" id="3_0hi0p"]
+[ext_resource type="Shader" path="res://scripts/shaders/camera.gdshader" id="6_jexjg"]
+[ext_resource type="PackedScene" uid="uid://b2fwofkviwqga" path="res://scenes/guns/old_glock.tscn" id="6_p1v6h"]
+[ext_resource type="PackedScene" uid="uid://cuoksi8gn05bj" path="res://scenes/guns/fade_glock.tscn" id="7_jcwfb"]
+[ext_resource type="PackedScene" uid="uid://c575uv334iglo" path="res://scenes/guns/laser_gun.tscn" id="8_7qm2k"]
+[ext_resource type="PackedScene" uid="uid://tax105blpqrr" path="res://scenes/guns/clip.tscn" id="9_gbhal"]
+[ext_resource type="StyleBox" uid="uid://cd8tmpl1thjwu" path="res://textures/general/UI_panel.tres" id="11_wp7aa"]
+[ext_resource type="PackedScene" uid="uid://cjbialvl7u4kf" path="res://scenes/guns/mac_10.tscn" id="12_6jph3"]
+[ext_resource type="Script" path="res://scripts/UI/death_screen.gd" id="12_f3lf3"]
+[ext_resource type="PackedScene" uid="uid://c3hldvhjiu47q" path="res://scenes/UI/crosshair.tscn" id="12_k6evy"]
+[ext_resource type="Script" path="res://scenes/timer.gd" id="13_g3pfr"]
+[ext_resource type="FontFile" uid="uid://b37i10y1miif5" path="res://fonts/kids_knowledge_2/Kid Knowledge 2 Clean.otf" id="13_yx3nr"]
+[ext_resource type="PackedScene" uid="uid://v1nfdxx3d3u4" path="res://scenes/guns/shotgun.tscn" id="14_gbkgs"]
+[ext_resource type="Script" path="res://scripts/UI/clock_face.gd" id="15_b7v5p"]
+[ext_resource type="FontFile" uid="uid://1ocjgmtw3srp" path="res://fonts/doomed/doomed.ttf" id="20_ksctb"]
+[ext_resource type="FontFile" uid="uid://drptivkdwroo6" path="res://fonts/kids_knowledge_2/Kid Knowledge 2 Rustic.otf" id="21_eyui1"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ykk5e"]
+height = 1.99585
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7crhn"]
+render_priority = 0
+shader = ExtResource("6_jexjg")
+shader_parameter/edge_color = Color(0, 0, 0, 1)
+shader_parameter/edge_threshold = 0.01
+shader_parameter/noise_frequency = 10.0
+shader_parameter/noise_offset_intensity = 0.002
+
+[sub_resource type="QuadMesh" id="QuadMesh_vu8or"]
+material = SubResource("ShaderMaterial_7crhn")
+
+[sub_resource type="Animation" id="Animation_0tshj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%right_hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.707, -0.7, -0.37)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%right_hand:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.00349066, -1.55334, -0.0174533)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("right_hand/Clip:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("right_hand/Clip:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(8.32667e-17, -1.86264e-09, 1.5708)]
+}
+
+[sub_resource type="Animation" id="Animation_pn8i5"]
+resource_name = "light_reload"
+length = 2.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%right_hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333, 1.8, 2.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.707, -0.7, -0.37), Vector3(0.707, -0.7, -1.38112), Vector3(0.707, -0.7, -1.38112), Vector3(0.707, -0.7, -0.37)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%right_hand:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.333333, 1.8, 2.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.00349066, -1.55334, -0.0174533), Vector3(0.00349066, -0.588176, -0.418879), Vector3(0.00349066, -0.588176, -0.418879), Vector3(0.00349066, -1.55334, -0.0174533)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("right_hand/Clip:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 1.03333, 1.33333, 2.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, -1, 0), Vector3(0, -1, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4psuk"]
+resource_name = "reload_shotgun"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%right_hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 3.66667, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.707, -0.7, -0.37), Vector3(0.707, -0.7, -1.10966), Vector3(0.707, -0.7, -1.10966), Vector3(0.707, -0.7, -0.37)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%right_hand:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 3.66667, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.00349066, -1.55334, -0.0174533), Vector3(0.00349066, -1.55334, -1.0472), Vector3(0.00349066, -1.55334, -1.0472), Vector3(0.00349066, -1.55334, -0.0174533)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("right_hand/Clip:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.1, 2, 2.13333, 3, 3.13333, 3.66667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.999695, -0.0175107, -0.0174523), Vector3(-0.999695, -0.0175107, -0.0174523), Vector3(-1, 0.3, -0.017), Vector3(-0.999695, -0.0175107, -0.0174523), Vector3(-1, 0.3, -0.017), Vector3(-0.999695, -0.0175107, -0.0174523), Vector3(-1, 0.3, -0.017), Vector3(-0.999695, -0.0175107, -0.0174523), Vector3(-1, 0.3, -0.017)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("right_hand/Clip:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_7il3s"]
+resource_name = "shoot"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%right_hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.707, -0.7, -0.37), Vector3(0.707, -0.6, -0.1), Vector3(0.707, -0.7, -0.37)]
+}
+
+[sub_resource type="Animation" id="Animation_c22ao"]
+resource_name = "sprint"
+length = 1.25
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%right_hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 0.5, 1.13333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.4, -0.859, -0.777), Vector3(1.2, -0.7, -0.777), Vector3(0.4, -0.859, -0.777)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%right_hand:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.0354058, -0.0388803, 0.347891)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bk6ef"]
+_data = {
+"RESET": SubResource("Animation_0tshj"),
+"reload_light": SubResource("Animation_pn8i5"),
+"reload_shotgun": SubResource("Animation_4psuk"),
+"shoot": SubResource("Animation_7il3s"),
+"sprint": SubResource("Animation_c22ao")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yh1i5"]
+size = Vector3(0.226547, 0.33667, 0.37793)
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_2ak50")
+mouse_sensitivity = 0.005
+
+[node name="BodyCollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9096, 0)
+shape = SubResource("CapsuleShape3D_ykk5e")
+
+[node name="HeadPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="Camera3D" type="Camera3D" parent="HeadPivot"]
+unique_name_in_owner = true
+fov = 105.0
+
+[node name="RayCast3D" type="RayCast3D" parent="HeadPivot/Camera3D"]
+unique_name_in_owner = true
+target_position = Vector3(0, 0, -100)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="HeadPivot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.340858)
+mesh = SubResource("QuadMesh_vu8or")
+
+[node name="right_hand" type="Node3D" parent="HeadPivot/Camera3D"]
+unique_name_in_owner = true
+transform = Transform3D(0.0175137, -0.00318495, -0.999842, -0.0174523, 0.999842, -0.00349065, 0.999694, 0.0175107, 0.0174554, 0.707, -0.7, -0.37)
+script = ExtResource("3_0hi0p")
+
+[node name="old_glock" parent="HeadPivot/Camera3D/right_hand" instance=ExtResource("6_p1v6h")]
+visible = false
+
+[node name="fade_glock" parent="HeadPivot/Camera3D/right_hand" instance=ExtResource("7_jcwfb")]
+visible = false
+
+[node name="LaserGun" parent="HeadPivot/Camera3D/right_hand" instance=ExtResource("8_7qm2k")]
+transform = Transform3D(-0.7, 1.58325e-08, -1.49012e-07, 1.76951e-08, 0.75, 9.8953e-10, 1.04308e-07, 6.98492e-10, -1, -0.151277, -0.0569464, 0.269655)
+visible = false
+
+[node name="Mac10" parent="HeadPivot/Camera3D/right_hand" instance=ExtResource("12_6jph3")]
+visible = false
+
+[node name="Shotgun" parent="HeadPivot/Camera3D/right_hand" instance=ExtResource("14_gbkgs")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.398251, 0.324593, 0.0549376)
+visible = false
+
+[node name="Clip" parent="HeadPivot/Camera3D/right_hand" instance=ExtResource("9_gbhal")]
+transform = Transform3D(-3.61999e-06, -1, -1.86264e-09, 1, -3.61999e-06, -8.32667e-17, -6.65947e-15, -1.86264e-09, 1, 0, 0, 0)
+visible = false
+
+[node name="ShotTimer" type="Timer" parent="HeadPivot/Camera3D/right_hand"]
+unique_name_in_owner = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HeadPivot/Camera3D"]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_bk6ef")
+}
+
+[node name="AudioPlayer" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+
+[node name="DeathScreen" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+script = ExtResource("12_f3lf3")
+
+[node name="ColorRect" type="ColorRect" parent="DeathScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.215686, 0.0431373, 0.654902)
+
+[node name="Panel" type="Panel" parent="DeathScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -176.5
+offset_top = -121.0
+offset_right = 126.5
+offset_bottom = 148.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("11_wp7aa")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="DeathScreen/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -69.5
+offset_top = 19.0
+offset_right = 69.5
+offset_bottom = 88.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0.625575, 1.43189e-06, 5.77569e-07, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/normal_font = ExtResource("20_ksctb")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "GAME OVER
+you lost"
+fit_content = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DeathScreen/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -46.5
+offset_right = 43.5
+offset_bottom = 46.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="Button" type="Button" parent="DeathScreen/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("13_yx3nr")
+theme_override_font_sizes/font_size = 20
+text = "Try Again"
+
+[node name="QuitButton" type="Button" parent="DeathScreen/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("13_yx3nr")
+theme_override_font_sizes/font_size = 20
+text = "Quit"
+
+[node name="HUD" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+
+[node name="Crosshair" parent="HUD" instance=ExtResource("12_k6evy")]
+offset_top = -1.0
+offset_bottom = -1.0
+ch_length = 5.0
+ch_radius = 15.0
+ch_color = Color(1, 1, 1, 1)
+
+[node name="TimerDisplay" type="Label" parent="HUD"]
+unique_name_in_owner = true
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="AmmoLabel" type="Label" parent="HUD"]
+unique_name_in_owner = true
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -56.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Ammo:"
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 30.0
+one_shot = true
+autostart = true
+script = ExtResource("13_g3pfr")
+
+[node name="HeadCollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.022377, 1.51539, -0.10498)
+shape = SubResource("BoxShape3D_yh1i5")
+
+[node name="left_hand" type="Node3D" parent="."]
+
+[node name="clock_face" type="Node2D" parent="left_hand"]
+position = Vector2(250, 447)
+script = ExtResource("15_b7v5p")
+
+[node name="SecondHand" type="Line2D" parent="left_hand/clock_face"]
+points = PackedVector2Array(0, 0, 100, 0)
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="Panel" type="Panel" parent="PauseMenu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -163.5
+offset_top = -290.0
+offset_right = 155.5
+offset_bottom = 256.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("11_wp7aa")
+
+[node name="PausedTitle" type="RichTextLabel" parent="PauseMenu/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -72.5
+offset_top = 47.0
+offset_right = 68.5
+offset_bottom = 102.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("20_ksctb")
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+text = "[wave]PAUSED[/wave]"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.5
+offset_top = -60.0
+offset_right = 54.5
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Resume" type="Button" parent="PauseMenu/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("21_eyui1")
+theme_override_font_sizes/font_size = 24
+text = "Resume"
+
+[node name="Restart" type="Button" parent="PauseMenu/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("21_eyui1")
+theme_override_font_sizes/font_size = 24
+text = "Restart"
+
+[node name="QuitButton" type="Button" parent="PauseMenu/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("21_eyui1")
+theme_override_font_sizes/font_size = 24
+text = "Quit"
+
+[connection signal="death_screen" from="." to="DeathScreen" method="_on_player_death_screen"]
+[connection signal="pressed" from="DeathScreen/Panel/VBoxContainer/Button" to="DeathScreen" method="_on_button_pressed"]
+[connection signal="button_down" from="DeathScreen/Panel/VBoxContainer/QuitButton" to="DeathScreen" method="_on_quit_button_button_down"]
+[connection signal="pressed" from="DeathScreen/Panel/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="button_down" from="PauseMenu/Panel/VBoxContainer/Resume" to="." method="_on_resume_button_down"]
+[connection signal="button_down" from="PauseMenu/Panel/VBoxContainer/Restart" to="DeathScreen" method="_on_restart_button_down"]
+[connection signal="button_down" from="PauseMenu/Panel/VBoxContainer/QuitButton" to="DeathScreen" method="_on_quit_button_button_down"]

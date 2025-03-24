@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://48gfd5t8qry3"
+path.s3tc="res://.godot/imported/wallclock_Laminate_D02_Diff_hires_srgb.png-993f866819e674283d79ba50eff2a8b7.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "d276c86465550f8c18c463e71ed10294"
+}
+
+[deps]
+
+source_file="res://objects/wallclock_Laminate_D02_Diff_hires_srgb.png"
+dest_files=["res://.godot/imported/wallclock_Laminate_D02_Diff_hires_srgb.png-993f866819e674283d79ba50eff2a8b7.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0
