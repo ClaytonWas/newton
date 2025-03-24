@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1tmbri675l65"
-path.s3tc="res://.godot/imported/ammobox_low_ammoboxmat_color.png-f7c1b23b13b0ac18c512a73aaf5a6038.s3tc.ctex"
+uid="uid://bs3n2kbghn7ma"
+path.s3tc="res://.godot/imported/Mutant_0.png-1280f077f6e434bec083f63d04ecef13.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "a79bd966e485dcd1de567a2a35e9178a"
+"md5": "9dbc72eb7e675abb513d5042bec77ed9"
 }
 
 [deps]
 
-source_file="res://resources/Styloo Guns Asset Pack GLTF FBX V1.1/zEmission version Color only/GLB/ammobox_low_ammoboxmat_color.png"
-dest_files=["res://.godot/imported/ammobox_low_ammoboxmat_color.png-f7c1b23b13b0ac18c512a73aaf5a6038.s3tc.ctex"]
+source_file="res://objects/Mutant_0.png"
+dest_files=["res://.godot/imported/Mutant_0.png-1280f077f6e434bec083f63d04ecef13.s3tc.ctex"]
 
 [params]
 

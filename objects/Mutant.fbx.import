@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://b8ypfsxtnkv4c"
-path="res://.godot/imported/Mutant.fbx-f7cdd65bf1cf2a0f557418cb7fa059bb.scn"
+path="res://.godot/imported/Mutant.fbx-4467c3b7b7b6e6f0d2b0d6b23433de1b.scn"
 
 [deps]
 
-source_file="res://resources/Mutant.fbx"
-dest_files=["res://.godot/imported/Mutant.fbx-f7cdd65bf1cf2a0f557418cb7fa059bb.scn"]
+source_file="res://objects/Mutant.fbx"
+dest_files=["res://.godot/imported/Mutant.fbx-4467c3b7b7b6e6f0d2b0d6b23433de1b.scn"]
 
 [params]
 

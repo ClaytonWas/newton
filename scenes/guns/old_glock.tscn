@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://b2fwofkviwqga"]
 
-[ext_resource type="Script" path="res://scripts/init_weapon.gd" id="1_442o4"]
+[ext_resource type="Script" path="res://scripts/guns/init_weapon.gd" id="1_442o4"]
 [ext_resource type="ArrayMesh" uid="uid://dqe653wdiybg4" path="res://objects/Glock.obj" id="1_ts61r"]
 [ext_resource type="Texture2D" uid="uid://ccp4ny80ak4ek" path="res://textures/guns/Glock.png" id="2_sulhs"]
 [ext_resource type="Resource" uid="uid://daj1kmkgd1b7a" path="res://resources/old_glock.tres" id="2_udgop"]

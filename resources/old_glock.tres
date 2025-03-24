@@ -2,7 +2,7 @@
 
 [ext_resource type="ArrayMesh" uid="uid://dqe653wdiybg4" path="res://objects/Glock.obj" id="1_dgdjy"]
 [ext_resource type="AudioStream" uid="uid://dbggodhgq242c" path="res://sounds/shot_dry.wav" id="1_f4lyn"]
-[ext_resource type="Script" path="res://scripts/weaponResource.gd" id="1_s5o88"]
+[ext_resource type="Script" path="res://scripts/guns/weaponResource.gd" id="1_s5o88"]
 [ext_resource type="AudioStream" uid="uid://cdw35pqkp73rw" path="res://sounds/shot_pistol.wav" id="2_a7hli"]
 [ext_resource type="AudioStream" uid="uid://b621dvtaemrcd" path="res://sounds/reload_pistol_2.wav" id="4_cagnr"]
 

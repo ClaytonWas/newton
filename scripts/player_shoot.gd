@@ -73,9 +73,10 @@ func change_weapon(index:int):
 func shoot():
 	#Fires one bullet from equipped gun
 	if equipped_weapon.mag > 0 and can_shoot and not GameScript.is_sprinting:
-		
+		can_shoot = false
+		%ShotTimer.start()
 		equipped_weapon.shoot()		#Updates Weapon ammo 
-		update_ammo_UI(equipped_weapon.mag)	#Update UI
+		#update_ammo_UI(equipped_weapon.mag)	#Update UI
 
 		equipped_weapon_node.find_child('muzzle_flash').visible=true	#Show muzzle flash
 		equipped_weapon_node.find_child('muzzle_flash').find_child('FlashTimer').start()
@@ -138,10 +139,11 @@ func reload():
 		
 		
 		equipped_weapon.reload()
-		update_ammo_UI(equipped_weapon.mag)
+		#update_ammo_UI(equipped_weapon.mag)
 
 func _on_reload_timer_timeout():
 	can_shoot = true
+	update_ammo_UI(equipped_weapon.mag)
 
 func fire_bullet(gun, offset):
 	# Intakes Weapon resource and global position as params
@@ -170,10 +172,10 @@ func fire_bullet(gun, offset):
 	
 func _physics_process(delta: float) -> void:
 	if is_shooting and can_shoot:		# Full auto bullet firing
-		# is_shooting is true when 'Fire' button is held down
-		%ShotTimer.start()
+		## is_shooting is true when 'Fire' button is held down
+		#%ShotTimer.start()
 		shoot()
-		can_shoot = false
+		#can_shoot = false
 	
 	if (!%AnimationPlayer.is_playing()):
 		find_child('Clip').visible = false

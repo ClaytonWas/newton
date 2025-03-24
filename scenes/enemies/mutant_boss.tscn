@@ -1,8 +1,8 @@
 [gd_scene load_steps=30 format=4 uid="uid://cuoadhq443oe6"]
 
-[ext_resource type="Texture2D" uid="uid://bs3n2kbghn7ma" path="res://resources/Mutant_0.png" id="1_3mrow"]
+[ext_resource type="Texture2D" uid="uid://bs3n2kbghn7ma" path="res://objects/Mutant_0.png" id="1_3mrow"]
 [ext_resource type="Script" path="res://scripts/enemies/mutant_steering.gd" id="1_ih2ok"]
-[ext_resource type="Texture2D" uid="uid://bpfn00e7bjuc4" path="res://resources/Mutant_1.png" id="2_rfc2j"]
+[ext_resource type="Texture2D" uid="uid://bpfn00e7bjuc4" path="res://objects/Mutant_1.png" id="2_rfc2j"]
 [ext_resource type="Animation" uid="uid://c6iwirn6yh53q" path="res://animations/Boss/Mutant/mutant_breathing_idle.res" id="3_l2gks"]
 [ext_resource type="Animation" uid="uid://b5gt1vf8b0dv2" path="res://animations/Boss/Mutant/mutant_dying.res" id="4_8dwdv"]
 [ext_resource type="PackedScene" uid="uid://cmqrs35b4snep" path="res://scenes/components/HitboxComponent.tscn" id="4_887il"]
