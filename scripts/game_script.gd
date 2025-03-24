@@ -26,7 +26,7 @@ var is_sprinting: bool = false	# Tracks if player is sprinting
 func start_game():
 	#Resets variables for fresh game runs
 	randomize()
-	player_inventory = [GUN_POOL[0], GUN_POOL[4], GUN_POOL[3]]	#Set starting weapon
+	player_inventory = [GUN_POOL[0], GUN_POOL[2], GUN_POOL[3]]	#Set starting weapon
 	equipped_weapon= player_inventory[0]
 	level_order = [LEVELS[0], LEVELS[1], LEVELS[3]]
 	

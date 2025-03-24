@@ -259,6 +259,7 @@ transform = Transform3D(0.0175137, -0.00318495, -0.999842, -0.0174523, 0.999842,
 script = ExtResource("3_0hi0p")
 
 [node name="old_glock" parent="HeadPivot/Camera3D/right_hand" instance=ExtResource("6_p1v6h")]
+visible = false
 
 [node name="fade_glock" parent="HeadPivot/Camera3D/right_hand" instance=ExtResource("7_jcwfb")]
 visible = false
@@ -277,6 +278,9 @@ visible = false
 [node name="Clip" parent="HeadPivot/Camera3D/right_hand" instance=ExtResource("9_gbhal")]
 transform = Transform3D(-3.61999e-06, -1, -1.86264e-09, 1, -3.61999e-06, -8.32667e-17, -6.65947e-15, -1.86264e-09, 1, 0, 0, 0)
 visible = false
+
+[node name="ShotTimer" type="Timer" parent="HeadPivot/Camera3D/right_hand"]
+unique_name_in_owner = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="HeadPivot/Camera3D"]
 unique_name_in_owner = true

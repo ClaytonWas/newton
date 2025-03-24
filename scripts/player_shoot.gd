@@ -9,11 +9,12 @@ var can_shoot: bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	equipped_weapon = inventory[0]
-	equipped_weapon.mag = equipped_weapon.magazine_size
-
-	equipped_weapon_node = self.find_child(equipped_weapon.weapon_name)
-	equipped_weapon_node.visible = true
+	#equipped_weapon = inventory[0]
+	#equipped_weapon.mag = equipped_weapon.magazine_size
+#
+	#equipped_weapon_node = self.find_child(equipped_weapon.weapon_name)
+	#equipped_weapon_node.visible = true
+	change_weapon(0)
 
 func _input(event):	
 	if Input.is_action_pressed("shoot"):
@@ -47,24 +48,23 @@ func _input(event):
 		change_weapon(4)
 		
 func change_weapon(index:int):
-	print(len(inventory), index)
 	if (index < len(inventory)):
 		var gun = inventory[index]
-	#Hide current weapon
-
-		var old_gun = equipped_weapon
-		equipped_weapon_node.visible = false
-			
+		
+		#Hide current weapon
+		if equipped_weapon_node:
+			equipped_weapon_node.visible = false
 		equipped_weapon = gun
 		equipped_weapon_node = self.find_child(equipped_weapon.weapon_name)
-
+	
 		#Show new weapon
-		#Jank Code, need to either replace one node OR create new one
 		equipped_weapon_node.visible = true
 
 		if (gun.mag==0):	#Fix guns spawning unloaded
 			gun.mag = gun.magazine_size
-			
+		
+		%ShotTimer.wait_time = gun.fire_rate
+		%ShotTimer.timeout.connect(self._on_reload_timer_timeout)
 		update_ammo_UI(equipped_weapon.mag)
 		print('Switched to ',gun.weapon_name,' dealing ',gun.damage,' per shot.')
 	
@@ -102,6 +102,7 @@ func shoot():
 		%AudioPlayer.stream = equipped_weapon.dryfire_sound	#Play dry fire sound
 		%AudioPlayer.play()
 
+
 func reload():
 	if (equipped_weapon.mag != equipped_weapon.magazine_size):	#Only reload if clip isnt full
 		print(equipped_weapon, equipped_weapon.reload_time)
@@ -132,14 +133,14 @@ func reload():
 		var reload_timer = Timer.new()
 		add_child(reload_timer)
 		reload_timer.wait_time = equipped_weapon.reload_time
-		reload_timer.timeout.connect(self._on_reload_timer_timeout.bind(clip))
+		reload_timer.timeout.connect(self._on_reload_timer_timeout)
 		reload_timer.start()
 		
 		
 		equipped_weapon.reload()
 		update_ammo_UI(equipped_weapon.mag)
 
-func _on_reload_timer_timeout(clip):
+func _on_reload_timer_timeout():
 	can_shoot = true
 
 func fire_bullet(gun, offset):
@@ -168,11 +169,11 @@ func fire_bullet(gun, offset):
 	get_parent().get_parent().get_parent().get_parent().add_child(projectile) #Add to world screen
 	
 func _physics_process(delta: float) -> void:
-	if is_shooting:		# Full auto bullet firing
-		shot_interval += delta
-		if shot_interval >= equipped_weapon.fire_rate:
-			shot_interval = 0.0  # Reset timer
-			shoot()
+	if is_shooting and can_shoot:		# Full auto bullet firing
+		# is_shooting is true when 'Fire' button is held down
+		%ShotTimer.start()
+		shoot()
+		can_shoot = false
 	
 	if (!%AnimationPlayer.is_playing()):
 		find_child('Clip').visible = false
