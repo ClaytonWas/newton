@@ -289,6 +289,7 @@ visible = false
 
 [node name="ShotTimer" type="Timer" parent="HeadPivot/Camera3D/right_hand"]
 unique_name_in_owner = true
+one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="HeadPivot/Camera3D"]
 unique_name_in_owner = true

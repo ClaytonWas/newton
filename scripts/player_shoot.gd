@@ -9,14 +9,9 @@ var can_shoot: bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#equipped_weapon = inventory[0]
-	#equipped_weapon.mag = equipped_weapon.magazine_size
-#
-	#equipped_weapon_node = self.find_child(equipped_weapon.weapon_name)
-	#equipped_weapon_node.visible = true
 	change_weapon(0)
 
-func _input(event):	
+func _input(event):
 	if Input.is_action_pressed("shoot"):
 		if equipped_weapon.bullet_type == 'shotgun':	#Fire shotgun
 			shoot()
@@ -34,10 +29,10 @@ func _input(event):
 		is_shooting = false
 		#if (equipped_weapon.is_fullauto):
 		#	%AudioPlayer.stop()
-#Swap between weapons
+		
+	#Swap between weapons
 	if event.is_action_pressed("slot1"):
 		change_weapon(0)
-		
 	if event.is_action_pressed("slot2"):
 		change_weapon(1)
 	if event.is_action_pressed("slot3"):
@@ -48,12 +43,16 @@ func _input(event):
 		change_weapon(4)
 		
 func change_weapon(index:int):
+	# Function to change Players equipped weapon
+	# Params - index (int) : index of weapon in inventory list
+	
 	if (index < len(inventory)):
 		var gun = inventory[index]
 		
 		#Hide current weapon
 		if equipped_weapon_node:
 			equipped_weapon_node.visible = false
+		#Equip gun
 		equipped_weapon = gun
 		equipped_weapon_node = self.find_child(equipped_weapon.weapon_name)
 	
@@ -63,41 +62,37 @@ func change_weapon(index:int):
 		if (gun.mag==0):	#Fix guns spawning unloaded
 			gun.mag = gun.magazine_size
 		
+		#Setup fire rate timer
 		%ShotTimer.wait_time = gun.fire_rate
 		%ShotTimer.timeout.connect(self._on_reload_timer_timeout)
 		update_ammo_UI(equipped_weapon.mag)
 		print('Switched to ',gun.weapon_name,' dealing ',gun.damage,' per shot.')
-	
-	
 
 func shoot():
 	#Fires one bullet from equipped gun
 	if equipped_weapon.mag > 0 and can_shoot and not GameScript.is_sprinting:
 		can_shoot = false
-		%ShotTimer.start()
+		%ShotTimer.start()	# Start
 		equipped_weapon.shoot()		#Updates Weapon ammo 
-		#update_ammo_UI(equipped_weapon.mag)	#Update UI
 
 		equipped_weapon_node.find_child('muzzle_flash').visible=true	#Show muzzle flash
 		equipped_weapon_node.find_child('muzzle_flash').find_child('FlashTimer').start()
 
 		%AudioPlayer.stream = equipped_weapon.fire_sound	#Play sound
 		%AudioPlayer.play()
-		
-		#Animate Player
-		%AnimationPlayer.play('shoot')
+		%AnimationPlayer.play('shoot')	#Animate Player
 		
 		if equipped_weapon.bullet_type == 'shotgun':		#Shoot shotgun round
-			var spread = equipped_weapon.spread
-			for i in range (0,equipped_weapon.pellet_count):
+			var spread = equipped_weapon.spread	# x y variance on pellets
+			for i in range (0, equipped_weapon.pellet_count):
 				var bullet_offset = Vector3(	#Shotgun spread simulation
 									randf_range(-spread, spread),
 									randf_range(-spread, spread),
 									randf_range(-spread, spread)
 								)
-				fire_bullet(equipped_weapon, bullet_offset)
-		else:	#Fire standard round
-			fire_bullet(equipped_weapon, Vector3.ZERO)
+				fire_bullet(equipped_weapon, bullet_offset)	# Spawn bullets
+		else:	
+			fire_bullet(equipped_weapon, Vector3.ZERO) # Spawn bullet
 	else:
 		print("Out of ammo!")
 		%AudioPlayer.stream = equipped_weapon.dryfire_sound	#Play dry fire sound
@@ -106,43 +101,40 @@ func shoot():
 
 func reload():
 	if (equipped_weapon.mag != equipped_weapon.magazine_size):	#Only reload if clip isnt full
-		print(equipped_weapon, equipped_weapon.reload_time)
 		# Clip node for visual reload
 		var clip = find_child('Clip')
 		clip.visible = true
 		clip.global_transform = equipped_weapon_node.find_child('clip_spawn').global_transform.basis
 		
-		
 		%AudioPlayer.stream = equipped_weapon.reload_sound	#Play dry fire sound
 		%AudioPlayer.play()
+		can_shoot = false	# Disable shooting
 		
-		can_shoot = false
 		# Animate Player
 		if (equipped_weapon.bullet_type == 'shotgun'):	#Shotgun reload
 			clip.find_child('shotgun').visible = true
 			clip.find_child('mag').visible = false
 			%AnimationPlayer.play('reload_shotgun')
 			
-		#Standard reload
-		else:
+		else:	#Standard reload
 			%AnimationPlayer.play('reload_light')
-			#clip.rotation = Vector3(0,0,89)	
 			clip.find_child('mag').visible = true
 			clip.find_child('shotgun').visible = false
 			
-		
+		# Start timer
 		var reload_timer = Timer.new()
 		add_child(reload_timer)
 		reload_timer.wait_time = equipped_weapon.reload_time
+		reload_timer.one_shot = true
 		reload_timer.timeout.connect(self._on_reload_timer_timeout)
 		reload_timer.start()
-		
-		
+		print('reload started seconds: ', reload_timer.wait_time)
 		equipped_weapon.reload()
-		#update_ammo_UI(equipped_weapon.mag)
 
 func _on_reload_timer_timeout():
+	# Called after reload_timer and shot_timer. re-enables can_shoot & updates ammo count UI
 	can_shoot = true
+	print('can_shoot is true')
 	update_ammo_UI(equipped_weapon.mag)
 
 func fire_bullet(gun, offset):
@@ -151,6 +143,7 @@ func fire_bullet(gun, offset):
 	# Params: gun : Weapon, offset : Vector3 - bullet offset
 	var bullet
 	
+	# Match bullet scene
 	if (gun.bullet_type == 'light'):
 		bullet = load('res://scenes/guns/bullet.tscn')
 	
@@ -160,8 +153,8 @@ func fire_bullet(gun, offset):
 	if (gun.bullet_type == 'shotgun'):
 		bullet = load('res://scenes/guns/pellet.tscn')
 	
+	# Instantiate and move bullet
 	var projectile = bullet.instantiate()
-
 	projectile.damage = equipped_weapon.get_damage()
 	projectile.offset = offset
 	projectile.position = equipped_weapon_node.find_child('bullet_spawn').global_position
@@ -172,18 +165,13 @@ func fire_bullet(gun, offset):
 	
 func _physics_process(delta: float) -> void:
 	if is_shooting and can_shoot:		# Full auto bullet firing
-		## is_shooting is true when 'Fire' button is held down
-		#%ShotTimer.start()
 		shoot()
-		#can_shoot = false
 	
-	if (!%AnimationPlayer.is_playing()):
+	if (!%AnimationPlayer.is_playing()):	# Hide clip
 		find_child('Clip').visible = false
-	else:
-		#Animation playing
+	else:	#Animation is playing
 		if %AnimationPlayer.current_animation == "sprint" and not GameScript.is_sprinting:
-			%AnimationPlayer.play('RESET')
-			
+			%AnimationPlayer.play('RESET')	# Reset normal stance
 
 func update_ammo_UI(value: int) -> void:
 	%HUD.get_node("AmmoLabel").set_text(str(value))

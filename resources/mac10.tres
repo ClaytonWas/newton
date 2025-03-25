@@ -1,16 +1,18 @@
-[gd_resource type="Resource" script_class="Weapon" load_steps=3 format=3 uid="uid://cb6lprpexrmxu"]
+[gd_resource type="Resource" script_class="Weapon" load_steps=4 format=3 uid="uid://cb6lprpexrmxu"]
 
-[ext_resource type="AudioStream" uid="uid://cf2cdwaifeibb" path="res://sounds/shot_rifle.wav" id="1_ep5lh"]
+[ext_resource type="AudioStream" uid="uid://cf2cdwaifeibb" path="res://sounds/shot_rifle.wav" id="1_ewqwp"]
 [ext_resource type="Script" path="res://scripts/guns/weaponResource.gd" id="1_xmobv"]
+[ext_resource type="AudioStream" uid="uid://b621dvtaemrcd" path="res://sounds/reload_pistol_2.wav" id="2_e0dd5"]
 
 [resource]
 script = ExtResource("1_xmobv")
 weapon_name = &"Mac10"
-fire_sound = ExtResource("1_ep5lh")
+fire_sound = ExtResource("1_ewqwp")
+reload_sound = ExtResource("2_e0dd5")
 bullet_type = "light"
 damage = 25.0
 magazine_size = 30
-reload_time = 2.2
+reload_time = 2.5
 is_melee = false
 is_fullauto = true
 fire_rate = 0.25
