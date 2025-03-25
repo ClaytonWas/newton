@@ -1,0 +1,105 @@
+[gd_scene load_steps=5 format=3 uid="uid://cjwbs8gbmbnhj"]
+
+[ext_resource type="Script" path="res://scripts/UI/ui_tip_panel.gd" id="1_bw1od"]
+[ext_resource type="StyleBox" uid="uid://cd8tmpl1thjwu" path="res://textures/general/UI_panel.tres" id="2_vq78c"]
+[ext_resource type="FontFile" uid="uid://1ocjgmtw3srp" path="res://fonts/doomed/doomed.ttf" id="3_psb3x"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_31xo2"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.647059, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="UITipPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bw1od")
+
+[node name="BGPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -241.5
+offset_top = -250.0
+offset_right = 386.5
+offset_bottom = 263.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("2_vq78c")
+
+[node name="Title" type="RichTextLabel" parent="BGPanel"]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 17.0
+offset_right = 362.0
+offset_bottom = 57.0
+theme_override_colors/font_outline_color = Color(1, 0.843137, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/normal_font = ExtResource("3_psb3x")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "WELCOME TO GLOOM"
+fit_content = true
+
+[node name="OK" type="Button" parent="BGPanel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.5
+offset_top = -59.0
+offset_right = -48.5
+offset_bottom = -28.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Got It"
+
+[node name="BodyPanel" type="Panel" parent="BGPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -169.5
+offset_right = 250.0
+offset_bottom = 151.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_31xo2")
+
+[node name="Message" type="RichTextLabel" parent="BGPanel/BodyPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -204.5
+offset_top = -121.5
+offset_right = 202.5
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "This is a Demo World where you can test out the controls.
+
+Get comfortable with your abilitiess"
+fit_content = true
+
+[connection signal="pressed" from="BGPanel/OK" to="." method="_on_ok_pressed"]

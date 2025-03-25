@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://c575uv334iglo"]
 
-[ext_resource type="Script" path="res://scripts/init_weapon.gd" id="1_oc2lb"]
+[ext_resource type="Script" path="res://scripts/guns/init_weapon.gd" id="1_oc2lb"]
 [ext_resource type="ArrayMesh" uid="uid://bdgogt0i2a1s" path="res://objects/Rocket SMG.obj" id="2_m1lny"]
 [ext_resource type="Resource" uid="uid://b2k74qk7pwwkn" path="res://resources/laser_gun.tres" id="2_oh6cf"]
 [ext_resource type="Material" uid="uid://cf2gwt7lm43x" path="res://textures/general/outline_shader_material.tres" id="4_fs80f"]
@@ -81,3 +81,6 @@ visible = false
 
 [node name="bullet_spawn" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.29261, 0.573003, 0)
+
+[node name="clip_spawn" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.489711, 0.228794, 0)
