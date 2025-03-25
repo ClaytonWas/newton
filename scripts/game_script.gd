@@ -17,7 +17,7 @@ const LEVELS =  [		#Names of level scenes as navigation path
 
 #Ordered list: First-In-First-Out & iterated through by array.pop() 
 var level_order : Array[String]
-
+var skip_tutorial: bool = false	# Flag to show tutorial UI
 var player_inventory: Array[Weapon] 
 var equipped_weapon: Weapon # Tracks current equipped weapon
 var add_health: float = 0.0	# Flag Variable to add HP based on ability booster - checked in playermovement.gd
@@ -63,3 +63,5 @@ func upgrade_ammo(ammo: float) -> void:
 	equipped_weapon.magazine_size += ammo
 	#Update inventory list
 	player_inventory[player_inventory.find(equipped_weapon)] = equipped_weapon
+
+#Tutorial Display Functions

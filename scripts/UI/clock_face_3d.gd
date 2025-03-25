@@ -3,7 +3,7 @@ extends Node3D
 @export var clock_axis: Node3D
 @onready var timer: Timer = %Timer
 
-@onready var label: MeshInstance3D = self.find_child('Center').find_child('TimeLeft')	# Clock label
+#@onready var label: MeshInstance3D = self.find_child('Center').find_child('TimeLeft')	# Clock label
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	clock_axis.rotation.z = rotate_hand()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cnxm803p7w416"]
+[gd_scene load_steps=30 format=3 uid="uid://cnxm803p7w416"]
 
 [ext_resource type="Script" path="res://scripts/playermovement.gd" id="1_2ak50"]
 [ext_resource type="Script" path="res://scripts/player_shoot.gd" id="3_0hi0p"]
@@ -16,6 +16,7 @@
 [ext_resource type="FontFile" uid="uid://b37i10y1miif5" path="res://fonts/kids_knowledge_2/Kid Knowledge 2 Clean.otf" id="13_yx3nr"]
 [ext_resource type="PackedScene" uid="uid://v1nfdxx3d3u4" path="res://scenes/guns/shotgun.tscn" id="14_gbkgs"]
 [ext_resource type="Script" path="res://scripts/UI/clock_face.gd" id="15_b7v5p"]
+[ext_resource type="Script" path="res://scripts/UI/tutorial.gd" id="19_3hmld"]
 [ext_resource type="FontFile" uid="uid://1ocjgmtw3srp" path="res://fonts/doomed/doomed.ttf" id="20_ksctb"]
 [ext_resource type="FontFile" uid="uid://drptivkdwroo6" path="res://fonts/kids_knowledge_2/Kid Knowledge 2 Rustic.otf" id="21_eyui1"]
 
@@ -295,14 +296,16 @@ libraries = {
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.568384, -0.728497, -0.777)
 
 [node name="clock_face" type="Node2D" parent="HeadPivot/Camera3D/left_hand"]
+visible = false
 position = Vector2(250, 447)
 script = ExtResource("15_b7v5p")
 
 [node name="SecondHand" type="Line2D" parent="HeadPivot/Camera3D/left_hand/clock_face"]
+visible = false
 points = PackedVector2Array(0, 0, 100, 0)
 
 [node name="Clock" parent="HeadPivot/Camera3D/left_hand" instance=ExtResource("11_a1avm")]
-transform = Transform3D(-0.0496362, 0.00158502, -0.00580814, -0.00341393, -0.0471414, 0.0163106, -0.00495903, 0.0165885, 0.0469066, -0.373923, 0.227812, 0.207786)
+transform = Transform3D(-0.0483056, 0.00720345, 0.0107089, -0.00526739, -0.0488785, 0.0091185, 0.0117824, 0.00768133, 0.0479809, -0.373923, 0.227812, 0.207786)
 
 [node name="AudioPlayer" type="AudioStreamPlayer3D" parent="."]
 unique_name_in_owner = true
@@ -337,6 +340,7 @@ text = "Ammo:"
 
 [node name="DeathScreen" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
+visible = false
 script = ExtResource("12_f3lf3")
 
 [node name="ColorRect" type="ColorRect" parent="DeathScreen"]
@@ -492,6 +496,10 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("21_eyui1")
 theme_override_font_sizes/font_size = 24
 text = "Quit"
+
+[node name="Tutorial" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+script = ExtResource("19_3hmld")
 
 [connection signal="death_screen" from="." to="DeathScreen" method="_on_player_death_screen"]
 [connection signal="pressed" from="DeathScreen/Panel/VBoxContainer/Button" to="DeathScreen" method="_on_button_pressed"]
