@@ -51,7 +51,7 @@ anchors_preset = 9
 anchor_bottom = 1.0
 offset_left = 92.0
 offset_top = 113.0
-offset_right = 541.0
+offset_right = 576.0
 offset_bottom = -204.0
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("2_k2wxx")
@@ -89,7 +89,7 @@ anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -657.0
+offset_left = -909.0
 offset_top = 114.0
 offset_right = -86.0
 offset_bottom = -201.0
@@ -175,6 +175,26 @@ grow_vertical = 2
 theme_override_colors/font_color = Color(0.69246, 1.92523e-06, 2.88785e-07, 1)
 theme_override_styles/normal = ExtResource("5_w7egb")
 text = "Quit"
+
+[node name="Label" type="Label" parent="BottomContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -266.5
+offset_top = -26.0
+offset_right = 266.5
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.496771, 0.41473, 6.73831e-07, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("3_e6alw")
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
 
 [connection signal="button_down" from="BottomContainer/ContinueButton" to="." method="_on_continue_button_button_down"]
 [connection signal="button_down" from="BottomContainer/Quit" to="." method="_on_quit_button_down"]

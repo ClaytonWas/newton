@@ -1,0 +1,61 @@
+[gd_scene load_steps=12 format=3 uid="uid://md4a5a2rqbon"]
+
+[ext_resource type="Material" uid="uid://ws37qqa4yccv" path="res://textures/environments/ceiling1.material" id="1_ojfr0"]
+[ext_resource type="PackedScene" uid="uid://v1nfdxx3d3u4" path="res://scenes/guns/shotgun.tscn" id="1_t5mfn"]
+[ext_resource type="PackedScene" uid="uid://cjbialvl7u4kf" path="res://scenes/guns/mac_10.tscn" id="3_oplsa"]
+[ext_resource type="PackedScene" uid="uid://cuoksi8gn05bj" path="res://scenes/guns/fade_glock.tscn" id="4_fi1kq"]
+[ext_resource type="PackedScene" uid="uid://b2fwofkviwqga" path="res://scenes/guns/old_glock.tscn" id="5_grtvp"]
+[ext_resource type="PackedScene" uid="uid://c575uv334iglo" path="res://scenes/guns/laser_gun.tscn" id="6_mvabq"]
+[ext_resource type="PackedScene" uid="uid://b0wa3wgtwc626" path="res://scenes/guns/bullet.tscn" id="7_jcp5o"]
+[ext_resource type="PackedScene" uid="uid://sw4qpapb28ks" path="res://resources/Styloo Guns Asset Pack GLTF FBX V1.1/Normal version Color and NormalMap/GLB/bulletshotgun.glb" id="8_lfewq"]
+[ext_resource type="PackedScene" uid="uid://c87ar14m3my1h" path="res://resources/Styloo Guns Asset Pack GLTF FBX V1.1/Normal version Color and NormalMap/GLB/bulletsniper.glb" id="9_lhkhy"]
+[ext_resource type="PackedScene" uid="uid://dsgnb1r0oxo7v" path="res://resources/Styloo Guns Asset Pack GLTF FBX V1.1/Normal version Color and NormalMap/GLB/bulletPEW.glb" id="10_amv8m"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1x3am"]
+material = ExtResource("1_ojfr0")
+size = Vector3(6, 4, 0.1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_1x3am")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.3303)
+
+[node name="Shotgun" parent="." instance=ExtResource("1_t5mfn")]
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0.145)
+visible = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
+[node name="Mac10" parent="." instance=ExtResource("3_oplsa")]
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0.2, 0.152873, 0.145)
+visible = false
+
+[node name="fade_glock" parent="." instance=ExtResource("4_fi1kq")]
+transform = Transform3D(0.953531, 0.0205197, 0.300596, 0.0437274, 0.97769, -0.20545, -0.298106, 0.209047, 0.931361, 0.58, -0.31853, 0.15)
+visible = false
+
+[node name="OldGlock" parent="." instance=ExtResource("5_grtvp")]
+transform = Transform3D(0.953531, 0.0205197, 0.300596, 0.0437274, 0.97769, -0.20545, -0.298106, 0.209047, 0.931361, 0.58, -0.31853, 0.15)
+visible = false
+
+[node name="LaserGun" parent="." instance=ExtResource("6_mvabq")]
+transform = Transform3D(-0.875735, -0.0203247, -0.482365, -0.256294, 0.866282, 0.4288, 0.409148, 0.499142, -0.763842, 0.583184, -0.226187, 0.338176)
+visible = false
+
+[node name="Bullet" parent="." instance=ExtResource("7_jcp5o")]
+transform = Transform3D(-8.74228e-08, 2, 0, -2, -8.74228e-08, 0, 0, 0, 2, 0, 0, 0.185)
+visible = false
+gravity_scale = 0.0
+speed = 0.0
+
+[node name="bulletshotgun2" parent="." instance=ExtResource("8_lfewq")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0.205, 0.0802658, 0.2)
+
+[node name="bulletsniper2" parent="." instance=ExtResource("9_lhkhy")]
+transform = Transform3D(13, 0, 0, 0, 13, 0, 0, 0, 13, -0.190194, 0.0418203, 0.221626)
+
+[node name="bulletPEW3" parent="." instance=ExtResource("10_amv8m")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0.185)

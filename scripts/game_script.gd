@@ -27,14 +27,13 @@ var game_won: bool	# Global won game flag
 func start_game():
 	#Resets variables for fresh game runs
 	randomize()
-	player_inventory = [GUN_POOL[0], GUN_POOL[1], GUN_POOL[3]]	#Set starting weapon
+	player_inventory = [GUN_POOL[0]]	#Set starting weapon
 	equipped_weapon= player_inventory[0]
 	level_order = [LEVELS[0], LEVELS[1], LEVELS[3]]
 	game_won = false
 	
 func _ready() -> void:
 	start_game()
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -52,16 +51,12 @@ func add_weapon(gun: Weapon) -> void:
 
 func upgrade_damage(damage: float) -> void:
 	# Applies weapon upgrade globally
-	
 	equipped_weapon.damage += damage
 	#Update inventory list
 	player_inventory[player_inventory.find(equipped_weapon)] = equipped_weapon
 	
 func upgrade_ammo(ammo: float) -> void:
 	# Applies magazine upgrade globally
-	
 	equipped_weapon.magazine_size += ammo
 	#Update inventory list
 	player_inventory[player_inventory.find(equipped_weapon)] = equipped_weapon
-
-#Tutorial Display Functions

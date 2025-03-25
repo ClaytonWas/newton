@@ -2,6 +2,7 @@ extends Control
 
 # Represents randomizable ability upgrade types
 const UPGRADE_TYPES = ['Health', 'Damage', 'Ammo']
+const image_path = 'res://textures/guns/pics/'
 
 func _ready() -> void:
 	randomize()
@@ -11,10 +12,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-
 func _on_continue_button_button_down() -> void:
 	get_tree().change_scene_to_file(GameScript.next_scene())
-
 
 func _on_quit_button_down() -> void:
 	get_tree().quit()
@@ -31,21 +30,23 @@ func update_shop_label(upgrade):
 	if (upgrade is Weapon): #Gun upgrade - Choose Random Weapon
 		type_label.text = 'New Weapon Upgrade: \t\t%s' % [upgrade.weapon_name]
 		desc.text = 'Name: %s \t-\t%s\nBullet Type: %s\nDamage: %d\nAmmo Capacity: %d' % [upgrade.weapon_name,"Full-Auto" if upgrade.is_fullauto else "Semi-Auto", upgrade.bullet_type, upgrade.damage, upgrade.magazine_size]
+		image.text = '[img=128x96]%s[/img]' % [image_path + upgrade.weapon_name + '.png']
 		#Click listener to add weapon
 		button.pressed.connect(self.add_weapon_to_player.bind(upgrade))
 		
 	else:	#Abilities upgrade
 		#Choose random gun
 		var gun = GameScript.player_inventory[randi() % GameScript.player_inventory.size()]
-		
+		var type
 		#Decypher type
-		for type in UPGRADE_TYPES:
-			if upgrade.contains(type):
-				type_label.text = type + ' Upgrade'
-				
+		for ability in UPGRADE_TYPES:
+			if upgrade.contains(ability):
+				type_label.text = ability + ' Upgrade'
+				type = ability
 		# add gun name to message
 		desc.text = upgrade if upgrade.contains('Health') else upgrade + gun.weapon_name
-		
+		image.text = '[img=128x96]%s[/img]' % [image_path + type.to_lower() + '_icon.svg']
+		print(image_path + upgrade.to_lower() + '_icon.svg')
 		button.pressed.connect(self.add_ability_upgrade.bind(upgrade))
 	%VBoxUpgrades.add_child(panel)
 	
