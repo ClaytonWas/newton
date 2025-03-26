@@ -22,9 +22,6 @@ func _on_continue_button_button_down() -> void:
 func _on_quit_button_down() -> void:
 	get_tree().quit()
 
-'''
-Upgrade Functions
-'''
 func update_shop_label(upgrade, inv=false):
 	#Inv is boolean flag for inventory panel : hide button
 	#Generates an upgrade Panel on the UI
@@ -110,6 +107,11 @@ func add_weapon_to_player(gun: Weapon):
 	GameScript.add_weapon(gun)
 	update_confirm_message('%s PURCHASED' % [gun.weapon_name.to_upper()])
 	
+	#Update inventory list
+
+	#if %InventoryList.get_children().size() < GameScript.player_inventory.size():
+	generate_inventory_panel()
+	
 func add_ability_upgrade(ability):
 	# Applies ability to player
 	#Isolate number from message
@@ -136,20 +138,14 @@ func update_confirm_message(message: String) -> void:
 	if %ConfirmMessage:
 		%ConfirmMessage.text = message
 
-'''
-Current Inventory Functions
-'''
-
 func generate_inventory_panel():
-	# Make panels for each gun in inventory
+	for child in %InventoryList.get_children(): %InventoryList.remove_child(child)
+
+	# Make panels for each gun in inventory section
 	for weapon in GameScript.player_inventory:
 		update_shop_label(weapon, true)
 		
-func build_inventory_panel(gun: Weapon):
-	# Uses a shop upgrade UI scene to display a current inventory panel
-	var panel = load('res://scenes/UI/shop_upgrade.tscn').instantiate()
-	var type_label = panel.find_child('TypeLabel')	#Element variables
-	var image = panel.find_child('Image')
-	var desc = panel.find_child('Desc')
-	var button = panel.find_child('BuyButton')
-	button.visible = false
+
+
+func _on_back_button_pressed() -> void:
+	get_tree().change_scene_to_file('res://scenes/levels/start_menu.tscn')

@@ -48,7 +48,8 @@ func next_scene():
 	return temp
 
 func add_weapon(gun: Weapon) -> void:
-	player_inventory.append(gun)
+	if not gun in player_inventory:
+		player_inventory.append(gun)
 
 func upgrade_damage(damage: float) -> void:
 	# Applies weapon upgrade globally

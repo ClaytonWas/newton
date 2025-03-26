@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cjwbs8gbmbnhj"]
+[gd_scene load_steps=6 format=3 uid="uid://cjwbs8gbmbnhj"]
 
 [ext_resource type="Script" path="res://scripts/UI/ui_tip_panel.gd" id="1_bw1od"]
 [ext_resource type="StyleBox" uid="uid://cd8tmpl1thjwu" path="res://textures/general/UI_panel.tres" id="2_vq78c"]
 [ext_resource type="FontFile" uid="uid://1ocjgmtw3srp" path="res://fonts/doomed/doomed.ttf" id="3_psb3x"]
+[ext_resource type="StyleBox" uid="uid://brgi2omyoa1p3" path="res://textures/general/standard_ui_button.tres" id="4_owkmb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_31xo2"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -61,12 +62,13 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -100.5
-offset_top = -59.0
-offset_right = -48.5
-offset_bottom = -28.0
+offset_left = -121.0
+offset_top = -67.0
+offset_right = -37.0
+offset_bottom = -26.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_styles/normal = ExtResource("4_owkmb")
 text = "Got It"
 
 [node name="BodyPanel" type="Panel" parent="BGPanel"]

@@ -1,35 +1,26 @@
-[gd_scene load_steps=6 format=3 uid="uid://olmf7sj4hxhq"]
+[gd_scene load_steps=7 format=3 uid="uid://olmf7sj4hxhq"]
 
 [ext_resource type="Script" path="res://scripts/UI/start_menu.gd" id="1_v6ll3"]
 [ext_resource type="Texture2D" uid="uid://dvbnqdbj74jhk" path="res://textures/general/BG-title.svg" id="2_2spui"]
 [ext_resource type="FontFile" uid="uid://1ocjgmtw3srp" path="res://fonts/doomed/doomed.ttf" id="2_lb7cy"]
 [ext_resource type="FontFile" uid="uid://drptivkdwroo6" path="res://fonts/kids_knowledge_2/Kid Knowledge 2 Rustic.otf" id="4_qxtai"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ei4f"]
-bg_color = Color(0.118581, 0.118581, 0.118581, 1)
+[ext_resource type="StyleBox" uid="uid://cd8tmpl1thjwu" path="res://textures/general/UI_panel.tres" id="4_sll7r"]
+[ext_resource type="AudioStream" uid="uid://bkcq3cmxvf787" path="res://sounds/Music/video-game-music-147338.mp3" id="6_28v0e"]
 
 [node name="StartMenu" type="Control"]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_v6ll3")
 
 [node name="BG" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -998.0
-offset_top = -561.0
-offset_right = 1016.0
-offset_bottom = 672.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_2spui")
@@ -37,14 +28,17 @@ expand_mode = 1
 
 [node name="Title" type="RichTextLabel" parent="."]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = -92.0
-offset_top = -317.0
-offset_right = 152.0
-offset_bottom = -160.0
-grow_vertical = 0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -122.0
+offset_top = -334.5
+offset_right = 122.0
+offset_bottom = -231.5
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_fonts/normal_font = ExtResource("2_lb7cy")
 theme_override_font_sizes/normal_font_size = 60
 bbcode_enabled = true
@@ -106,7 +100,6 @@ text = "Quit
 "
 
 [node name="IntructionsPanel" type="Panel" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -119,7 +112,7 @@ offset_right = 381.0
 offset_bottom = 397.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_3ei4f")
+theme_override_styles/panel = ExtResource("4_sll7r")
 
 [node name="Label" type="Label" parent="IntructionsPanel"]
 layout_mode = 1
@@ -236,6 +229,7 @@ offset_right = 385.0
 offset_bottom = 261.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = ExtResource("4_sll7r")
 
 [node name="Title" type="Label" parent="SettingsPanel"]
 layout_mode = 0
@@ -253,6 +247,11 @@ offset_bottom = 583.0
 theme_override_fonts/font = ExtResource("2_lb7cy")
 theme_override_font_sizes/font_size = 30
 text = "Back"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_28v0e")
+autoplay = true
+parameters/looping = true
 
 [connection signal="button_down" from="ButtonPanel/PlayButton" to="." method="_on_play_button_button_down"]
 [connection signal="button_down" from="ButtonPanel/HowToPlayButton" to="." method="_on_how_to_play_button_button_down"]
