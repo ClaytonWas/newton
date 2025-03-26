@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://b2spxeueapwij"]
+[gd_scene load_steps=37 format=3 uid="uid://b2spxeueapwij"]
 
 [ext_resource type="Shader" path="res://scripts/shaders/starrysky.gdshader" id="1_g6wkd"]
 [ext_resource type="Shader" path="res://scripts/shaders/water.gdshader" id="2_v7h6p"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://dbmn1ryrglur0" path="res://textures/environments/nether_portal.webp" id="15_otylq"]
 [ext_resource type="Texture2D" uid="uid://cdj403s1c7ugt" path="res://textures/environments/mines/Rocks_W.jpg" id="15_ycqk0"]
 [ext_resource type="Texture2D" uid="uid://bsa3iki2u1vl0" path="res://textures/environments/mines/Lamp.png" id="16_ssred"]
+[ext_resource type="PackedScene" uid="uid://bbtmley2843d2" path="res://scenes/enemies/demon_melee.tscn" id="17_3lwbe"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bg5ec"]
 shader = ExtResource("1_g6wkd")
@@ -235,7 +236,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.89254, 0)
 shape = SubResource("WorldBoundaryShape3D_fgawh")
 
 [node name="SewersPortal" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.902, 3, 79.4583)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80.6949, 3, 63.6659)
 script = ExtResource("10_ufjd8")
 scene_path = "res://scenes/levels/sewers/main.tscn"
 metadata/_edit_group_ = true
@@ -249,5 +250,11 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SewersPortal"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("CylinderShape3D_sk2h0")
+
+[node name="DemonMelee" parent="." instance=ExtResource("17_3lwbe")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -88.8863, 3.11749, 78.8324)
+
+[node name="DemonMelee2" parent="." instance=ExtResource("17_3lwbe")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -82.3469, 3.04963, 78.1763)
 
 [connection signal="body_entered" from="DeathZone" to="Player" method="_on_death_zone_body_entered"]

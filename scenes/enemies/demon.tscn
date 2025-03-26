@@ -193,7 +193,7 @@ sprite_frames = SubResource("SpriteFrames_vpn0s")
 animation = &"walkLeftBack"
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_5g2sh")]
-max_health = 150
+max_health = 250
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_h3jgy")]
 health_component = NodePath("../HealthComponent")
