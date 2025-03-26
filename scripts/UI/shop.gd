@@ -3,9 +3,12 @@ extends Control
 # Represents randomizable ability upgrade types
 const UPGRADE_TYPES = ['Health', 'Damage', 'Ammo']
 const image_path = 'res://textures/guns/pics/'
+var ability_type: String	#Tracks randomly chosen ability
+var chosen_gun: Weapon	# Tracks gun to apply upgrades to
 
 func _ready() -> void:
 	randomize()
+	generate_inventory_panel()
 	generate_upgrades()		#Chooses 2 randomized upgrades
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -13,12 +16,17 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_continue_button_button_down() -> void:
+	# Continue to next level
 	get_tree().change_scene_to_file(GameScript.next_scene())
 
 func _on_quit_button_down() -> void:
 	get_tree().quit()
 
-func update_shop_label(upgrade):
+'''
+Upgrade Functions
+'''
+func update_shop_label(upgrade, inv=false):
+	#Inv is boolean flag for inventory panel : hide button
 	#Generates an upgrade Panel on the UI
 	
 	var panel = load('res://scenes/UI/shop_upgrade.tscn').instantiate()
@@ -35,22 +43,29 @@ func update_shop_label(upgrade):
 		button.pressed.connect(self.add_weapon_to_player.bind(upgrade))
 		
 	else:	#Abilities upgrade
-		#Choose random gun
-		var gun = GameScript.player_inventory[randi() % GameScript.player_inventory.size()]
-		var type
+		# #Choose random gun
+		var gun = GameScript.equipped_weapon
+		#GameScript.player_inventory[randi() % GameScript.player_inventory.size()]
+
 		#Decypher type
 		for ability in UPGRADE_TYPES:
 			if upgrade.contains(ability):
 				type_label.text = ability + ' Upgrade'
-				type = ability
+				ability_type = ability	# Global variable
 		# add gun name to message
 		desc.text = upgrade if upgrade.contains('Health') else upgrade + gun.weapon_name
-		image.text = '[img=128x96]%s[/img]' % [image_path + type.to_lower() + '_icon.svg']
-		print(image_path + upgrade.to_lower() + '_icon.svg')
+		image.text = '[img=128x96]%s[/img]' % [image_path + ability_type.to_lower() + '_icon.svg']
 		button.pressed.connect(self.add_ability_upgrade.bind(upgrade))
-	%VBoxUpgrades.add_child(panel)
+		
+	if inv:
+		button.visible = false
+		type_label.text = upgrade.weapon_name
+		type_label.add_theme_color_override('default_color', Color.WHITE)
+		%InventoryList.add_child(panel)
+	else:
+		%VBoxUpgrades.add_child(panel)
 	
-func build_ability_upgrade(ability: String):
+func build_ability_upgrade(ability: String) -> String:
 	# Builds ability upgrade panel from UPGRADE_TYPE with randomization
 	# Returns description message
 	var range = [0,0]	#Upper & Lower bounds for randomization variance
@@ -91,10 +106,12 @@ func generate_upgrades():
 	
 func add_weapon_to_player(gun: Weapon):
 	#Adds Weapon (WeaponResource.gd) to player_inventory in game_script.gd
-	#Connects to gun upgrade 'buy' button
+	#Called when Buy Button on gun upgrade is clicked
 	GameScript.add_weapon(gun)
+	update_confirm_message('%s PURCHASED' % [gun.weapon_name.to_upper()])
 	
 func add_ability_upgrade(ability):
+	# Applies ability to player
 	#Isolate number from message
 	var value = float(ability.split('+')[1].substr(0,2))
 	
@@ -102,7 +119,7 @@ func add_ability_upgrade(ability):
 	if ability.contains(UPGRADE_TYPES[0]):
 		GameScript.add_health = value
 		print('Adding %d HP to player.' % [value])
-	
+		
 	#Damage Case
 	elif ability.contains(UPGRADE_TYPES[1]):
 		GameScript.upgrade_damage(value)
@@ -111,3 +128,28 @@ func add_ability_upgrade(ability):
 	elif ability.contains(UPGRADE_TYPES[2]):
 		GameScript.upgrade_ammo(value)
 		print('Adding %d bullets to clip of %s.' % [value, GameScript.equipped_weapon.weapon_name])
+
+	update_confirm_message('%s UPGRADE PURCHASED' % [ability_type.to_upper()])
+	
+func update_confirm_message(message: String) -> void:
+	#Updates confirmation message on UI
+	if %ConfirmMessage:
+		%ConfirmMessage.text = message
+
+'''
+Current Inventory Functions
+'''
+
+func generate_inventory_panel():
+	# Make panels for each gun in inventory
+	for weapon in GameScript.player_inventory:
+		update_shop_label(weapon, true)
+		
+func build_inventory_panel(gun: Weapon):
+	# Uses a shop upgrade UI scene to display a current inventory panel
+	var panel = load('res://scenes/UI/shop_upgrade.tscn').instantiate()
+	var type_label = panel.find_child('TypeLabel')	#Element variables
+	var image = panel.find_child('Image')
+	var desc = panel.find_child('Desc')
+	var button = panel.find_child('BuyButton')
+	button.visible = false

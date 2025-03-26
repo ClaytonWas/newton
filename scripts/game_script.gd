@@ -12,7 +12,8 @@ const LEVELS =  [		#Names of level scenes as navigation path
 	'res://scenes/levels/outdoors.tscn',
 	'res://scenes/levels/main.tscn',
 	'res://scenes/levels/mines.tscn',
-	'res://scenes/levels/nether.tscn'
+	'res://scenes/levels/nether.tscn',
+	'res://scenes/levels/sewers/main.tscn'
 ]
 
 #Ordered list: First-In-First-Out & iterated through by array.pop() 
@@ -29,7 +30,7 @@ func start_game():
 	randomize()
 	player_inventory = [GUN_POOL[0]]	#Set starting weapon
 	equipped_weapon= player_inventory[0]
-	level_order = [LEVELS[0], LEVELS[1], LEVELS[3]]
+	level_order = [LEVELS[0], LEVELS[1], LEVELS[4],LEVELS[3]]
 	game_won = false
 	
 func _ready() -> void:

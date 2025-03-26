@@ -71,17 +71,16 @@ text = "[color=lightgray]Current Inventory"
 [node name="InventoryList" type="VBoxContainer" parent="PlayerPanel"]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -154.5
-offset_top = -87.5
-offset_right = 143.5
-offset_bottom = 110.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 34.0
+offset_top = 65.0
+offset_right = -30.0
+offset_bottom = -79.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 25
 
 [node name="UpgradesPanel" type="Panel" parent="."]
 layout_mode = 1
@@ -89,10 +88,10 @@ anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -909.0
-offset_top = 114.0
-offset_right = -86.0
-offset_bottom = -201.0
+offset_left = -979.0
+offset_top = 110.0
+offset_right = -72.0
+offset_bottom = -202.0
 grow_horizontal = 0
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("2_k2wxx")
@@ -176,7 +175,8 @@ theme_override_colors/font_color = Color(0.69246, 1.92523e-06, 2.88785e-07, 1)
 theme_override_styles/normal = ExtResource("5_w7egb")
 text = "Quit"
 
-[node name="Label" type="Label" parent="BottomContainer"]
+[node name="ConfirmMessage" type="Label" parent="BottomContainer"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

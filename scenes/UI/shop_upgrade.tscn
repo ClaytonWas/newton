@@ -22,8 +22,8 @@ expand_margin_bottom = 5.0
 shadow_size = 1
 
 [node name="Upgrade" type="Button"]
-offset_right = 306.0
-offset_bottom = 59.0
+offset_right = 403.0
+offset_bottom = 83.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/normal = ExtResource("1_m85fy")
