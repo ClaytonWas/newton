@@ -27,6 +27,10 @@ enum State {
 @export var deceleration_distance: float = 2.0
 @export var arrival_distance: float = 0.5
 
+@export_category("Attack Variables")
+@export var damage: float = 50.0
+@export var bullet = load('res://scenes/guns/melee_bullet.tscn')
+
 var aware_of_player = false
 var target_node: Node3D = null
 
@@ -60,7 +64,7 @@ func _physics_process(delta):
 			
 		State.ATTACKING:
 			# Decelleration when reaching player
-			if velocity.length() > 0.1:
+			if velocity.length() > 0.2:
 				velocity = velocity.move_toward(Vector3.ZERO, movement_speed * delta)
 				move_and_slide()
 			else:
@@ -73,7 +77,13 @@ func _physics_process(delta):
 				agent._apply_steering(accel, delta)
 				
 		_:
-			velocity = Vector3.ZERO
+				var projectile = bullet.instantiate()
+				projectile.damage = damage
+				projectile.global_position = global_position
+				projectile.global_transform.basis = global_transform.basis
+				get_parent().add_child(projectile)
+				
+				velocity = Vector3.ZERO
 
 func _process(delta):
 	match state:

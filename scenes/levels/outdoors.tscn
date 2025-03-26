@@ -253,8 +253,10 @@ shape = SubResource("CylinderShape3D_sk2h0")
 
 [node name="DemonMelee" parent="." instance=ExtResource("17_3lwbe")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -88.8863, 3.11749, 78.8324)
+movement_speed = 1000.0
 
 [node name="DemonMelee2" parent="." instance=ExtResource("17_3lwbe")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -82.3469, 3.04963, 78.1763)
+movement_speed = 0.0
 
 [connection signal="body_entered" from="DeathZone" to="Player" method="_on_death_zone_body_entered"]
