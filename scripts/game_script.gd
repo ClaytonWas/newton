@@ -15,6 +15,12 @@ const LEVELS =  [		#Names of level scenes as navigation path
 	'res://scenes/levels/nether.tscn',
 	'res://scenes/levels/sewers/main.tscn'
 ]
+# Game music audioplayer
+@onready var musicPlayer = AudioStreamPlayer.new()
+
+# Settings screen variables
+var hardcore: bool = false
+var music: bool = true
 
 #Ordered list: First-In-First-Out & iterated through by array.pop() 
 var level_order : Array[String]
@@ -35,16 +41,26 @@ func start_game():
 	
 func _ready() -> void:
 	start_game()
+	# Play music
+	if music:
+		add_child(musicPlayer)
+		musicPlayer.stream = preload('res://sounds/Music/video-game-music-147338.mp3')
+		play_music()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	#Disable music
+	if not music:
+		musicPlayer.stop()
+
+	else:	# Update volume
+		play_music()
 
 func next_scene():
 	#Function to return the next scene in layout order & pop from list
 	var temp = level_order[0]
 	level_order.pop_front()
 	Engine.time_scale = 1.0
+	musicPlayer.stop()
 	return temp
 
 func add_weapon(gun: Weapon) -> void:
@@ -62,3 +78,24 @@ func upgrade_ammo(ammo: float) -> void:
 	equipped_weapon.magazine_size += ammo
 	#Update inventory list
 	player_inventory[player_inventory.find(equipped_weapon)] = equipped_weapon
+
+func settings_toggle(setting: String):
+	# Toggles settings booleans
+	if setting == 'hardcore':
+		hardcore = !hardcore
+	
+	elif setting == 'music':
+		music = !music
+		print('music off')
+
+func play_music():
+	# Starts the audio stream
+	if music and not musicPlayer.is_playing():
+		if get_tree().current_scene:
+			if get_tree().current_scene.scene_file_path.contains('shop') or get_tree().current_scene.scene_file_path.contains('start_menu'):
+				musicPlayer.play()
+
+func set_volume(value: float) -> void:
+	# Alters volume of audio buses
+	print("setting audio to ",value, linear_to_db(value))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"),linear_to_db(value))

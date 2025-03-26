@@ -80,6 +80,7 @@ func shoot():
 
 		%AudioPlayer.stream = equipped_weapon.fire_sound	#Play sound
 		%AudioPlayer.play()
+		print('DEBUG',%AudioPlayer.is_playing(), %AudioPlayer.stream)
 		%AnimationPlayer.play('shoot')	#Animate Player
 		
 		if equipped_weapon.bullet_type == 'shotgun':		#Shoot shotgun round
@@ -174,11 +175,18 @@ func _physics_process(delta: float) -> void:
 			%AnimationPlayer.play('RESET')	# Reset normal stance
 
 func update_ammo_UI(value: int) -> void:
-	%HUD.get_node("AmmoLabel").set_text(str(value))
-
+	%AmmoLabel.add_theme_constant_override("horitzontal_alignment", HORIZONTAL_ALIGNMENT_RIGHT)
+	%AmmoLabel.set_text(str(value) + ' [img=32x32]res://textures/guns/Pics/ammo_icon.svg[/img]')
+	if (value <= ceil(equipped_weapon.magazine_size * 0.25)):	# Indicate low ammo with red text
+		%AmmoLabel.add_theme_color_override("default_color", Color.RED)
+	else:
+		%AmmoLabel.add_theme_color_override("default_color", Color.WHITE)
 func _process(delta: float) -> void:
 	GameScript.equipped_weapon = equipped_weapon
 
 	# Check game over
 	if GameScript.game_won:
 		%DeathScreen.make_win_screen()
+
+	#Update audio volume
+	#%AudioPlayer.max_db = linear_to_db(GameScript.volume)	# 100 converts slider scale (0-100) to 0-1

@@ -41,3 +41,13 @@ func change_panel(panel):
 
 func _on_setting_button_button_down() -> void:
 	change_panel($SettingsPanel)
+
+
+func _on_music_button_toggled(toggled_on: bool) -> void:
+	#Toggles music on/off
+	GameScript.settings_toggle('music')
+
+
+func _on_volume_silder_value_changed(value: float) -> void:
+	# Sets global game volume
+	GameScript.set_volume(value)

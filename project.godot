@@ -15,6 +15,10 @@ run/main_scene="res://scenes/levels/start_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://textures/general/BG-title.svg"
 
+[audio]
+
+buses/default_bus_layout="res://sounds/default_bus_layout.tres"
+
 [autoload]
 
 GlobalDeathSignals="*res://scripts/global_death_signals.gd"

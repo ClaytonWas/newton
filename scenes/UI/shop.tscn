@@ -211,6 +211,7 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="button_down" from="BottomContainer/ContinueButton" to="." method="_on_continue_button_button_down"]
 [connection signal="button_down" from="BottomContainer/Quit" to="." method="_on_quit_button_down"]
 [connection signal="pressed" from="BottomContainer/BackButton" to="." method="_on_back_button_pressed"]

@@ -149,3 +149,10 @@ func generate_inventory_panel():
 
 func _on_back_button_pressed() -> void:
 	get_tree().change_scene_to_file('res://scenes/levels/start_menu.tscn')
+
+
+func _on_tree_entered() -> void:
+	# Start music player
+	print('Shop Opneed')
+	
+	GameScript.play_music()
