@@ -2,7 +2,8 @@ extends Node3D
 
 @export var speed = 20.0
 var offset: Vector3		# Values to offset shotgun bullets
-var damage:int	#Damage value to be set from Player_shoot script
+var damage: int	#Damage value to be set from Player_shoot script
+var is_enemy_bullet: bool = false #Toggle to be enabled in enemies bullet scripts when instanited.
 
 func _ready() -> void:
 	pass
@@ -21,16 +22,16 @@ func _on_timer_timeout() -> void:
 	queue_free()
 
 
-func _on_hitbox_component_body_entered(body: Node3D) -> void:
-	print(self.name, ' bullet hit ', body.name)
-	queue_free()
-	
-	if body.has_node("HitboxComponent"): #Change for attack component?
+func _on_hitbox_component_body_entered(body: Node3D) -> void:	
+	if is_enemy_bullet and body.name == "Player":
+		print('Enemy bullet hit player!')
+		if body.has_node("HitboxComponent"):
+			print('Player took %d damage!' % [damage])
+			var hitbox : HitboxComponent = body.find_child("HitboxComponent")
+			hitbox.damage(damage)
+			queue_free()
+		
+	elif not is_enemy_bullet and body.has_node("HitboxComponent"):
 		var hitbox : HitboxComponent = body.find_child("HitboxComponent")
 		hitbox.damage(damage)
-
-
-func _on_hitbox_component_area_entered(area: Area3D) -> void:
-	print(self.name, ' bullet hit in area', area.name)
-	if 'HitboxComponent' in area.name:
-		area.damage(damage)
+		queue_free()

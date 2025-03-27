@@ -1,20 +1,24 @@
 [gd_resource type="Resource" script_class="Weapon" load_steps=6 format=3 uid="uid://daj1kmkgd1b7a"]
 
-[ext_resource type="AudioStream" uid="uid://cdw35pqkp73rw" path="res://sounds/shot_pistol.wav" id="1_cj4cu"]
 [ext_resource type="Script" path="res://scripts/guns/weaponResource.gd" id="1_s5o88"]
-[ext_resource type="AudioStream" uid="uid://ue0wp3hbiyo0" path="res://sounds/reload_pistol.wav" id="2_5lccf"]
 
 [sub_resource type="Resource" id="Resource_16iik"]
 metadata/__load_path__ = "res://sounds/shot_dry.wav"
 
+[sub_resource type="Resource" id="Resource_5jx3l"]
+metadata/__load_path__ = "res://sounds/shot_pistol.wav"
+
 [sub_resource type="Resource" id="Resource_ym4yj"]
 metadata/__load_path__ = "res://objects/Glock.obj"
+
+[sub_resource type="Resource" id="Resource_xpvml"]
+metadata/__load_path__ = "res://sounds/reload_pistol.wav"
 
 [resource]
 script = ExtResource("1_s5o88")
 weapon_name = &"old_glock"
-fire_sound = ExtResource("1_cj4cu")
-reload_sound = ExtResource("2_5lccf")
+fire_sound = SubResource("Resource_5jx3l")
+reload_sound = SubResource("Resource_xpvml")
 dryfire_sound = SubResource("Resource_16iik")
 mesh = SubResource("Resource_ym4yj")
 bullet_type = "light"
