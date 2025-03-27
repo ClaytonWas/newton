@@ -9,5 +9,5 @@ border_width_bottom = 4
 border_color = Color(0, 0, 0, 1)
 border_blend = true
 corner_detail = 1
-shadow_color = Color(1, 1, 1, 0.627451)
+shadow_color = Color(1, 1, 1, 0.568627)
 shadow_size = 5

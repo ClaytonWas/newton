@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Weapon" load_steps=4 format=3 uid="uid://c452ux5y8o5na"]
 
-[ext_resource type="AudioStream" uid="uid://djn1oh6ojyql1" path="res://sounds/shotgun_fire.mp3" id="1_pg4eu"]
-[ext_resource type="AudioStream" uid="uid://da0gpedljq2hc" path="res://sounds/shotgun_reload.mp3" id="2_sqbq4"]
+[ext_resource type="AudioStream" uid="uid://djn1oh6ojyql1" path="res://sounds/Guns/shotgun_fire.mp3" id="1_pg4eu"]
+[ext_resource type="AudioStream" uid="uid://da0gpedljq2hc" path="res://sounds/Guns/shotgun_reload.mp3" id="2_sqbq4"]
 [ext_resource type="Script" path="res://scripts/guns/weaponResource.gd" id="3_g2q18"]
 
 [resource]

@@ -6,13 +6,13 @@ var equipped_weapon_node: Node3D
 var is_shooting = false
 var shot_interval: float = 0.0		#Time elapsed counter for full auto
 var can_shoot: bool = true
-
+var is_reloading: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	change_weapon(0)
 
 func _input(event):
-	if Input.is_action_pressed("shoot"):
+	if Input.is_action_just_pressed("shoot"):
 		if equipped_weapon.bullet_type == 'shotgun':	#Fire shotgun
 			shoot()
 		else:
@@ -27,8 +27,6 @@ func _input(event):
 	
 	if Input.is_action_just_released("shoot"):	
 		is_shooting = false
-		#if (equipped_weapon.is_fullauto):
-		#	%AudioPlayer.stop()
 		
 	#Swap between weapons
 	if event.is_action_pressed("slot1"):
@@ -45,28 +43,28 @@ func _input(event):
 func change_weapon(index:int):
 	# Function to change Players equipped weapon
 	# Params - index (int) : index of weapon in inventory list
-	
-	if (index < len(inventory)):
-		var gun = inventory[index]
+	if not is_reloading and not GameScript.is_sprinting:
+		if (index < len(inventory)):
+			var gun = inventory[index]
+			
+			#Hide current weapon
+			if equipped_weapon_node:
+				equipped_weapon_node.visible = false
+			#Equip gun
+			equipped_weapon = gun
+			equipped_weapon_node = self.find_child(equipped_weapon.weapon_name)
 		
-		#Hide current weapon
-		if equipped_weapon_node:
-			equipped_weapon_node.visible = false
-		#Equip gun
-		equipped_weapon = gun
-		equipped_weapon_node = self.find_child(equipped_weapon.weapon_name)
-	
-		#Show new weapon
-		equipped_weapon_node.visible = true
+			#Show new weapon
+			equipped_weapon_node.visible = true
 
-		if (gun.mag==0):	#Fix guns spawning unloaded
-			gun.mag = gun.magazine_size
-		
-		#Setup fire rate timer
-		%ShotTimer.wait_time = gun.fire_rate
-		%ShotTimer.timeout.connect(self._on_reload_timer_timeout)
-		update_ammo_UI(equipped_weapon.mag)
-		print('Switched to ',gun.weapon_name,' dealing ',gun.damage,' per shot.')
+			if (gun.mag==0):	#Fix guns spawning unloaded
+				gun.mag = gun.magazine_size
+			
+			#Setup fire rate timer
+			%ShotTimer.wait_time = gun.fire_rate
+			%ShotTimer.timeout.connect(self._on_reload_timer_timeout)
+			update_ammo_UI(equipped_weapon.mag)
+			print('Switched to ',gun.weapon_name,' dealing ',gun.damage,' per shot.')
 
 func shoot():
 	#Fires one bullet from equipped gun
@@ -80,6 +78,7 @@ func shoot():
 
 		%AudioPlayer.stream = equipped_weapon.fire_sound	#Play sound
 		%AudioPlayer.play()
+		print('DEBUG',%AudioPlayer.is_playing(), %AudioPlayer.stream)
 		%AnimationPlayer.play('shoot')	#Animate Player
 		
 		if equipped_weapon.bullet_type == 'shotgun':		#Shoot shotgun round
@@ -94,13 +93,16 @@ func shoot():
 		else:	
 			fire_bullet(equipped_weapon, Vector3.ZERO) # Spawn bullet
 	else:
-		print("Out of ammo!")
-		%AudioPlayer.stream = equipped_weapon.dryfire_sound	#Play dry fire sound
-		%AudioPlayer.play()
+		if equipped_weapon.mag == 0:
+			print("Out of ammo!")
+			%AudioPlayer.stream = equipped_weapon.dryfire_sound	#Play dry fire sound
+			%AudioPlayer.play()
 
 
 func reload():
-	if (equipped_weapon.mag != equipped_weapon.magazine_size):	#Only reload if clip isnt full
+	#Only reload if clip isnt full
+	if equipped_weapon.mag != equipped_weapon.magazine_size and not GameScript.is_sprinting:
+		is_reloading = true
 		# Clip node for visual reload
 		var clip = find_child('Clip')
 		clip.visible = true
@@ -174,8 +176,12 @@ func _physics_process(delta: float) -> void:
 			%AnimationPlayer.play('RESET')	# Reset normal stance
 
 func update_ammo_UI(value: int) -> void:
-	%HUD.get_node("AmmoLabel").set_text(str(value))
-
+	%AmmoLabel.add_theme_constant_override("horitzontal_alignment", HORIZONTAL_ALIGNMENT_RIGHT)
+	%AmmoLabel.set_text(str(value) + ' [img=32x32]res://textures/guns/Pics/ammo_icon.svg[/img]')
+	if (value <= ceil(equipped_weapon.magazine_size * 0.25)):	# Indicate low ammo with red text
+		%AmmoLabel.add_theme_color_override("default_color", Color.RED)
+	else:
+		%AmmoLabel.add_theme_color_override("default_color", Color.WHITE)
 func _process(delta: float) -> void:
 	GameScript.equipped_weapon = equipped_weapon
 

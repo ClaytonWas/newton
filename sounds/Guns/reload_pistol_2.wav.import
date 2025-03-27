@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://b621dvtaemrcd"
-path="res://.godot/imported/reload_pistol_2.wav-819d87df7ea52d96f5787fa651470e73.sample"
+path="res://.godot/imported/reload_pistol_2.wav-18033942d8118b950fdf14ea6d49d9d2.sample"
 
 [deps]
 
-source_file="res://sounds/reload_pistol_2.wav"
-dest_files=["res://.godot/imported/reload_pistol_2.wav-819d87df7ea52d96f5787fa651470e73.sample"]
+source_file="res://sounds/Guns/reload_pistol_2.wav"
+dest_files=["res://.godot/imported/reload_pistol_2.wav-18033942d8118b950fdf14ea6d49d9d2.sample"]
 
 [params]
 

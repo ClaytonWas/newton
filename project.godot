@@ -10,10 +10,14 @@ config_version=5
 
 [application]
 
-config/name="FPS Movement1"
+config/name="Gloom Game"
 run/main_scene="res://scenes/levels/start_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://textures/general/BG-title.svg"
+
+[audio]
+
+buses/default_bus_layout="res://sounds/default_bus_layout.tres"
 
 [autoload]
 
