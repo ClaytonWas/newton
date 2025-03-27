@@ -24,8 +24,8 @@ var music: bool = true
 
 # Game Timer variables
 var timer_time: float
-var score: int = 0 # Players score/currency for shop
-var level_counter: int = 0	# Counts how many levels player completed
+var score: int	# Players score/currency for shop
+var level_counter: int # Counts how many levels player completed
 
 var level_order : Array[String] #Ordered list: First-In-First-Out & iterated through by array.pop() 
 var skip_tutorial: bool = false # Flag to show tutorial UI
@@ -42,6 +42,8 @@ func start_game():
 	equipped_weapon= player_inventory[0]
 	level_order = [LEVELS[0], LEVELS[1], LEVELS[4],LEVELS[3]]
 	game_won = false
+	score = 0
+	level_counter = 0
 	
 func _ready() -> void:
 	start_game()

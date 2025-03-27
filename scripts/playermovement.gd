@@ -30,6 +30,9 @@ var current_velocity = Vector3.ZERO
 
 var desired_direction := Vector3.ZERO
 
+# Sounds
+var normal_click = preload('res://sounds/UI/ui_normal_click.mp3')
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
@@ -148,6 +151,8 @@ func toggle_pause() -> void:
 		%PauseMenu.visible = true
 
 func _on_resume_button_down() -> void:
+	%AudioPlayer.stream = normal_click
+	%AudioPlayer.play()
 	toggle_pause()
 
 

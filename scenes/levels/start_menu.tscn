@@ -345,6 +345,9 @@ theme_override_fonts/font = ExtResource("6_l4inv")
 theme_override_font_sizes/font_size = 24
 text = "Hardcore Mode		"
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+
 [connection signal="button_down" from="ButtonPanel/PlayButton" to="." method="_on_play_button_button_down"]
 [connection signal="button_down" from="ButtonPanel/HowToPlayButton" to="." method="_on_how_to_play_button_button_down"]
 [connection signal="button_down" from="ButtonPanel/SettingButton" to="." method="_on_setting_button_button_down"]

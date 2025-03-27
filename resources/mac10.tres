@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="Weapon" load_steps=4 format=3 uid="uid://cb6lprpexrmxu"]
 
-[ext_resource type="AudioStream" uid="uid://cf2cdwaifeibb" path="res://sounds/shot_rifle.wav" id="1_ewqwp"]
+[ext_resource type="AudioStream" uid="uid://cf2cdwaifeibb" path="res://sounds/Guns/shot_rifle.wav" id="1_ewqwp"]
 [ext_resource type="Script" path="res://scripts/guns/weaponResource.gd" id="1_xmobv"]
-[ext_resource type="AudioStream" uid="uid://b621dvtaemrcd" path="res://sounds/reload_pistol_2.wav" id="2_e0dd5"]
+[ext_resource type="AudioStream" uid="uid://b621dvtaemrcd" path="res://sounds/Guns/reload_pistol_2.wav" id="2_e0dd5"]
 
 [resource]
 script = ExtResource("1_xmobv")

@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="Weapon" load_steps=6 format=3 uid="uid://daj1kmkgd1b7a"]
 
-[ext_resource type="AudioStream" uid="uid://cdw35pqkp73rw" path="res://sounds/shot_pistol.wav" id="1_cj4cu"]
+[ext_resource type="AudioStream" uid="uid://cdw35pqkp73rw" path="res://sounds/Guns/shot_pistol.wav" id="1_cj4cu"]
 [ext_resource type="Script" path="res://scripts/guns/weaponResource.gd" id="1_s5o88"]
-[ext_resource type="AudioStream" uid="uid://ue0wp3hbiyo0" path="res://sounds/reload_pistol.wav" id="2_5lccf"]
+[ext_resource type="AudioStream" uid="uid://ue0wp3hbiyo0" path="res://sounds/Guns/reload_pistol.wav" id="2_5lccf"]
 
 [sub_resource type="Resource" id="Resource_16iik"]
 metadata/__load_path__ = "res://sounds/shot_dry.wav"

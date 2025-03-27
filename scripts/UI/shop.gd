@@ -6,6 +6,12 @@ const image_path = 'res://textures/guns/pics/'
 var ability_type: String	#Tracks randomly chosen ability
 var chosen_gun: Weapon	# Tracks gun to apply upgrades to
 var price: int # Cost of upgrade
+
+#Sounds
+var normal_click = preload('res://sounds/UI/ui_normal_click.mp3')
+var error_click = preload('res://sounds/UI/ui_menu_rejected.mp3')
+var buy_click = preload('res://sounds/UI/ui_buy.mp3')
+
 func _ready() -> void:
 	randomize()
 	generate_inventory_panel()
@@ -96,10 +102,15 @@ func add_weapon_to_player(gun: Weapon):
 	if GameScript.score >= price:
 		GameScript.score -= price
 		update_score(GameScript.score)
+		%AudioPlayer.stream = buy_click
+		%AudioPlayer.play()
 		GameScript.add_weapon(gun)
 		update_confirm_message('%s PURCHASED' % [gun.weapon_name.to_upper()])
 		#Update inventory list
 		generate_inventory_panel()
+	else:	# Rejected buy
+		%AudioPlayer.stream = error_click
+		%AudioPlayer.play()
 	
 func add_ability_upgrade(ability):
 	# Applies ability to player
@@ -107,6 +118,8 @@ func add_ability_upgrade(ability):
 	
 	if GameScript.score >= price:
 		GameScript.score -= price
+		%AudioPlayer.stream = buy_click
+		%AudioPlayer.play()
 		update_score(GameScript.score)
 		var value = float(ability.split('+')[1].substr(0,2))	#Isolate number from message
 		
@@ -125,7 +138,9 @@ func add_ability_upgrade(ability):
 			print('Adding %d bullets to clip of %s.' % [value, GameScript.equipped_weapon.weapon_name])
 
 		update_confirm_message('%s UPGRADE PURCHASED' % [ability_type.to_upper()])
-	
+	else:	# Rejected buy
+		%AudioPlayer.stream = error_click
+		%AudioPlayer.play()
 func update_confirm_message(message: String) -> void:
 	#Updates confirmation message on UI
 	if %ConfirmMessage:
@@ -135,6 +150,7 @@ func update_score(value: int) -> void:
 	%Score.text = '[img]res://textures/general/coin.svg[/img]:   %d' % [value]
 
 func generate_inventory_panel():
+	#Clear old panels
 	for child in %InventoryList.get_children(): %InventoryList.remove_child(child)
 
 	# Make panels for each gun in inventory section
@@ -150,6 +166,8 @@ func _on_tree_entered() -> void:
 
 func _on_continue_button_button_down() -> void:
 	# Continue to next level
+	%AudioPlayer.stream = normal_click
+	%AudioPlayer.play()
 	get_tree().change_scene_to_file(GameScript.next_scene())
 
 func _on_quit_button_down() -> void:

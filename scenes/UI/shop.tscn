@@ -226,6 +226,9 @@ bbcode_enabled = true
 text = "[img]res://textures/general/coin.svg[/img]: 	1000"
 fit_content = true
 
+[node name="AudioPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="button_down" from="BottomContainer/ContinueButton" to="." method="_on_continue_button_button_down"]
 [connection signal="button_down" from="BottomContainer/Quit" to="." method="_on_quit_button_down"]
