@@ -272,8 +272,13 @@ shape = SubResource("CylinderShape3D_wsy65")
 [node name="AlertTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="AttackIntervalTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
 [connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
 [connection signal="body_exited" from="AttackArea" to="." method="_on_attack_area_body_exited"]
 [connection signal="timeout" from="AlertTimer" to="." method="_on_alert_timer_timeout"]
+[connection signal="timeout" from="AttackIntervalTimer" to="." method="_on_attack_interval_timer_timeout"]

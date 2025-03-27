@@ -12,6 +12,7 @@ enum State {
 
 @onready var animated_sprite = $AnimatedSprite3D
 @onready var alert_timer = $AlertTimer
+@onready var attack_interval_timer = $AttackIntervalTimer
 
 # Steering Behavior Components
 @onready var agent := await GSAICharacterBody3DAgent.new(self)
@@ -32,6 +33,7 @@ enum State {
 @export var bullet = load('res://scenes/guns/melee_bullet.tscn')
 
 var aware_of_player = false
+var can_attack = true
 var target_node: Node3D = null
 
 func _ready():
@@ -69,6 +71,9 @@ func _physics_process(delta):
 				move_and_slide()
 			else:
 				velocity = Vector3.ZERO
+				if can_attack and bullet:
+					can_attack = false
+					attack_interval_timer.start()
 
 			# Keeps CharacterBody node rotating in 3D space correctly
 			if target_node:
@@ -77,13 +82,17 @@ func _physics_process(delta):
 				agent._apply_steering(accel, delta)
 				
 		_:
-				var projectile = bullet.instantiate()
-				projectile.damage = damage
-				projectile.global_position = global_position
-				projectile.global_transform.basis = global_transform.basis
-				get_parent().add_child(projectile)
-				
 				velocity = Vector3.ZERO
+
+func instance_bullet():
+	var projectile = bullet.instantiate()
+	projectile.is_enemy_bullet = true
+	projectile.damage = damage
+	projectile.global_position = global_position
+	projectile.global_transform.basis = global_transform.basis
+	projectile.get_node("HitboxComponent").set_collision_layer_value(1, false)
+	projectile.get_node("HitboxComponent").set_collision_layer_value(2, true)
+	add_child(projectile)
 
 func _process(delta):
 	match state:
@@ -102,7 +111,7 @@ func _on_detection_area_body_entered(body):
 		if not aware_of_player:
 			aware_of_player = true
 			state = State.ALERTED
-			alert_timer.start(1.0)
+			alert_timer.start()
 		else:
 			state = State.CHASING
 
@@ -124,3 +133,10 @@ func _on_attack_area_body_exited(body):
 func _on_alert_timer_timeout():
 	if state == State.ALERTED:
 		state = State.CHASING
+
+
+func _on_attack_interval_timer_timeout():
+	if state == State.ATTACKING:
+		instance_bullet()
+	
+	can_attack = true
