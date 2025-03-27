@@ -149,3 +149,8 @@ func toggle_pause() -> void:
 
 func _on_resume_button_down() -> void:
 	toggle_pause()
+
+
+func _on_tree_exiting() -> void:
+	# Track time left for shop score
+	GameScript.timer_time = %Timer.time_left

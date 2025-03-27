@@ -514,6 +514,7 @@ unique_name_in_owner = true
 script = ExtResource("19_3hmld")
 
 [connection signal="death_screen" from="." to="DeathScreen" method="_on_player_death_screen"]
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 [connection signal="pressed" from="DeathScreen/Panel/VBoxContainer/Button" to="DeathScreen" method="_on_button_pressed"]
 [connection signal="button_down" from="DeathScreen/Panel/VBoxContainer/QuitButton" to="DeathScreen" method="_on_quit_button_button_down"]
 [connection signal="pressed" from="DeathScreen/Panel/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

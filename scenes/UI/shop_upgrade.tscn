@@ -77,4 +77,4 @@ theme_override_fonts/font = ExtResource("3_kahgx")
 theme_override_styles/hover = ExtResource("4_y7f8n")
 theme_override_styles/pressed = ExtResource("4_y7f8n")
 theme_override_styles/normal = ExtResource("4_y7f8n")
-text = "BUY: "
+text = "BUY (800): "
