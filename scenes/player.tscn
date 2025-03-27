@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cnxm803p7w416"]
+[gd_scene load_steps=31 format=3 uid="uid://cnxm803p7w416"]
 
 [ext_resource type="Script" path="res://scripts/playermovement.gd" id="1_2ak50"]
 [ext_resource type="Script" path="res://scripts/player_shoot.gd" id="3_0hi0p"]
@@ -17,7 +17,9 @@
 [ext_resource type="PackedScene" uid="uid://v1nfdxx3d3u4" path="res://scenes/guns/shotgun.tscn" id="14_gbkgs"]
 [ext_resource type="Script" path="res://scripts/UI/clock_face.gd" id="15_b7v5p"]
 [ext_resource type="Script" path="res://scripts/UI/tutorial.gd" id="19_3hmld"]
+[ext_resource type="PackedScene" uid="uid://cmqrs35b4snep" path="res://scenes/components/HitboxComponent.tscn" id="20_hg7dl"]
 [ext_resource type="FontFile" uid="uid://1ocjgmtw3srp" path="res://fonts/doomed/doomed.ttf" id="20_ksctb"]
+[ext_resource type="PackedScene" uid="uid://dwsw3a2j15dtf" path="res://scenes/components/HealthComponent.tscn" id="21_5kmh6"]
 [ext_resource type="FontFile" uid="uid://drptivkdwroo6" path="res://fonts/kids_knowledge_2/Kid Knowledge 2 Rustic.otf" id="21_eyui1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ykk5e"]
@@ -231,9 +233,6 @@ _data = {
 "sprint": SubResource("Animation_c22ao")
 }
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_yh1i5"]
-size = Vector3(0.226547, 0.33667, 0.37793)
-
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_2ak50")
 mouse_sensitivity = 0.005
@@ -438,10 +437,6 @@ one_shot = true
 autostart = true
 script = ExtResource("13_g3pfr")
 
-[node name="HeadCollisionShape" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.022377, 1.51539, -0.10498)
-shape = SubResource("BoxShape3D_yh1i5")
-
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 visible = false
@@ -512,6 +507,16 @@ text = "Quit"
 [node name="Tutorial" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 script = ExtResource("19_3hmld")
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("20_hg7dl")]
+collision_layer = 2
+health_component = NodePath("../HealthComponent")
+
+[node name="BodyCollisionShape" type="CollisionShape3D" parent="HitboxComponent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9096, 0)
+shape = SubResource("CapsuleShape3D_ykk5e")
+
+[node name="HealthComponent" parent="." instance=ExtResource("21_5kmh6")]
 
 [connection signal="death_screen" from="." to="DeathScreen" method="_on_player_death_screen"]
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]

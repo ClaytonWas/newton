@@ -10,7 +10,15 @@ func _ready() -> void:
 
 func damage(amount):
 	health -= amount
-	print('From healthComponent: ',get_parent().name, ' got hit and dealt ', amount, ' for remaining HP: ', health)
-	if health <= 0:
-		GlobalDeathSignals.enemy_died.emit()
-		get_parent().queue_free()
+	#print('From healthComponent: ',get_parent().name, ' hit and has remaining HP: ', health)
+	if get_parent().name == "Player":
+		if health <= 0:
+			get_parent().death_state()
+	else:
+		if health <= 0:
+			GlobalDeathSignals.enemy_died.emit()
+			get_parent().queue_free()
+
+func add_max_health(amount):
+	max_health += amount
+	health = max_health

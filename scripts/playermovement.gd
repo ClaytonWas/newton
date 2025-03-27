@@ -9,7 +9,6 @@ const headbob_frequency := 0.5
 @export var headbob_time := 0.0
 
 @export_category("Player Stats")
-@export var health: float = 100	#Total health
 @export var heal_rate: float = 3	#Time interval of healing
 @export var heal_interval: float = 20	#Amount healed per interval
 var is_dead: bool = false
@@ -27,18 +26,20 @@ var is_dead: bool = false
 
 var target_velocity = Vector3.ZERO
 var current_velocity = Vector3.ZERO
-
 var desired_direction := Vector3.ZERO
 
-# Sounds
+
 var normal_click = preload('res://sounds/UI/ui_normal_click.mp3')
+
+@onready var health = $HealthComponent
+
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 	#If health booster - add health
 	if GameScript.add_health > 0.0:
-		health += GameScript.add_health
+		health.add_max_health(GameScript.add_health)
 		GameScript.add_health = 0
 		
 func _unhandled_input(event):
@@ -119,11 +120,6 @@ func _air_physics(delta) -> void:
 		current_acceleration = min(current_acceleration, add_speed_till_cap)
 		self.velocity += current_acceleration * desired_direction
 
-func take_damage(dmg:int):
-		health -= dmg
-		
-		if health <= 0:
-			death_state()
 
 func _on_timer_timeout():
 	death_state()
