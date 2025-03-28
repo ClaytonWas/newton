@@ -1,9 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://da6m0b4ofar1f"]
+[gd_scene load_steps=8 format=3 uid="uid://da6m0b4ofar1f"]
 
 [ext_resource type="StyleBox" uid="uid://bbxjt88sjs2g8" path="res://textures/general/shop_upgrade_panel.tres" id="1_m85fy"]
 [ext_resource type="FontFile" uid="uid://b37i10y1miif5" path="res://fonts/kids_knowledge_2/Kid Knowledge 2 Clean.otf" id="2_qy2xk"]
 [ext_resource type="FontFile" uid="uid://1ocjgmtw3srp" path="res://fonts/doomed/doomed.ttf" id="3_kahgx"]
 [ext_resource type="StyleBox" uid="uid://nv4k6i8wwbd" path="res://textures/general/shop_buy_button.tres" id="4_y7f8n"]
+[ext_resource type="Texture2D" uid="uid://defrt0alanl4k" path="res://textures/guns/Pics/minus_icon.svg" id="5_ssl2w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_veyey"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ax8yy"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="Upgrade" type="Button"]
 offset_right = 403.0
@@ -78,3 +85,20 @@ theme_override_styles/hover = ExtResource("4_y7f8n")
 theme_override_styles/pressed = ExtResource("4_y7f8n")
 theme_override_styles/normal = ExtResource("4_y7f8n")
 text = "BUY (800): "
+
+[node name="RemoveButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -61.0
+offset_top = 12.0
+offset_right = -16.0
+offset_bottom = 66.0
+grow_horizontal = 0
+theme_override_colors/icon_normal_color = Color(1, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(1, 0, 0, 1)
+theme_override_styles/hover = SubResource("StyleBoxFlat_veyey")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ax8yy")
+icon = ExtResource("5_ssl2w")
+expand_icon = true
