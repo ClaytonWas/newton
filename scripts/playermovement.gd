@@ -40,9 +40,6 @@ func _ready():
 	#If health booster - add health
 	if GameScript.add_health > 0:
 		print('Trigger to add %d to HP:%d' % [GameScript.add_health, health.health])
-		#health.health +=GameScript.add_health
-		#health.max_health += GameScript.add_health
-		#print('Resulting with HP: %d' % health.health )
 		health.add_max_health(GameScript.add_health)
 		GameScript.add_health = 0
 		

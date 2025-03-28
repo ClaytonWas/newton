@@ -108,6 +108,9 @@ func add_weapon_to_player(gun: Weapon):
 		update_confirm_message('%s PURCHASED' % [gun.weapon_name.to_upper()])
 		#Update inventory list
 		generate_inventory_panel()
+		# Remove first child from Upgrades panel
+		%VBoxUpgrades.get_child(0).queue_free()
+		%VBoxUpgrades.size.y /= 2
 	else:	# Rejected buy
 		%AudioPlayer.stream = error_click
 		%AudioPlayer.play()
@@ -138,6 +141,9 @@ func add_ability_upgrade(ability):
 			print('Adding %d bullets to clip of %s.' % [value, GameScript.equipped_weapon.weapon_name])
 
 		update_confirm_message('%s UPGRADE PURCHASED' % [ability_type.to_upper()])
+		# Remove last child from Upgrades panel
+		%VBoxUpgrades.get_child(%VBoxUpgrades.get_children().size()-1).queue_free()
+		%VBoxUpgrades.size.y /= 2
 	else:	# Rejected buy
 		%AudioPlayer.stream = error_click
 		%AudioPlayer.play()
