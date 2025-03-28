@@ -22,5 +22,8 @@ func damage(amount):
 			get_parent().queue_free()
 
 func add_max_health(amount):
+	print('Applying Bonus health')
 	max_health += amount
 	health = max_health
+	GameScript.player_health = health
+	print(GameScript.player_health, health)

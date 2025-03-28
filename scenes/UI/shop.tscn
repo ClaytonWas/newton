@@ -1,11 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://hrawmeo0bps1"]
+[gd_scene load_steps=8 format=3 uid="uid://hrawmeo0bps1"]
 
 [ext_resource type="FontFile" uid="uid://1ocjgmtw3srp" path="res://fonts/doomed/doomed.ttf" id="1_ccndx"]
 [ext_resource type="Script" path="res://scripts/UI/shop.gd" id="1_rj50a"]
 [ext_resource type="StyleBox" uid="uid://cqcir2n7ttxsg" path="res://textures/general/shop_panel_clr.tres" id="2_k2wxx"]
 [ext_resource type="StyleBox" uid="uid://dv4mikdaf0xcy" path="res://textures/general/shop_btn_clr.tres" id="3_8p3o6"]
 [ext_resource type="FontFile" uid="uid://b37i10y1miif5" path="res://fonts/kids_knowledge_2/Kid Knowledge 2 Clean.otf" id="3_e6alw"]
-[ext_resource type="PackedScene" uid="uid://da6m0b4ofar1f" path="res://scenes/UI/shop_upgrade.tscn" id="4_sawuj"]
 [ext_resource type="StyleBox" uid="uid://d2fevip7epj5a" path="res://textures/general/shop_btn_clr_red.tres" id="5_w7egb"]
 [ext_resource type="Texture2D" uid="uid://bm7l716gxhtq" path="res://textures/general/back_icon.svg" id="8_hhulv"]
 
@@ -83,6 +82,27 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 25
 
+[node name="HealthLabel" type="Label" parent="PlayerPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -74.0
+offset_top = -56.0
+offset_right = 74.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("1_ccndx")
+theme_override_font_sizes/font_size = 20
+text = "HEALTH:"
+
 [node name="UpgradesPanel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = -1
@@ -123,10 +143,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
 alignment = 1
-
-[node name="SampeUpgrade" parent="UpgradesPanel/VBoxUpgrades" instance=ExtResource("4_sawuj")]
-visible = false
-layout_mode = 2
 
 [node name="BottomContainer" type="Panel" parent="."]
 layout_mode = 1

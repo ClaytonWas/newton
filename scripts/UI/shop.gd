@@ -1,7 +1,7 @@
 extends Control
 
 # Represents randomizable ability upgrade types
-const UPGRADE_TYPES = ['Health', 'Damage', 'Ammo']
+const UPGRADE_TYPES = ['Health', 'Damage', 'Ammo']	
 const image_path = 'res://textures/guns/pics/'
 var ability_type: String	#Tracks randomly chosen ability
 var chosen_gun: Weapon	# Tracks gun to apply upgrades to
@@ -17,7 +17,7 @@ func _ready() -> void:
 	generate_inventory_panel()
 	generate_upgrades()		#Chooses 2 randomized upgrades
 	update_score(GameScript.calculate_score())
-	
+	%HealthLabel.text = 'HEALTH: %d' % GameScript.player_health
 
 func update_shop_label(upgrade, inv=false):
 	#Inv is boolean flag for inventory panel : hide button
@@ -108,6 +108,12 @@ func add_weapon_to_player(gun: Weapon):
 		update_confirm_message('%s PURCHASED' % [gun.weapon_name.to_upper()])
 		#Update inventory list
 		generate_inventory_panel()
+		# Remove first child from Upgrades panel
+		%VBoxUpgrades.get_child(0).queue_free()
+		%VBoxUpgrades.size.y /= 2
+		
+		#Update UI
+		generate_inventory_panel()
 	else:	# Rejected buy
 		%AudioPlayer.stream = error_click
 		%AudioPlayer.play()
@@ -124,23 +130,27 @@ func add_ability_upgrade(ability):
 		var value = float(ability.split('+')[1].substr(0,2))	#Isolate number from message
 		
 		#Health case
-		if ability.contains(UPGRADE_TYPES[0]):
+		if ability.contains("Health"):
 			GameScript.add_health = value
 			print('Adding %d HP to player.' % [value])
-			
+			%HealthLabel.text = 'HEALTH: %d' % GameScript.player_health
 		#Damage Case
-		elif ability.contains(UPGRADE_TYPES[1]):
+		elif ability.contains("Damage"):
 			GameScript.upgrade_damage(value)
 			print('Adding %d Damage to %s.' % [value, GameScript.equipped_weapon.weapon_name])
 		# Ammo case
-		elif ability.contains(UPGRADE_TYPES[2]):
+		elif ability.contains("Ammo"):
 			GameScript.upgrade_ammo(value)
 			print('Adding %d bullets to clip of %s.' % [value, GameScript.equipped_weapon.weapon_name])
 
 		update_confirm_message('%s UPGRADE PURCHASED' % [ability_type.to_upper()])
+		# Remove last child from Upgrades panel
+		%VBoxUpgrades.get_child(%VBoxUpgrades.get_children().size()-1).queue_free()
+		%VBoxUpgrades.size.y /= 2
 	else:	# Rejected buy
 		%AudioPlayer.stream = error_click
 		%AudioPlayer.play()
+		
 func update_confirm_message(message: String) -> void:
 	#Updates confirmation message on UI
 	if %ConfirmMessage:

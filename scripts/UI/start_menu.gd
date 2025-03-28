@@ -60,3 +60,7 @@ func _on_music_button_toggled(toggled_on: bool) -> void:
 func _on_volume_silder_value_changed(value: float) -> void:
 	# Sets global game volume
 	GameScript.set_volume(value)
+
+
+func _on_skip_tutorial_button_toggled(toggled_on: bool) -> void:
+	GameScript.skip_tutorial = !GameScript.skip_tutorial
