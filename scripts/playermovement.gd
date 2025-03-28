@@ -36,9 +36,13 @@ var normal_click = preload('res://sounds/UI/ui_normal_click.mp3')
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
+	print('health on load: ',health.max_health)
 	#If health booster - add health
-	if GameScript.add_health > 0.0:
+	if GameScript.add_health > 0:
+		print('Trigger to add %d to HP:%d' % [GameScript.add_health, health.health])
+		#health.health +=GameScript.add_health
+		#health.max_health += GameScript.add_health
+		#print('Resulting with HP: %d' % health.health )
 		health.add_max_health(GameScript.add_health)
 		GameScript.add_health = 0
 		
@@ -155,3 +159,7 @@ func _on_resume_button_down() -> void:
 func _on_tree_exiting() -> void:
 	# Track time left for shop score
 	GameScript.timer_time = %Timer.time_left
+
+func _process(delta: float) -> void:
+	#GameScript.player_health = $HealthComponent.health
+	pass

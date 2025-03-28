@@ -22,5 +22,6 @@ func damage(amount):
 			get_parent().queue_free()
 
 func add_max_health(amount):
-	max_health += amount
-	health = max_health
+	print('Applying Bonus health')
+	self.max_health += amount
+	self.health = max_health

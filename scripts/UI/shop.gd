@@ -17,7 +17,7 @@ func _ready() -> void:
 	generate_inventory_panel()
 	generate_upgrades()		#Chooses 2 randomized upgrades
 	update_score(GameScript.calculate_score())
-	
+	%HealthLabel.text = 'HEALTH: %d' % GameScript.player_health
 
 func update_shop_label(upgrade, inv=false):
 	#Inv is boolean flag for inventory panel : hide button

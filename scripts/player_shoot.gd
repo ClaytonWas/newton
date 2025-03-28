@@ -78,8 +78,6 @@ func shoot():
 
 		%AudioPlayer.stream = equipped_weapon.fire_sound	#Play sound
 		%AudioPlayer.play()
-		print(%AudioPlayer, equipped_weapon.weapon_name)
-		print('DEBUG',%AudioPlayer.is_playing(), %AudioPlayer.stream)
 		%AnimationPlayer.play('shoot')	#Animate Player
 		
 		if equipped_weapon.bullet_type == 'shotgun':		#Shoot shotgun round
@@ -131,13 +129,11 @@ func reload():
 		reload_timer.one_shot = true
 		reload_timer.timeout.connect(self._on_reload_timer_timeout)
 		reload_timer.start()
-		print('reload started seconds: ', reload_timer.wait_time)
 		equipped_weapon.reload()
 
 func _on_reload_timer_timeout():
 	# Called after reload_timer and shot_timer. re-enables can_shoot & updates ammo count UI
 	can_shoot = true
-	print('can_shoot is true')
 	update_ammo_UI(equipped_weapon.mag)
 
 func fire_bullet(gun, offset):

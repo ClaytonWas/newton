@@ -5,7 +5,7 @@ var gun_paths = {
 	'fade_glock': 'res://resources/fade_glock.tres',
 	'Mac10':'res://resources/mac10.tres',
 	'LaserGun': 'res://resources/laser_gun.tres',
-	'shotgun': 'res://resources/shotgun.tres'
+	'Shotgun': 'res://resources/shotgun.tres'
 }
 
 var GUN_POOL = [
@@ -40,6 +40,7 @@ var level_order : Array[String] #Ordered list: First-In-First-Out & iterated thr
 var skip_tutorial: bool = false # Flag to show tutorial UI
 var player_inventory: Array
 var equipped_weapon: Weapon # Tracks current equipped weapon
+var player_health: float  # Tracks value in player HealthComponent
 var add_health: float = 0.0	# Flag Variable to add HP based on ability booster - checked in playermovement.gd
 var is_sprinting: bool = false	# Tracks if player is sprinting
 var game_won: bool	# Global won game flag
@@ -48,6 +49,7 @@ func start_game():
 	#Resets variables for fresh game runs
 	randomize()
 	player_inventory = [GUN_POOL[0]]	#Set starting weapon
+	player_health = 100# default value before scene enters
 	equipped_weapon= player_inventory[0]
 	level_order = [LEVELS[0], LEVELS[1], LEVELS[4],LEVELS[3]]
 	game_won = false
@@ -97,6 +99,9 @@ func upgrade_ammo(ammo: float) -> void:
 	#Update inventory list
 	player_inventory[player_inventory.find(equipped_weapon)] = equipped_weapon
 
+func upgrade_health(health: HealthComponent):
+	# Applies player_health value to health component
+	pass
 func settings_toggle(setting: String):
 	# Toggles settings booleans
 	if setting == 'hardcore':
@@ -128,6 +133,7 @@ func calculate_score() -> int:
 	return score
 
 func on_restart():
+
 	# Called when restarted
 	# Swap player inventory for default guns @ index
 	var temp = player_inventory
