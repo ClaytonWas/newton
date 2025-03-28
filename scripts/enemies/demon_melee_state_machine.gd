@@ -4,7 +4,8 @@ enum State {
 	IDLE,
 	ALERTED,
 	CHASING,
-	ATTACKING
+	ATTACKING,
+	STUNNED
 }
 
 @export_category("Beginning State")
@@ -13,6 +14,7 @@ enum State {
 @onready var animated_sprite = $AnimatedSprite3D
 @onready var alert_timer = $AlertTimer
 @onready var attack_interval_timer = $AttackIntervalTimer
+@onready var stun_timer = $StunTimer
 @onready var navigation_agent = $NavigationAgent3D
 
 @export_category("Movement Variables")
@@ -22,8 +24,9 @@ enum State {
 @export var damage: float = 50.0
 @export var bullet = load('res://scenes/guns/melee_bullet.tscn')
 
-var aware_of_player = false
-var can_attack = true
+var aware_of_player: bool = false
+var can_attack: bool = true
+var stunned: bool = false
 var target_node: Node3D = null
 
 func _ready():
@@ -31,8 +34,7 @@ func _ready():
 
 func _physics_process(delta):
 	match state:
-		State.IDLE:
-			pass
+
 		State.CHASING:
 			if target_node:
 				navigation_agent.set_target_position(target_node.position)
@@ -52,6 +54,10 @@ func _physics_process(delta):
 				if can_attack and bullet:
 					can_attack = false
 					attack_interval_timer.start()
+			
+		State.STUNNED:
+			velocity = velocity.move_toward(Vector3.ZERO, movement_speed * delta)
+			move_and_slide()
 				
 		_:
 				velocity = Vector3.ZERO
@@ -67,7 +73,7 @@ func instance_bullet():
 func _process(delta):
 	match state:
 		State.IDLE:
-			animated_sprite.play('walkLeft')
+			animated_sprite.play('idle')
 			animated_sprite.set_billboard_mode(0)
 		State.ALERTED:
 			animated_sprite.play('alerted')
@@ -76,6 +82,12 @@ func _process(delta):
 			animated_sprite.set_billboard_mode(1)
 		State.ATTACKING:
 			animated_sprite.play("attack")
+		State.STUNNED:
+			animated_sprite.play('stunned')
+			animated_sprite.modulate = Color(1, 0.25, 0.25)
+			if not stunned and target_node:
+				animated_sprite.modulate = Color(1, 1, 1)
+				state = State.CHASING
 
 func _on_detection_area_body_entered(body):
 	if body.name == 'Player':
@@ -96,19 +108,24 @@ func _on_attack_area_body_entered(body):
 	if body.name == 'Player':
 		state = State.ATTACKING
 
-
 func _on_attack_area_body_exited(body):
 	if body.name == 'Player':
 		state = State.CHASING
 
-
 func _on_alert_timer_timeout():
 	if state == State.ALERTED:
 		state = State.CHASING
-
 
 func _on_attack_interval_timer_timeout():
 	if state == State.ATTACKING:
 		instance_bullet()
 	
 	can_attack = true
+
+func _on_health_component_damage_taken():
+	state = State.STUNNED
+	stunned = true
+	stun_timer.start()
+
+func _on_stun_timer_timeout():
+	stunned = false
