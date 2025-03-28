@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://l63em15l8uwv"]
+[gd_scene load_steps=22 format=3 uid="uid://l63em15l8uwv"]
 
 [ext_resource type="Script" path="res://scripts/enemies/demon_melee_state_machine.gd" id="1_f5mev"]
 [ext_resource type="PackedScene" uid="uid://d3l0jre42pvku" path="res://scenes/guns/melee_bullet.tscn" id="2_dms62"]
@@ -123,10 +123,15 @@ radius = 5.18553
 height = 0.613642
 radius = 0.475954
 
-[node name="DemonRanged" type="CharacterBody3D"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qwmx8"]
+radius = 0.125732
+height = 0.612839
+
+[node name="ImpMelee" type="CharacterBody3D"]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 script = ExtResource("1_f5mev")
-movement_speed = 15.0
+movement_speed = 30.0
+damage = 35.0
 bullet = ExtResource("2_dms62")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
@@ -156,16 +161,21 @@ shape = SubResource("CylinderShape3D_cy2g1")
 shape = SubResource("CylinderShape3D_wsy65")
 
 [node name="AlertTimer" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 
 [node name="AttackIntervalTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.35
 one_shot = true
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="StunTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.75
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0631533, 0)
+shape = SubResource("CapsuleShape3D_qwmx8")
 
 [connection signal="damage_taken" from="HealthComponent" to="." method="_on_health_component_damage_taken"]
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]

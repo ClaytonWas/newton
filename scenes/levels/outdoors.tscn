@@ -17,7 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://cdj403s1c7ugt" path="res://textures/environments/mines/Rocks_W.jpg" id="15_ycqk0"]
 [ext_resource type="Texture2D" uid="uid://bsa3iki2u1vl0" path="res://textures/environments/mines/Lamp.png" id="16_ssred"]
 [ext_resource type="PackedScene" uid="uid://bbtmley2843d2" path="res://scenes/enemies/demon_melee.tscn" id="17_3lwbe"]
-[ext_resource type="PackedScene" uid="uid://l63em15l8uwv" path="res://scenes/enemies/demon_ranged.tscn" id="18_6h0pp"]
+[ext_resource type="PackedScene" uid="uid://l63em15l8uwv" path="res://scenes/enemies/imp_melee.tscn" id="18_6h0pp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bg5ec"]
 shader = ExtResource("1_g6wkd")
