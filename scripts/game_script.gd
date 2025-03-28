@@ -1,12 +1,21 @@
 extends Node
 
-const GUN_POOL = [
-	preload('res://resources/old_glock.tres'),
-	preload('res://resources/fade_glock.tres'),
-	preload('res://resources/laser_gun.tres'),
-	preload('res://resources/mac10.tres'),
-	preload('res://resources/shotgun.tres')
+var gun_paths = {
+	'old_glock': 'res://resources/old_glock.tres',
+	'fade_glock': 'res://resources/fade_glock.tres',
+	'Mac10':'res://resources/mac10.tres',
+	'LaserGun': 'res://resources/laser_gun.tres',
+	'shotgun': 'res://resources/shotgun.tres'
+}
+
+var GUN_POOL = [
+	load('res://resources/old_glock.tres').duplicate(),
+	load('res://resources/fade_glock.tres').duplicate(),
+	load('res://resources/laser_gun.tres').duplicate(),
+	load('res://resources/mac10.tres').duplicate(),
+	load('res://resources/shotgun.tres').duplicate()
 ]
+var default_guns
 
 const LEVELS =  [		#Names of level scenes as navigation path 
 	'res://scenes/levels/outdoors.tscn',
@@ -29,7 +38,7 @@ var level_counter: int # Counts how many levels player completed
 
 var level_order : Array[String] #Ordered list: First-In-First-Out & iterated through by array.pop() 
 var skip_tutorial: bool = false # Flag to show tutorial UI
-var player_inventory: Array[Weapon] 
+var player_inventory: Array
 var equipped_weapon: Weapon # Tracks current equipped weapon
 var add_health: float = 0.0	# Flag Variable to add HP based on ability booster - checked in playermovement.gd
 var is_sprinting: bool = false	# Tracks if player is sprinting
@@ -45,8 +54,10 @@ func start_game():
 	score = 0
 	level_counter = 0
 	
+	
 func _ready() -> void:
 	start_game()
+	default_guns = GUN_POOL
 	# Play music
 	if music:
 		add_child(musicPlayer)
@@ -109,11 +120,25 @@ func set_volume(value: float) -> void:
 
 func calculate_score() -> int:
 	# Save time left on game clock
-	print(timer_time, score, ' time left')
 	var point_interval = 300
 	var time_interval = 15
 	# Formula to give {point_interval} points per {time_interval} seconds left
-	score += floor(timer_time / time_interval) * point_interval
-	print('Calculating score of ',score, timer_time)
+	score += floor(timer_time / time_interval) * point_interval**2
 	
 	return score
+
+func on_restart():
+	# Called when restarted
+	# Swap player inventory for default guns @ index
+	var temp = player_inventory
+	for weapon in player_inventory:
+		var fresh_weapon = load(gun_paths[weapon.weapon_name]).duplicate() as Weapon
+		#temp.append(fresh_weapon)  # Add the fresh weapon to the temp list
+		print('Reloading %s with stats of %d %d' % [fresh_weapon.weapon_name, fresh_weapon.damage,fresh_weapon.magazine_size])
+		weapon.damage = fresh_weapon.damage
+		weapon.magazine_size = fresh_weapon.magazine_size
+	print(temp, player_inventory)
+	print(typeof(temp[0]), typeof(player_inventory[0]))
+	player_inventory = temp  # Replace the original list
+
+	get_tree().change_scene_to_file("res://scenes/levels/start_menu.tscn")

@@ -1,7 +1,7 @@
 extends Control
 
 # Represents randomizable ability upgrade types
-const UPGRADE_TYPES = ['Health', 'Damage', 'Ammo']
+const UPGRADE_TYPES = [ 'Damage', 'Ammo']	#'Health'
 const image_path = 'res://textures/guns/pics/'
 var ability_type: String	#Tracks randomly chosen ability
 var chosen_gun: Weapon	# Tracks gun to apply upgrades to
@@ -124,16 +124,16 @@ func add_ability_upgrade(ability):
 		var value = float(ability.split('+')[1].substr(0,2))	#Isolate number from message
 		
 		#Health case
-		if ability.contains(UPGRADE_TYPES[0]):
+		if ability.contains("Health"):
 			GameScript.add_health = value
 			print('Adding %d HP to player.' % [value])
 			
 		#Damage Case
-		elif ability.contains(UPGRADE_TYPES[1]):
+		elif ability.contains("Damage"):
 			GameScript.upgrade_damage(value)
 			print('Adding %d Damage to %s.' % [value, GameScript.equipped_weapon.weapon_name])
 		# Ammo case
-		elif ability.contains(UPGRADE_TYPES[2]):
+		elif ability.contains("Ammo"):
 			GameScript.upgrade_ammo(value)
 			print('Adding %d bullets to clip of %s.' % [value, GameScript.equipped_weapon.weapon_name])
 

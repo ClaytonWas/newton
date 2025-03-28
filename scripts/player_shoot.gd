@@ -1,7 +1,7 @@
 extends Node3D
 
 var equipped_weapon : Weapon
-@onready var inventory: Array[Weapon] = GameScript.player_inventory
+@onready var inventory: Array = GameScript.player_inventory
 var equipped_weapon_node: Node3D
 var is_shooting = false
 var shot_interval: float = 0.0		#Time elapsed counter for full auto
