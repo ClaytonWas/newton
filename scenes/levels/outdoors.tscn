@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://b2spxeueapwij"]
+[gd_scene load_steps=38 format=3 uid="uid://b2spxeueapwij"]
 
 [ext_resource type="Shader" path="res://scripts/shaders/starrysky.gdshader" id="1_g6wkd"]
 [ext_resource type="Shader" path="res://scripts/shaders/water.gdshader" id="2_v7h6p"]
@@ -78,6 +78,35 @@ shader = ExtResource("14_o6xwa")
 shader_parameter/warp_ScreenSpace = false
 shader_parameter/texture_albedo = ExtResource("15_otylq")
 
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_fgawh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fost1"]
+render_priority = 0
+shader = ExtResource("13_qqwu5")
+shader_parameter/outline_color = Color(0.225014, 0.70795, 0.316919, 1)
+shader_parameter/outline_width = 0.03
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jcgg6"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_fost1")
+shader = ExtResource("14_o6xwa")
+shader_parameter/warp_ScreenSpace = false
+shader_parameter/texture_albedo = ExtResource("16_ssred")
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_h55cq"]
+radius = 3.0
+radial_steps = 24
+sections = 2
+section_length = 0.1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_sk2h0"]
+height = 0.5
+radius = 3.0
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_dc1xv"]
+vertices = PackedVector3Array(-149.5, 0.75, -149.5, -149.5, 0.75, 149.5, 149.5, 0.75, 149.5, 149.5, 0.75, -149.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_n0kmd"]
 size = Vector3(100, 0.1, 100)
 
@@ -115,31 +144,6 @@ shader_parameter/beer_factor = 0.2
 shader_parameter/metallic = 1.0
 shader_parameter/specular = 0.5
 shader_parameter/roughness = 0.05
-
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_fgawh"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fost1"]
-render_priority = 0
-shader = ExtResource("13_qqwu5")
-shader_parameter/outline_color = Color(0.225014, 0.70795, 0.316919, 1)
-shader_parameter/outline_width = 0.03
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jcgg6"]
-render_priority = 0
-next_pass = SubResource("ShaderMaterial_fost1")
-shader = ExtResource("14_o6xwa")
-shader_parameter/warp_ScreenSpace = false
-shader_parameter/texture_albedo = ExtResource("16_ssred")
-
-[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_h55cq"]
-radius = 3.0
-radial_steps = 24
-sections = 2
-section_length = 0.1
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_sk2h0"]
-height = 0.5
-radius = 3.0
 
 [node name="Outdoors" type="Node3D"]
 
@@ -212,23 +216,6 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("CylinderShape3D_fmtj7")
 
-[node name="Plane" type="Node3D" parent="."]
-transform = Transform3D(3, 0, 0, 0, 1, 0, 0, 0, 3, 0, 0, 0)
-
-[node name="Sand" type="StaticBody3D" parent="Plane"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane/Sand"]
-shape = SubResource("BoxShape3D_n0kmd")
-
-[node name="Sand" type="MeshInstance3D" parent="Plane/Sand"]
-mesh = SubResource("PlaneMesh_8mmju")
-
-[node name="Water" type="MeshInstance3D" parent="Plane/Sand"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.478904, 0)
-mesh = SubResource("QuadMesh_neuva")
-skeleton = NodePath("../../..")
-surface_material_override/0 = SubResource("ShaderMaterial_excqs")
-
 [node name="DeathZone" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DeathZone"]
@@ -253,10 +240,28 @@ shape = SubResource("CylinderShape3D_sk2h0")
 
 [node name="DemonMelee" parent="." instance=ExtResource("17_3lwbe")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -88.8863, 3.11749, 78.8324)
-movement_speed = 1000.0
 
 [node name="DemonMelee2" parent="." instance=ExtResource("17_3lwbe")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -82.3469, 3.04963, 78.1763)
-movement_speed = 0.0
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_dc1xv")
+
+[node name="Plane" type="Node3D" parent="NavigationRegion3D"]
+transform = Transform3D(3, 0, 0, 0, 1, 0, 0, 0, 3, 0, 0, 0)
+
+[node name="Sand" type="StaticBody3D" parent="NavigationRegion3D/Plane"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Plane/Sand"]
+shape = SubResource("BoxShape3D_n0kmd")
+
+[node name="Sand" type="MeshInstance3D" parent="NavigationRegion3D/Plane/Sand"]
+mesh = SubResource("PlaneMesh_8mmju")
+
+[node name="Water" type="MeshInstance3D" parent="NavigationRegion3D/Plane/Sand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.478904, 0)
+mesh = SubResource("QuadMesh_neuva")
+skeleton = NodePath("../../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_excqs")
 
 [connection signal="body_entered" from="DeathZone" to="Player" method="_on_death_zone_body_entered"]

@@ -30,8 +30,15 @@ func _on_hitbox_component_body_entered(body: Node3D) -> void:
 			var hitbox : HitboxComponent = body.find_child("HitboxComponent")
 			hitbox.damage(damage)
 			queue_free()
-		
-	elif not is_enemy_bullet and body.has_node("HitboxComponent"):
-		var hitbox : HitboxComponent = body.find_child("HitboxComponent")
-		hitbox.damage(damage)
+
+
+func _on_hitbox_component_area_entered(area):
+	if area is HitboxComponent and not is_enemy_bullet:
+		if area.get_parent().name == "Player":
+			pass
+		else:
+			var hitbox = area
+			hitbox.damage(damage)
 		queue_free()
+	else:
+		print(area.name)
