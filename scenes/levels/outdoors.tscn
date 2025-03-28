@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://b2spxeueapwij"]
+[gd_scene load_steps=39 format=3 uid="uid://b2spxeueapwij"]
 
 [ext_resource type="Shader" path="res://scripts/shaders/starrysky.gdshader" id="1_g6wkd"]
 [ext_resource type="Shader" path="res://scripts/shaders/water.gdshader" id="2_v7h6p"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://cdj403s1c7ugt" path="res://textures/environments/mines/Rocks_W.jpg" id="15_ycqk0"]
 [ext_resource type="Texture2D" uid="uid://bsa3iki2u1vl0" path="res://textures/environments/mines/Lamp.png" id="16_ssred"]
 [ext_resource type="PackedScene" uid="uid://bbtmley2843d2" path="res://scenes/enemies/demon_melee.tscn" id="17_3lwbe"]
+[ext_resource type="PackedScene" uid="uid://l63em15l8uwv" path="res://scenes/enemies/demon_ranged.tscn" id="18_6h0pp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bg5ec"]
 shader = ExtResource("1_g6wkd")
@@ -263,5 +264,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.478904, 0)
 mesh = SubResource("QuadMesh_neuva")
 skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_excqs")
+
+[node name="DemonRanged" parent="." instance=ExtResource("18_6h0pp")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 1.83796, 0)
+
+[node name="DemonRanged2" parent="." instance=ExtResource("18_6h0pp")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -4.3424, 1.83796, 7.81276)
+
+[node name="DemonRanged3" parent="." instance=ExtResource("18_6h0pp")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 3.40344, 1.83796, 10.8408)
+
+[node name="DemonRanged4" parent="." instance=ExtResource("18_6h0pp")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -9.9849, 1.83796, 13.1563)
 
 [connection signal="body_entered" from="DeathZone" to="Player" method="_on_death_zone_body_entered"]
