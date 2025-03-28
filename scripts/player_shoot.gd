@@ -78,6 +78,7 @@ func shoot():
 
 		%AudioPlayer.stream = equipped_weapon.fire_sound	#Play sound
 		%AudioPlayer.play()
+		print(%AudioPlayer, equipped_weapon.weapon_name)
 		print('DEBUG',%AudioPlayer.is_playing(), %AudioPlayer.stream)
 		%AnimationPlayer.play('shoot')	#Animate Player
 		

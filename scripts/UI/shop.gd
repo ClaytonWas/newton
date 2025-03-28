@@ -1,7 +1,7 @@
 extends Control
 
 # Represents randomizable ability upgrade types
-const UPGRADE_TYPES = [ 'Damage', 'Ammo']	#'Health'
+const UPGRADE_TYPES = ['Health', 'Damage', 'Ammo']	
 const image_path = 'res://textures/guns/pics/'
 var ability_type: String	#Tracks randomly chosen ability
 var chosen_gun: Weapon	# Tracks gun to apply upgrades to
