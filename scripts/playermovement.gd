@@ -37,6 +37,9 @@ var normal_click = preload('res://sounds/UI/ui_normal_click.mp3')
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	print('health on load: ',health.max_health)
+	
+	health.max_health = GameScript.player_health
+	health.health = GameScript.player_health
 	#If health booster - add health
 	if GameScript.add_health > 0:
 		print('Trigger to add %d to HP:%d' % [GameScript.add_health, health.health])

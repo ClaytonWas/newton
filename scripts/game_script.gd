@@ -1,5 +1,5 @@
 extends Node
-
+const VOLUME_LIMIT_DB = -10.0
 var gun_paths = {
 	'old_glock': 'res://resources/old_glock.tres',
 	'fade_glock': 'res://resources/fade_glock.tres',
@@ -117,7 +117,8 @@ func play_music():
 		if get_tree().current_scene:
 			if get_tree().current_scene.scene_file_path.contains('shop') or get_tree().current_scene.scene_file_path.contains('start_menu'):
 				musicPlayer.play()
-
+				#Debug
+				musicPlayer.volume_db = min(musicPlayer.volume_db, VOLUME_LIMIT_DB)
 func set_volume(value: float) -> void:
 	# Alters volume of audio buses
 	print("setting audio to ",value, linear_to_db(value))

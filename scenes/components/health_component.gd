@@ -23,5 +23,7 @@ func damage(amount):
 
 func add_max_health(amount):
 	print('Applying Bonus health')
-	self.max_health += amount
-	self.health = max_health
+	max_health += amount
+	health = max_health
+	GameScript.player_health = health
+	print(GameScript.player_health, health)

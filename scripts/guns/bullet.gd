@@ -40,5 +40,5 @@ func _on_hitbox_component_area_entered(area):
 			var hitbox = area
 			hitbox.damage(damage)
 		queue_free()
-	else:
-		print(area.name)
+	#else:
+		#print(area.name)

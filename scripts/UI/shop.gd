@@ -111,6 +111,9 @@ func add_weapon_to_player(gun: Weapon):
 		# Remove first child from Upgrades panel
 		%VBoxUpgrades.get_child(0).queue_free()
 		%VBoxUpgrades.size.y /= 2
+		
+		#Update UI
+		generate_inventory_panel()
 	else:	# Rejected buy
 		%AudioPlayer.stream = error_click
 		%AudioPlayer.play()
@@ -130,7 +133,7 @@ func add_ability_upgrade(ability):
 		if ability.contains("Health"):
 			GameScript.add_health = value
 			print('Adding %d HP to player.' % [value])
-			
+			%HealthLabel.text = 'HEALTH: %d' % GameScript.player_health
 		#Damage Case
 		elif ability.contains("Damage"):
 			GameScript.upgrade_damage(value)
@@ -147,6 +150,7 @@ func add_ability_upgrade(ability):
 	else:	# Rejected buy
 		%AudioPlayer.stream = error_click
 		%AudioPlayer.play()
+		
 func update_confirm_message(message: String) -> void:
 	#Updates confirmation message on UI
 	if %ConfirmMessage:
