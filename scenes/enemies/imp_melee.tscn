@@ -1,0 +1,187 @@
+[gd_scene load_steps=22 format=3 uid="uid://l63em15l8uwv"]
+
+[ext_resource type="Script" path="res://scripts/enemies/demon_melee_state_machine.gd" id="1_f5mev"]
+[ext_resource type="PackedScene" uid="uid://d3l0jre42pvku" path="res://scenes/guns/melee_bullet.tscn" id="2_dms62"]
+[ext_resource type="Texture2D" uid="uid://brcmp0q4qq0yh" path="res://textures/enemies/Imp.png" id="3_g40r6"]
+[ext_resource type="PackedScene" uid="uid://dwsw3a2j15dtf" path="res://scenes/components/HealthComponent.tscn" id="4_6ya5j"]
+[ext_resource type="PackedScene" uid="uid://cmqrs35b4snep" path="res://scenes/components/HitboxComponent.tscn" id="5_ijhq3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2imaw"]
+atlas = ExtResource("3_g40r6")
+region = Rect2(269, 0, 34, 68)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yisin"]
+atlas = ExtResource("3_g40r6")
+region = Rect2(171, 0, 50, 68)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fy8pd"]
+atlas = ExtResource("3_g40r6")
+region = Rect2(223, 0, 44, 68)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k0wh2"]
+atlas = ExtResource("3_g40r6")
+region = Rect2(269, 0, 34, 68)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rdxma"]
+atlas = ExtResource("3_g40r6")
+region = Rect2(0, 0, 46, 68)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0ao7"]
+atlas = ExtResource("3_g40r6")
+region = Rect2(0, 351, 47, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oh2w7"]
+atlas = ExtResource("3_g40r6")
+region = Rect2(0, 287, 47, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hq4n2"]
+atlas = ExtResource("3_g40r6")
+region = Rect2(3, 2, 43, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ik4l"]
+atlas = ExtResource("3_g40r6")
+region = Rect2(46, 2, 43, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_klx7b"]
+atlas = ExtResource("3_g40r6")
+region = Rect2(87, 2, 42, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8gwpu"]
+atlas = ExtResource("3_g40r6")
+region = Rect2(129, 2, 42, 63)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7w1jo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2imaw")
+}],
+"loop": true,
+"name": &"alerted",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yisin")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fy8pd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k0wh2")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rdxma")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j0ao7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oh2w7")
+}],
+"loop": true,
+"name": &"stunned",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hq4n2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ik4l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_klx7b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8gwpu")
+}],
+"loop": true,
+"name": &"walkForward",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_buhtx"]
+radius = 0.454967
+height = 1.13181
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cy2g1"]
+height = 3.87831
+radius = 5.18553
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_wsy65"]
+height = 0.613642
+radius = 0.475954
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qwmx8"]
+radius = 0.125732
+height = 0.612839
+
+[node name="ImpMelee" type="CharacterBody3D"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+script = ExtResource("1_f5mev")
+movement_speed = 30.0
+damage = 35.0
+bullet = ExtResource("2_dms62")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00374979, 0.0955336, -0.0288563)
+modulate = Color(1, 0.772549, 1, 1)
+sprite_frames = SubResource("SpriteFrames_7w1jo")
+animation = &"walkForward"
+frame_progress = 0.741603
+
+[node name="HealthComponent" parent="." instance=ExtResource("4_6ya5j")]
+max_health = 22
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_ijhq3")]
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
+shape = SubResource("CapsuleShape3D_buhtx")
+
+[node name="DetectionArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+shape = SubResource("CylinderShape3D_cy2g1")
+
+[node name="AttackArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackArea"]
+shape = SubResource("CylinderShape3D_wsy65")
+
+[node name="AlertTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="AttackIntervalTimer" type="Timer" parent="."]
+wait_time = 0.35
+one_shot = true
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="StunTimer" type="Timer" parent="."]
+wait_time = 0.75
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0631533, 0)
+shape = SubResource("CapsuleShape3D_qwmx8")
+
+[connection signal="damage_taken" from="HealthComponent" to="." method="_on_health_component_damage_taken"]
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="AttackArea" to="." method="_on_attack_area_body_exited"]
+[connection signal="timeout" from="AlertTimer" to="." method="_on_alert_timer_timeout"]
+[connection signal="timeout" from="AttackIntervalTimer" to="." method="_on_attack_interval_timer_timeout"]
+[connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]
