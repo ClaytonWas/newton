@@ -61,23 +61,31 @@ func _physics_process(delta: float) -> void:
 				if not audio.is_playing():
 					audio.stream = run_sound
 					audio.play()
+				animation.play('mutant_run_(1)')
+				
 		State.ATTACKING:
 			# Decelleration when reaching player
-
 			velocity = Vector3.ZERO
 			if can_attack: #and bullet:
 				can_attack = false
+				animation.play("mutant_swiping")
 				attack_interval_timer.start()
 			
 		State.STUNNED:
 			print('Monster shot')
 			velocity = velocity.move_toward(Vector3.ZERO, movement_speed * delta)
 			move_and_slide()
-		
+			animation.play("mutant_stun")
+			if not audio.is_playing():
+				audio.stream = hurt_sound
 		State.ALERTED:
+					
 			animation.play('mutant_roaring')
-			audio.stream = roar_sound
-			audio.play()		
+		
+		State.IDLE:
+			animation.play('mutant_breathing_idle')
+			velocity = Vector3.ZERO
+			# Play sound	
 		_:
 			velocity = Vector3.ZERO
 
@@ -125,30 +133,22 @@ func instance_bullet():
 	projectile.is_enemy_bullet = true
 	projectile.damage = damage
 	projectile.global_position = global_position
+	projectile.scale = Vector3(2,2,2)
 	projectile.global_transform.basis = global_transform.basis
 	add_child(projectile)
 
 func _process(delta):
 	match state:
-		State.IDLE:
-			animation.play('mutant_breathing_idle')
-			# Play sound
-			
-		#State.ALERTED:
-			#animation.play('mutant_roaring')
-			#audio.stream = roar_sound
-			#audio.play()
-		State.CHASING:
-			animation.play('mutant_run_(1)')
-			
-		State.ATTACKING:
-			animation.play("mutant_swiping")
 		State.STUNNED:
-			#animation.play('stunned')
 			
 			if not stunned and target_node:
 				
 				state = State.CHASING
+
+func _on_punch_finished():
+	animation.play("mutant_punch")
+	print('punching')
+	animation.animation_finished.disconnect(_on_punch_finished)
 
 func _on_vision_area_body_entered(body):
 	if body.name == 'Player':
@@ -156,11 +156,14 @@ func _on_vision_area_body_entered(body):
 		if not aware_of_player:
 			aware_of_player = true
 			state = State.ALERTED
+			# Play sound
+			audio.stream = roar_sound
+			audio.play()
 			alert_timer.start()
 		else:
 			state = State.CHASING
 
-func _on_detection_area_body_exited(body):
+func _on_vision_area_body_exited(body):
 	if body.name == 'Player':
 		#target_node = null
 		state = State.IDLE
@@ -180,13 +183,14 @@ func _on_alert_timer_timeout():
 func _on_attack_interval_timer_timeout():
 	if state == State.ATTACKING:
 		instance_bullet()
-	
+		pass
 	can_attack = true
 
 func _on_health_component_damage_taken():
 	state = State.STUNNED
 	stunned = true
 	stun_timer.start()
+	print('stunned')
 	# Play sound TODO
 
 func _on_stun_timer_timeout():
@@ -195,3 +199,5 @@ func _on_stun_timer_timeout():
 func _on_tree_exiting() -> void:
 	# When Boss dies
 	GameScript.game_won = true
+	audio.stream = death_sound
+	audio.play()

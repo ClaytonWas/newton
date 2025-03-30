@@ -28,7 +28,7 @@ var target_velocity = Vector3.ZERO
 var current_velocity = Vector3.ZERO
 var desired_direction := Vector3.ZERO
 
-
+var run_sound = preload('res://sounds/Player/running.mp3')
 var normal_click = preload('res://sounds/UI/ui_normal_click.mp3')
 
 @onready var health = $HealthComponent
@@ -72,11 +72,15 @@ func _headbob_effect(delta) -> void:
 func get_move_speed() -> float:
 	if Input.is_action_pressed("sprint"):
 		GameScript.is_sprinting = true
-		%AnimationPlayer.play('sprint')	
+		%AnimationPlayer.play('sprint')
+		if not %AudioPlayer.playing or not %AudioPlayer.stream == run_sound:
+			%AudioPlayer.stream = run_sound
+			%AudioPlayer.play()
 		return sprint_speed 
 	else:
 		GameScript.is_sprinting = false
-		
+		if %AudioPlayer.stream == run_sound:
+			%AudioPlayer.stop()
 		return walk_speed	
 
 func _physics_process(delta):

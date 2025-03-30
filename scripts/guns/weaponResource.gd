@@ -5,7 +5,7 @@ class_name Weapon extends Resource
 @export_category("Visual & Audio Settings")
 @export var fire_sound: AudioStream
 @export var reload_sound: AudioStream
-@export var dryfire_sound:  AudioStream = load('res://sounds/shot_dry.wav')
+@export var dryfire_sound:  AudioStream = preload('res://sounds/Guns/shot_dry.wav')
 @export var mesh: Mesh
 
 @export_category("Weapon Stats")

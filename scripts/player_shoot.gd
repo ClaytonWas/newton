@@ -7,6 +7,10 @@ var is_shooting = false
 var shot_interval: float = 0.0		#Time elapsed counter for full auto
 var can_shoot: bool = true
 var is_reloading: bool = false
+
+# Sound variables
+var run_sound = preload('res://sounds/Player/running.mp3')
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	change_weapon(0)
@@ -76,8 +80,8 @@ func shoot():
 		equipped_weapon_node.find_child('muzzle_flash').visible=true	#Show muzzle flash
 		equipped_weapon_node.find_child('muzzle_flash').find_child('FlashTimer').start()
 
-		%AudioPlayer.stream = equipped_weapon.fire_sound	#Play sound
-		%AudioPlayer.play()
+		%AudioGun.stream = equipped_weapon.fire_sound	#Play sound
+		%AudioGun.play()
 		%AnimationPlayer.play('shoot')	#Animate Player
 		
 		if equipped_weapon.bullet_type == 'shotgun':		#Shoot shotgun round
@@ -94,8 +98,8 @@ func shoot():
 	else:
 		if equipped_weapon.mag == 0:
 			print("Out of ammo!")
-			%AudioPlayer.stream = equipped_weapon.dryfire_sound	#Play dry fire sound
-			%AudioPlayer.play()
+			%AudioGun.stream = equipped_weapon.dryfire_sound	#Play dry fire sound
+			%AudioGun.play()
 
 
 func reload():
@@ -107,8 +111,8 @@ func reload():
 		clip.visible = true
 		clip.global_transform = equipped_weapon_node.find_child('clip_spawn').global_transform.basis
 		
-		%AudioPlayer.stream = equipped_weapon.reload_sound	#Play dry fire sound
-		%AudioPlayer.play()
+		%AudioGun.stream = equipped_weapon.reload_sound	#Play dry fire sound
+		%AudioGun.play()
 		can_shoot = false	# Disable shooting
 		
 		# Animate Player
@@ -181,6 +185,16 @@ func update_ammo_UI(value: int) -> void:
 	else:
 		%AmmoLabel.add_theme_color_override("default_color", Color.WHITE)
 func _process(delta: float) -> void:
+	# Avoid shooting in UI
+	if %Tutorial or %DeathScreen.visible:
+		can_shoot = false
+		
+	else:
+		can_shoot = true
+	
+	if GameScript.is_sprinting and not %AudioGun.playing:
+		%AudioGun.stream = run_sound
+		%AudioGun.play()
 	GameScript.equipped_weapon = equipped_weapon
 
 	# Check game over
