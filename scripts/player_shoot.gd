@@ -134,6 +134,7 @@ func reload():
 func _on_reload_timer_timeout():
 	# Called after reload_timer and shot_timer. re-enables can_shoot & updates ammo count UI
 	can_shoot = true
+	is_reloading = false
 	update_ammo_UI(equipped_weapon.mag)
 
 func fire_bullet(gun, offset):
@@ -174,7 +175,7 @@ func _physics_process(delta: float) -> void:
 
 func update_ammo_UI(value: int) -> void:
 	%AmmoLabel.add_theme_constant_override("horitzontal_alignment", HORIZONTAL_ALIGNMENT_RIGHT)
-	%AmmoLabel.set_text(str(value) + ' [img=32x32]res://textures/guns/Pics/ammo_icon.svg[/img]')
+	%AmmoLabel.set_text(str(value) + ' [img=60]res://textures/guns/Pics/ammo_icon.svg[/img]')
 	if (value <= ceil(equipped_weapon.magazine_size * 0.25)):	# Indicate low ammo with red text
 		%AmmoLabel.add_theme_color_override("default_color", Color.RED)
 	else:

@@ -161,5 +161,4 @@ func _on_tree_exiting() -> void:
 	GameScript.timer_time = %Timer.time_left
 
 func _process(delta: float) -> void:
-	#GameScript.player_health = $HealthComponent.health
 	pass

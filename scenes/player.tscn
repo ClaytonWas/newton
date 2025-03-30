@@ -336,17 +336,17 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -63.0
-offset_top = -35.0
+offset_left = -126.0
+offset_top = -60.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0.286691, 0.501014, 1, 1)
 theme_override_constants/outline_size = 11
 theme_override_fonts/normal_font = ExtResource("20_ksctb")
-theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/normal_font_size = 35
 bbcode_enabled = true
-text = " 30 [img=26]res://textures/guns/Pics/ammo_icon.svg[/img]"
+text = " 30 [img=60]res://textures/guns/Pics/ammo_icon.svg[/img]"
 fit_content = true
 
 [node name="DeathScreen" type="CanvasLayer" parent="."]

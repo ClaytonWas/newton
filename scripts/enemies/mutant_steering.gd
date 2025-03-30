@@ -2,7 +2,28 @@ extends CharacterBody3D
 
 @export var target_node: CharacterBody3D
 
+@export_category("Beginning State")
+@export var state: State = State.IDLE
+
+@export_category("Movement Variables")
+@export var movement_speed: float = 3.0
+
+@export_category("Attack Variables")
+@export var damage: float = 75.0
+@export var bullet = load('res://scenes/guns/melee_bullet.tscn')
+
+@export_group("Sound Variables")
+@export var run_sound = preload('res://sounds/Enemy/MutantBoss/boss_running_sound.wav')
+@export var roar_sound = preload('res://sounds/Enemy/MutantBoss/mutant_roar_sound.wav')
+@export var hurt_sound: AudioStreamWAV
+@export var idle_sound: AudioStreamWAV
+@export var hit_sound: AudioStreamWAV
+@export var death_sound = preload('res://sounds/Enemy/MutantBoss/mutant_die_sound.mp3')
+
 var is_attacking: bool = false
+var aware_of_player: bool = false
+var can_attack: bool = true
+var stunned: bool = false
 
 @onready var agent := await GSAICharacterBody3DAgent.new(self)
 @onready var target := GSAIAgentLocation.new()
@@ -10,26 +31,55 @@ var is_attacking: bool = false
 @onready var blend := GSAIBlend.new(agent)
 @onready var face := GSAIFace.new(agent, target, true)
 @onready var arrive := GSAIArrive.new(agent, target)
-
-@onready var anim_tree = self.find_child('AnimationTree')
-@onready var anim_state = anim_tree.get("parameters/playback")
+@onready var animation = $AnimationPlayer
+@onready var alert_timer = $AlertTimer
+@onready var attack_interval_timer = $AttackIntervalTimer
+@onready var stun_timer = $StunTimer
+@onready var navigation_agent = $NavigationAgent3D
+@onready var audio = $AudioBoss
 
 func _ready():
-	anim_state.travel('mutant_idle')
-	
-	
+	#anim_state.travel('mutant_idle')
+	animation.play('mutant_breathing_idle')
 
 func _physics_process(delta: float) -> void:
-	target.position = target_node.transform.origin
-	target.position.y = transform.origin.y
-	blend.calculate_steering(accel)
-	agent._apply_steering(accel, delta)
-	
-	if velocity > Vector3.ZERO:
-		anim_state.travel('mutant_run')
+
 		
-	if is_attacking:
-		velocity = Vector3.ZERO
+	match state:
+		State.CHASING:
+			if target_node:
+				target.position = target_node.transform.origin
+				target.position.y = transform.origin.y
+				blend.calculate_steering(accel)
+				agent._apply_steering(accel, delta)
+				navigation_agent.set_target_position(target_node.position)
+				var next_path_pos = navigation_agent.get_next_path_position()
+				var direction = (next_path_pos - global_position).normalized()
+				#Move based on steering addon
+				velocity = direction * movement_speed
+				move_and_slide()
+				if not audio.is_playing():
+					audio.stream = run_sound
+					audio.play()
+		State.ATTACKING:
+			# Decelleration when reaching player
+
+			velocity = Vector3.ZERO
+			if can_attack: #and bullet:
+				can_attack = false
+				attack_interval_timer.start()
+			
+		State.STUNNED:
+			print('Monster shot')
+			velocity = velocity.move_toward(Vector3.ZERO, movement_speed * delta)
+			move_and_slide()
+		
+		State.ALERTED:
+			animation.play('mutant_roaring')
+			audio.stream = roar_sound
+			audio.play()		
+		_:
+			velocity = Vector3.ZERO
 
 
 func setup(
@@ -62,31 +112,85 @@ func setup(
 	blend.add(face, 1)
 	print('Monster is setup for ',target_node.name)
 
-func _on_vision_area_body_entered(body: Node3D) -> void:
-	#Prevent vertical movement while running
-	#When vision area is entered
-	if not is_attacking and body.name == 'Player':
-		print('Boss spotted Player')
-		anim_state.travel('mutant_run')
-		
-		
+enum State {
+	IDLE,
+	ALERTED,
+	CHASING,
+	ATTACKING,
+	STUNNED
+}
 
+func instance_bullet():
+	var projectile = bullet.instantiate()
+	projectile.is_enemy_bullet = true
+	projectile.damage = damage
+	projectile.global_position = global_position
+	projectile.global_transform.basis = global_transform.basis
+	add_child(projectile)
+
+func _process(delta):
+	match state:
+		State.IDLE:
+			animation.play('mutant_breathing_idle')
+			# Play sound
+			
+		#State.ALERTED:
+			#animation.play('mutant_roaring')
+			#audio.stream = roar_sound
+			#audio.play()
+		State.CHASING:
+			animation.play('mutant_run_(1)')
+			
+		State.ATTACKING:
+			animation.play("mutant_swiping")
+		State.STUNNED:
+			#animation.play('stunned')
+			
+			if not stunned and target_node:
+				
+				state = State.CHASING
+
+func _on_vision_area_body_entered(body):
+	if body.name == 'Player':
+		target_node = body
+		if not aware_of_player:
+			aware_of_player = true
+			state = State.ALERTED
+			alert_timer.start()
+		else:
+			state = State.CHASING
+
+func _on_detection_area_body_exited(body):
+	if body.name == 'Player':
+		#target_node = null
+		state = State.IDLE
+
+func _on_attack_area_body_entered(body):
+	if body.name == 'Player':
+		state = State.ATTACKING
+
+func _on_attack_area_body_exited(body):
+	if body.name == 'Player':
+		state = State.CHASING
+
+func _on_alert_timer_timeout():
+	if state == State.ALERTED:
+		state = State.CHASING
+
+func _on_attack_interval_timer_timeout():
+	if state == State.ATTACKING:
+		instance_bullet()
 	
-func _on_attack_area_body_entered(body: Node3D) -> void:	
-	#When attack radius is entered
-	if body.name == 'Player': 
-		is_attacking = true
-		print('Boss attacking')
-		anim_state.travel('mutant_punch')
+	can_attack = true
 
+func _on_health_component_damage_taken():
+	state = State.STUNNED
+	stunned = true
+	stun_timer.start()
+	# Play sound TODO
 
-func _on_attack_area_body_exited(body: Node3D) -> void:
-	is_attacking = false
-
-
-func _on_hitbox_component_body_entered(body: Node3D) -> void:
-	print('Headshot!') # Replace with function body.
-
+func _on_stun_timer_timeout():
+	stunned = false
 
 func _on_tree_exiting() -> void:
 	# When Boss dies
