@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://djkcm8jqtn66p"]
+
+[ext_resource type="Texture2D" uid="uid://bifytv6dx8irw" path="res://textures/environments/Rug_OpenGameArt.png" id="1_vaydb"]
+
+[resource]
+albedo_texture = ExtResource("1_vaydb")
+uv1_scale = Vector3(0.25, 0.25, 0.25)
+uv1_triplanar = true

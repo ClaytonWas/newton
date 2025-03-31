@@ -129,3 +129,7 @@ slot5={
 [physics]
 
 3d/default_gravity=15.0
+
+[rendering]
+
+occlusion_culling/use_occlusion_culling=true

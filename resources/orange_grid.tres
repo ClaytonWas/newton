@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dxfery0o4ifja"]
+
+[ext_resource type="Texture2D" uid="uid://bebnteem6w580" path="res://textures/general/kenney_prototype-textures/PNG/Orange/texture_02.png" id="1_kdti8"]
+
+[resource]
+albedo_texture = ExtResource("1_kdti8")
+emission = Color(0.909804, 0.588235, 0, 1)
+uv1_triplanar = true

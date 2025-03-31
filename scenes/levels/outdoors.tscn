@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://b2spxeueapwij"]
+[gd_scene load_steps=37 format=3 uid="uid://b2spxeueapwij"]
 
 [ext_resource type="Shader" path="res://scripts/shaders/starrysky.gdshader" id="1_g6wkd"]
 [ext_resource type="Shader" path="res://scripts/shaders/water.gdshader" id="2_v7h6p"]
@@ -13,9 +13,7 @@
 [ext_resource type="Material" uid="uid://behxgsynedpfc" path="res://textures/general/office_portal.tres" id="12_6aagt"]
 [ext_resource type="Shader" path="res://scripts/shaders/outline.gdshader" id="13_qqwu5"]
 [ext_resource type="Shader" path="res://scripts/shaders/chromatic_shield.gdshader" id="14_o6xwa"]
-[ext_resource type="Texture2D" uid="uid://dbmn1ryrglur0" path="res://textures/environments/nether_portal.webp" id="15_otylq"]
-[ext_resource type="Texture2D" uid="uid://cdj403s1c7ugt" path="res://textures/environments/mines/Rocks_W.jpg" id="15_ycqk0"]
-[ext_resource type="Texture2D" uid="uid://bsa3iki2u1vl0" path="res://textures/environments/mines/Lamp.png" id="16_ssred"]
+[ext_resource type="PackedScene" uid="uid://cokd0qtf7bnbt" path="res://scenes/enemies/demon_ranged.tscn" id="16_di5pg"]
 [ext_resource type="PackedScene" uid="uid://bbtmley2843d2" path="res://scenes/enemies/demon_melee.tscn" id="17_3lwbe"]
 [ext_resource type="PackedScene" uid="uid://l63em15l8uwv" path="res://scenes/enemies/imp_melee.tscn" id="18_6h0pp"]
 
@@ -63,8 +61,18 @@ shader_parameter/outline_width = 0.03
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_mo2m7")
 shader = ExtResource("14_o6xwa")
-shader_parameter/warp_ScreenSpace = false
-shader_parameter/texture_albedo = ExtResource("15_ycqk0")
+shader_parameter/time_speed = 1.0
+shader_parameter/spin = 0.0
+shader_parameter/flame_brightness = 0.6
+shader_parameter/color_intensity = 0.0
+shader_parameter/horizontal_frequency = 1.0
+shader_parameter/vertical_frequency = 1.0
+shader_parameter/size = -0.3
+shader_parameter/core_size = 1.0
+shader_parameter/color1 = Color(0.286, 0.22, 0.733, 1)
+shader_parameter/color2 = Color(0.98, 0.38, 0.34, 1)
+shader_parameter/color3 = Color(0.98, 0.95, 0.53, 1)
+shader_parameter/color4 = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vwtdo"]
 render_priority = 0
@@ -76,8 +84,18 @@ shader_parameter/outline_width = 0.03
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_vwtdo")
 shader = ExtResource("14_o6xwa")
-shader_parameter/warp_ScreenSpace = false
-shader_parameter/texture_albedo = ExtResource("15_otylq")
+shader_parameter/time_speed = 1.0
+shader_parameter/spin = 0.0
+shader_parameter/flame_brightness = 0.6
+shader_parameter/color_intensity = 0.0
+shader_parameter/horizontal_frequency = 1.0
+shader_parameter/vertical_frequency = 1.0
+shader_parameter/size = -0.3
+shader_parameter/core_size = 1.0
+shader_parameter/color1 = Color(0.286, 0.22, 0.733, 1)
+shader_parameter/color2 = Color(0.98, 0.38, 0.34, 1)
+shader_parameter/color3 = Color(0.98, 0.95, 0.53, 1)
+shader_parameter/color4 = Color(1, 1, 1, 1)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_fgawh"]
 
@@ -91,8 +109,18 @@ shader_parameter/outline_width = 0.03
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_fost1")
 shader = ExtResource("14_o6xwa")
-shader_parameter/warp_ScreenSpace = false
-shader_parameter/texture_albedo = ExtResource("16_ssred")
+shader_parameter/time_speed = 1.0
+shader_parameter/spin = 0.0
+shader_parameter/flame_brightness = 0.6
+shader_parameter/color_intensity = 0.0
+shader_parameter/horizontal_frequency = 1.0
+shader_parameter/vertical_frequency = 1.0
+shader_parameter/size = -0.3
+shader_parameter/core_size = 1.0
+shader_parameter/color1 = Color(0.286, 0.22, 0.733, 1)
+shader_parameter/color2 = Color(0.98, 0.38, 0.34, 1)
+shader_parameter/color3 = Color(0.98, 0.95, 0.53, 1)
+shader_parameter/color4 = Color(1, 1, 1, 1)
 
 [sub_resource type="TubeTrailMesh" id="TubeTrailMesh_h55cq"]
 radius = 3.0
@@ -240,10 +268,13 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 
 shape = SubResource("CylinderShape3D_sk2h0")
 
 [node name="DemonMelee" parent="." instance=ExtResource("17_3lwbe")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -88.8863, 3.11749, 78.8324)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -88.8863, 3.11749, -5.26566)
 
 [node name="DemonMelee2" parent="." instance=ExtResource("17_3lwbe")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -82.3469, 3.04963, 78.1763)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -82.3469, 3.04963, -23.2279)
+
+[node name="DemonMelee3" parent="." instance=ExtResource("17_3lwbe")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -99.0267, 3.04963, -17.0247)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_dc1xv")
@@ -276,5 +307,14 @@ transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 3.40344, 1.83796, 10.8408)
 
 [node name="DemonRanged4" parent="." instance=ExtResource("18_6h0pp")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -9.9849, 1.83796, 13.1563)
+
+[node name="DemonRanged5" parent="." instance=ExtResource("16_di5pg")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 69.7977, 1.17778, 100.204)
+
+[node name="DemonRanged7" parent="." instance=ExtResource("16_di5pg")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 92.6558, 1.17778, 94.4236)
+
+[node name="DemonRanged6" parent="." instance=ExtResource("16_di5pg")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 82.0914, 1.17778, 76.3256)
 
 [connection signal="body_entered" from="DeathZone" to="Player" method="_on_death_zone_body_entered"]
