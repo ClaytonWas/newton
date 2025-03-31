@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://cnxm803p7w416"]
+[gd_scene load_steps=36 format=3 uid="uid://cnxm803p7w416"]
 
 [ext_resource type="Script" path="res://scripts/playermovement.gd" id="1_2ak50"]
 [ext_resource type="Script" path="res://scripts/player_shoot.gd" id="3_0hi0p"]
@@ -25,6 +25,7 @@
 [ext_resource type="FontFile" uid="uid://1ocjgmtw3srp" path="res://fonts/doomed/doomed.ttf" id="20_ksctb"]
 [ext_resource type="PackedScene" uid="uid://dwsw3a2j15dtf" path="res://scenes/components/HealthComponent.tscn" id="21_5kmh6"]
 [ext_resource type="FontFile" uid="uid://drptivkdwroo6" path="res://fonts/kids_knowledge_2/Kid Knowledge 2 Rustic.otf" id="21_eyui1"]
+[ext_resource type="AudioStream" uid="uid://brawc1ngh8lrn" path="res://sounds/Enemy/monster-death-grunt-131480.mp3" id="22_n6qlx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ykk5e"]
 height = 1.99585
@@ -479,6 +480,11 @@ wait_time = 30.0
 one_shot = true
 autostart = true
 script = ExtResource("13_g3pfr")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Timer"]
+stream = ExtResource("22_n6qlx")
+volume_db = -9.369
+pitch_scale = 0.78
 
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 unique_name_in_owner = true

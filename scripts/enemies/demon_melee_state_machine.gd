@@ -16,6 +16,7 @@ enum State {
 @onready var attack_interval_timer = $AttackIntervalTimer
 @onready var stun_timer = $StunTimer
 @onready var navigation_agent = $NavigationAgent3D
+@onready var audio = AudioStreamPlayer3D.new()
 
 @export_category("Movement Variables")
 @export var movement_speed: float = 3.0

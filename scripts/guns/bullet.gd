@@ -32,11 +32,6 @@ func _on_hitbox_component_area_entered(area):
 		if area.get_parent().name == "Player":
 			pass
 		else: # Shot enemy
-			if not area.get_parent() is RigidBody3D: #Dont collide with bullets
-				print('Area hit', area.get_parent().name)
+			if not area.get_parent() is RigidBody3D: #Dont collide with  other bullets
 				area.damage(damage)
 				queue_free()
-			
-		
-	#else:
-		#print(area.name)

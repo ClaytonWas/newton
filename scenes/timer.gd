@@ -11,5 +11,6 @@ func _process(delta):
 	%TimerDisplay.set_text(str(get_time_left()))
 
 func _on_enemy_died():
+	$AudioStreamPlayer.play()
 	wait_time += 5
 	start()
