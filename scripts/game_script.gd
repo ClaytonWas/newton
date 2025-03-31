@@ -51,7 +51,7 @@ func start_game():
 	player_inventory = [GUN_POOL[0]]	#Set starting weapon
 	player_health = preload('res://scenes/player.tscn').instantiate().find_child('HealthComponent').max_health# default value before scene enters
 	equipped_weapon= player_inventory[0]
-	level_order = [LEVELS[0], LEVELS[3], LEVELS[4], LEVELS[3]] #
+	level_order = [LEVELS[0], LEVELS[1], LEVELS[4], LEVELS[3]] #
 	game_won = false
 	score = 0
 	level_counter = 0
@@ -124,7 +124,7 @@ func set_volume(value: float) -> void:
 func calculate_score() -> int:
 	# Save time left on game clock
 	var point_interval = 750
-	var time_interval = 15
+	var time_interval = 10
 	# Formula to give {point_interval} points per {time_interval} seconds left
 	score += floor(timer_time / time_interval) * point_interval
 	

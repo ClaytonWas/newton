@@ -239,7 +239,10 @@ _data = {
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_2ak50")
 mouse_sensitivity = 0.005
-sprint_speed = 60.0
+headbob_time = 0.5
+walk_speed = 20.0
+sprint_speed = 35.0
+jump_strength = 16.0
 ground_speed_acceleration = 5.0
 ground_speed_deceleration = 20.0
 ground_friction = 3
@@ -560,6 +563,7 @@ max_health = 110
 unique_name_in_owner = true
 
 [node name="HealTimer" type="Timer" parent="."]
+wait_time = 3.0
 
 [connection signal="death_screen" from="." to="DeathScreen" method="_on_player_death_screen"]
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
@@ -570,3 +574,4 @@ unique_name_in_owner = true
 [connection signal="button_down" from="PauseMenu/Panel/VBoxContainer/Resume" to="." method="_on_resume_button_down"]
 [connection signal="button_down" from="PauseMenu/Panel/VBoxContainer/Restart" to="DeathScreen" method="_on_restart_button_down"]
 [connection signal="button_down" from="PauseMenu/Panel/VBoxContainer/QuitButton" to="DeathScreen" method="_on_quit_button_button_down"]
+[connection signal="healing" from="HealthComponent" to="." method="_on_health_component_healing"]
