@@ -163,7 +163,6 @@ animation = &"idle"
 frame_progress = 0.270722
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_egdu1")]
-max_health = 22
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_jnmgy")]
 health_component = NodePath("../HealthComponent")
