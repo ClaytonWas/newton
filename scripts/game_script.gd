@@ -1,5 +1,6 @@
 extends Node
 const VOLUME_LIMIT_DB = -25.0	# Music volume cap
+const max_inv_size: int = 3	# Max amount of guns player can carry
 var gun_paths = {
 	'old_glock': 'res://resources/old_glock.tres',
 	'fade_glock': 'res://resources/fade_glock.tres',
@@ -15,7 +16,6 @@ var GUN_POOL = [
 	load('res://resources/mac10.tres').duplicate(),
 	load('res://resources/shotgun.tres').duplicate()
 ]
-var default_guns
 
 const LEVELS =  [		#Names of level scenes as navigation path 
 	'res://scenes/levels/outdoors.tscn',
@@ -26,11 +26,14 @@ const LEVELS =  [		#Names of level scenes as navigation path
 ]
 # Game music audioplayer
 @onready var musicPlayer = AudioStreamPlayer.new()
+var music_sound = preload('res://sounds/Music/video-game-music-147338.mp3')
+var countdown_sound = preload('res://sounds/Music/10sec-digital-countdown.wav')
+var win_music = preload('res://sounds/Music/win_music.mp3')
 
 # Settings screen variables
 var hardcore: bool = false
 var music: bool = true
-
+var sensitivity : float = 0.002	# Default mouse sensitivity
 # Game Timer variables
 var timer_time: float
 var score: int	# Players score/currency for shop
@@ -51,7 +54,11 @@ func start_game():
 	player_inventory = [GUN_POOL[0]]	#Set starting weapon
 	player_health = preload('res://scenes/player.tscn').instantiate().find_child('HealthComponent').max_health# default value before scene enters
 	equipped_weapon= player_inventory[0]
-	level_order = [LEVELS[0], LEVELS[1], LEVELS[4], LEVELS[3]] #
+
+
+	level_order = [LEVELS[0], LEVELS[1], LEVELS[4], LEVELS[3]] 
+
+
 	game_won = false
 	score = 0
 	level_counter = 0
@@ -59,11 +66,10 @@ func start_game():
 	
 func _ready() -> void:
 	start_game()
-	default_guns = GUN_POOL
 	# Play music
 	if music:
 		add_child(musicPlayer)
-		musicPlayer.stream = preload('res://sounds/Music/video-game-music-147338.mp3')
+		musicPlayer.stream = music_sound
 		play_music()
 
 func _process(delta: float) -> void:
@@ -73,7 +79,15 @@ func _process(delta: float) -> void:
 
 	else:	# Update volume
 		play_music()
-
+		
+	# 10 Second timer
+	if get_tree().current_scene:
+		if get_tree().current_scene.scene_file_path in LEVELS:
+			if timer_time <= 10 and not musicPlayer.is_playing():
+				print('countdown on')
+				musicPlayer.stream = countdown_sound
+				musicPlayer.play()
+		
 func next_scene():
 	#Function to return the next scene in layout order & pop from list
 	var temp = level_order[0]
@@ -84,8 +98,9 @@ func next_scene():
 	return temp
 
 func add_weapon(gun: Weapon) -> void:
-	if not gun in player_inventory:
-		player_inventory.append(gun)
+	if not gun in player_inventory: 	#If gun doesnt exist in inventory
+		if not player_inventory.size() >= max_inv_size:	# max inv size
+			player_inventory.append(gun)
 
 func upgrade_damage(damage: float) -> void:
 	# Applies weapon upgrade globally
@@ -110,11 +125,10 @@ func settings_toggle(setting: String):
 
 func play_music():
 	# Starts the audio stream
-	if music and not musicPlayer.is_playing():
+	if music and (not musicPlayer.is_playing() or musicPlayer.stream == countdown_sound):
 		if get_tree().current_scene:
 			if get_tree().current_scene.scene_file_path.contains('shop') or get_tree().current_scene.scene_file_path.contains('start_menu'):
 				musicPlayer.play()
-				#Debug
 				musicPlayer.volume_db = min(musicPlayer.volume_db, VOLUME_LIMIT_DB)
 func set_volume(value: float) -> void:
 	# Alters volume of audio buses

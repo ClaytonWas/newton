@@ -5,6 +5,7 @@ var background: ColorRect
 var title: RichTextLabel
 var redo_button: Button
 
+var win_music = preload('res://sounds/Music/win_music.mp3')
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.visibility_changed.connect(self.toggle_time_scale)
@@ -49,3 +50,6 @@ func make_win_screen():
 	title.add_theme_color_override("font_outline_color", Color.DARK_GREEN)  
 	redo_button.add_theme_color_override('font_color', Color.GREEN)
 	redo_button.add_theme_color_override('font_hover_color', Color.GREEN)
+	
+	if not $AudioStreamPlayer.is_playing():
+		$AudioStreamPlayer.play()

@@ -1,8 +1,5 @@
 extends Control
 
-@export_category("HUD Objects")
-@export var bullet_icon : Texture
-
 @export_category("Crosshair Settings")
 @export var ch_length: float = 100
 @export var ch_radius: float = 20

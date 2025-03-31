@@ -9,11 +9,10 @@ radius = 0.0443728
 height = 0.220293
 
 [node name="Bullet" type="RigidBody3D"]
-gravity_scale = 0.01
+gravity_scale = 0.1
 script = ExtResource("1_0cf2t")
-speed = 30.0
 
-[node name="bulletPEW2" parent="." instance=ExtResource("2_e02a1")]
+[node name="bulletTexture" parent="." instance=ExtResource("2_e02a1")]
 transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 0, 0, 0)
 
 [node name="HitboxComponent" parent="." instance=ExtResource("3_12lvb")]

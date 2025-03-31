@@ -80,8 +80,8 @@ func build_ability_upgrade(ability: String) -> String:
 			range = [3,10]
 			message = 'Player has been granted +%d additional Ammo in the magazine of '
 		'Damage':
-			range = [10,50]
-			step = 10
+			range = [10,30]
+			step = 5
 			message = 'Player has been granted +%d additional Damage on '
 	
 	#Random number between range with step
@@ -92,8 +92,9 @@ func generate_upgrades():
 	#Shop offers one new weapon upgrade & one abilities upgrade
 	#Choose random gun - NOT already owned
 	var new_guns = GameScript.GUN_POOL.filter(func(x): return x not in GameScript.player_inventory)	
-	var gun_offer = new_guns[randi() % new_guns.size()]
-	update_shop_label(gun_offer)
+	if new_guns:
+		var gun_offer = new_guns[randi() % new_guns.size()]
+		update_shop_label(gun_offer)
 	
 	#Choose ability upgrade
 	var ability = UPGRADE_TYPES[randi() % UPGRADE_TYPES.size()]
@@ -103,7 +104,7 @@ func generate_upgrades():
 func add_weapon_to_player(gun: Weapon):
 	#Adds Weapon (WeaponResource.gd) to player_inventory in game_script.gd
 	#Called when Buy Button on gun upgrade is clicked
-	if GameScript.score >= price:
+	if GameScript.score >= price and GameScript.player_inventory.size() + 1 <= GameScript.max_inv_size:
 		GameScript.score -= price
 		update_score(GameScript.score)
 		%AudioPlayer.stream = buy_click

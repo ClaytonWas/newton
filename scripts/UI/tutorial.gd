@@ -35,9 +35,11 @@ func _process(delta: float) -> void:
 				#Show next
 				if not GameScript.skip_tutorial and tutorial.size() > 0:
 					show_tip(tutorial.keys()[0], tutorial[tutorial.keys()[0]])
+			
 					
 				else:	# Delete 
 					GameScript.skip_tutorial = true
+					%right_hand.can_shoot = true
 					Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 					queue_free()
 		
@@ -56,10 +58,13 @@ func show_tip(title: String, message: String):
 
 	#Accept UI input
 	var plyr = get_tree().current_scene.find_child("Player")
+	%right_hand.can_shoot = false
 
 func toggle_pause() -> void:
 	#Toggles pause game menu & functionality
 	if Engine.time_scale > 0.0:
 		Engine.time_scale = 0.0
+		%right_hand.can_shoot = false
 	else:
 		Engine.time_scale = 1.0
+		%right_hand.can_shoot = true

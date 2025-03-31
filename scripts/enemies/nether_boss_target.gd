@@ -15,8 +15,8 @@ extends Node3D
 
 func _ready() -> void:
 	#print(get_parent().name, self.name)
-	get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
-	get_tree().root.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_EXPAND
+	#get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
+	#get_tree().root.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_EXPAND
 	arriver.setup(
 		deg_to_rad(align_tolerance),
 		deg_to_rad(angular_deceleration_radius),
@@ -28,7 +28,9 @@ func _ready() -> void:
 		linear_speed_max,
 		target
 	)
-
+	
+	target.death_screen.connect(_on_player_death)
+	arriver.stop_audio = false
 
 func set_align_tolerance(value: int) -> void:
 	align_tolerance = value
@@ -92,3 +94,8 @@ func set_linear_acceleration_max(value: float) -> void:
 		return
 
 	arriver.agent.linear_acceleration_max = value
+
+func _on_player_death():
+	# Custom signal to stop mutant audio when player dies
+	print('player_died')
+	arriver.stop_audio = true
