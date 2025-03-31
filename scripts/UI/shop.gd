@@ -80,8 +80,8 @@ func build_ability_upgrade(ability: String) -> String:
 			range = [3,10]
 			message = 'Player has been granted +%d additional Ammo in the magazine of '
 		'Damage':
-			range = [10,50]
-			step = 10
+			range = [10,30]
+			step = 5
 			message = 'Player has been granted +%d additional Damage on '
 	
 	#Random number between range with step
