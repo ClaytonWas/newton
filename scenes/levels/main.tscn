@@ -1,12 +1,13 @@
-[gd_scene load_steps=24 format=3 uid="uid://b4untvgg5fv5u"]
+[gd_scene load_steps=33 format=3 uid="uid://b4untvgg5fv5u"]
 
-[ext_resource type="Texture2D" uid="uid://b5oq1i30m267h" path="res://textures/general/Office_CSS_Skybox.jpg" id="1_fmy01"]
+[ext_resource type="Texture2D" uid="uid://0h2du0vw83ir" path="res://textures/environments/hell_skybox.webp" id="1_jblj5"]
 [ext_resource type="Texture2D" uid="uid://baf7umi8dijob" path="res://textures/environments/Door_02_Brown.png" id="4_0s5ou"]
 [ext_resource type="PackedScene" uid="uid://bvnyx7k8ac0sw" path="res://scenes/UI/inventory.tscn" id="7_63r21"]
 [ext_resource type="Shader" path="res://scripts/shaders/lava.gdshader" id="9_k1p8c"]
 [ext_resource type="Material" uid="uid://din2c135gyid1" path="res://resources/office_wall.tres" id="9_mr82y"]
 [ext_resource type="PackedScene" uid="uid://cnxm803p7w416" path="res://scenes/player.tscn" id="10_6cm2e"]
 [ext_resource type="Material" uid="uid://djkcm8jqtn66p" path="res://resources/office_rug.tres" id="10_go8h7"]
+[ext_resource type="Material" uid="uid://dfshfp1d8t8yn" path="res://resources/glass.tres" id="11_jq35t"]
 [ext_resource type="Material" uid="uid://wb6aqoespll1" path="res://resources/office_ceiling.tres" id="12_nx1it"]
 [ext_resource type="PackedScene" uid="uid://l63em15l8uwv" path="res://scenes/enemies/imp_melee.tscn" id="14_gpeh7"]
 [ext_resource type="Shader" path="res://scripts/shaders/warp.gdshader" id="14_pynjo"]
@@ -14,10 +15,14 @@
 [ext_resource type="Material" uid="uid://dxfery0o4ifja" path="res://resources/orange_grid.tres" id="15_mh552"]
 [ext_resource type="Script" path="res://scripts/scene_portal.gd" id="15_y3w51"]
 [ext_resource type="Material" uid="uid://sstuoqengb27" path="res://resources/grey_grid.tres" id="16_201sr"]
+[ext_resource type="ArrayOccluder3D" uid="uid://dtvw2txuu1e7m" path="res://scenes/levels/office.occ" id="16_ht3b8"]
+[ext_resource type="Material" uid="uid://lc2pplp3xrcu" path="res://textures/environments/mines/wood_rough.tres" id="17_mbuxw"]
+[ext_resource type="PackedScene" uid="uid://dny383gyxjwhf" path="res://objects/LowpolyForestPack/Trees/DeadOak3.tscn" id="18_vci8b"]
 [ext_resource type="PackedScene" uid="uid://bbtmley2843d2" path="res://scenes/enemies/demon_melee.tscn" id="18_xj3fp"]
+[ext_resource type="PackedScene" uid="uid://d26s2j5hnw6xo" path="res://objects/LowpolyForestPack/Trees/DeadSpruce2.tscn" id="19_ryud5"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_8mchi"]
-panorama = ExtResource("1_fmy01")
+panorama = ExtResource("1_jblj5")
 
 [sub_resource type="Sky" id="Sky_n6hli"]
 sky_material = SubResource("PanoramaSkyMaterial_8mchi")
@@ -25,8 +30,8 @@ sky_material = SubResource("PanoramaSkyMaterial_8mchi")
 [sub_resource type="Environment" id="Environment_uy8v5"]
 background_mode = 2
 sky = SubResource("Sky_n6hli")
-fog_mode = 1
-fog_density = 1.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_bmfa3"]
 height = 0.5
@@ -55,6 +60,21 @@ shader = ExtResource("14_pynjo")
 shader_parameter/strength = 0.08
 shader_parameter/speed = 0.01
 shader_parameter/screen_resolution = Vector2(1280, 720)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_o2k3e"]
+material = ExtResource("17_mbuxw")
+size = Vector2(150, 150)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_5vyr2"]
+frequency = 0.0001
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_uehnw"]
+noise = SubResource("FastNoiseLite_5vyr2")
+
+[sub_resource type="FogMaterial" id="FogMaterial_8db8u"]
+density = 0.3
+albedo = Color(0.953041, 0.95304, 0.953041, 1)
+density_texture = SubResource("NoiseTexture3D_uehnw")
 
 [node name="Main" type="Node3D"]
 
@@ -183,6 +203,50 @@ material = ExtResource("9_mr82y")
 [node name="Floor4" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D/Room1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3, 0.4245)
 size = Vector3(1, 7, 149)
+material = ExtResource("9_mr82y")
+
+[node name="Floor6" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D/Room1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3, -3.5755)
+operation = 2
+size = Vector3(1.2, 3, 15)
+material = ExtResource("9_mr82y")
+
+[node name="Floor7" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D/Room1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 3, -3.5755)
+operation = 2
+size = Vector3(1.2, 3, 15)
+material = ExtResource("9_mr82y")
+
+[node name="Floor11" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D/Room1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.75, 3, -3.5755)
+size = Vector3(0.1, 2.8, 14.8)
+material = ExtResource("11_jq35t")
+
+[node name="Floor12" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D/Room1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.75, 3, -3.5755)
+size = Vector3(0.1, 2.8, 14.8)
+material = ExtResource("11_jq35t")
+
+[node name="Floor13" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D/Room1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.75, 3, 41.4245)
+size = Vector3(0.1, 2.8, 14.8)
+material = ExtResource("11_jq35t")
+
+[node name="Floor14" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D/Room1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.75, 3, 41.4245)
+size = Vector3(0.1, 2.8, 14.8)
+material = ExtResource("11_jq35t")
+
+[node name="Floor8" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D/Room1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3, 41.4245)
+operation = 2
+size = Vector3(1.2, 3, 15)
+material = ExtResource("9_mr82y")
+
+[node name="Floor9" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D/Room1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 3, 41.4245)
+operation = 2
+size = Vector3(1.2, 3, 15)
 material = ExtResource("9_mr82y")
 
 [node name="Floor1" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D/Room1"]
@@ -341,6 +405,17 @@ material = ExtResource("16_201sr")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 9.5, 185.424)
 size = Vector3(37, 14, 1)
 material = ExtResource("9_mr82y")
+
+[node name="Floor17" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D/Room6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 7.5, 185.424)
+operation = 2
+size = Vector3(31, 6, 3)
+material = ExtResource("9_mr82y")
+
+[node name="Floor18" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D/Room6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 7.5, 185.374)
+size = Vector3(30.8, 5.8, 0.3)
+material = ExtResource("11_jq35t")
 
 [node name="Room7" type="CSGCombiner3D" parent="NavigationRegion3D/CSGCombiner3D"]
 
@@ -592,3 +667,64 @@ transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 63.9, 4.7, 84)
 
 [node name="DemonRanged5" parent="." instance=ExtResource("15_d1ys8")]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 39.9, 4.9, 179)
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="."]
+occluder = ExtResource("16_ht3b8")
+
+[node name="ForestView" type="Node3D" parent="."]
+
+[node name="Grass" type="MeshInstance3D" parent="ForestView"]
+mesh = SubResource("PlaneMesh_o2k3e")
+skeleton = NodePath("../..")
+
+[node name="DeadOak3" parent="ForestView" instance=ExtResource("18_vci8b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -23)
+
+[node name="DeadOak6" parent="ForestView" instance=ExtResource("18_vci8b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 17)
+
+[node name="DeadOak7" parent="ForestView" instance=ExtResource("18_vci8b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 0, 59)
+
+[node name="DeadOak8" parent="ForestView" instance=ExtResource("18_vci8b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0, 59)
+
+[node name="DeadOak11" parent="ForestView" instance=ExtResource("18_vci8b")]
+transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 1.1, -58, 0, -32)
+
+[node name="DeadOak9" parent="ForestView" instance=ExtResource("18_vci8b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43, 0, 10)
+
+[node name="DeadOak10" parent="ForestView" instance=ExtResource("18_vci8b")]
+transform = Transform3D(1, 0, 0, 0, 1.6, 0, 0, 0, 1, -34, 0, -22)
+
+[node name="DeadOak5" parent="ForestView" instance=ExtResource("18_vci8b")]
+transform = Transform3D(2, 0, 0, 0, 1.7, 0, 0, 0, 1, 26, 0, 27)
+
+[node name="DeadOak4" parent="ForestView" instance=ExtResource("18_vci8b")]
+transform = Transform3D(1.21244, 0, 0.6, 0, 1.1, 0, -0.7, 0, 1.03923, 38, 0, -5)
+
+[node name="FogVolume" type="FogVolume" parent="ForestView"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 5, 0.5)
+size = Vector3(70, 12, 145)
+material = SubResource("FogMaterial_8db8u")
+
+[node name="FogVolume2" type="FogVolume" parent="ForestView"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.5, 5, -0.5)
+size = Vector3(69, 12, 143)
+material = SubResource("FogMaterial_8db8u")
+
+[node name="DeadSpruce2" parent="ForestView" instance=ExtResource("19_ryud5")]
+transform = Transform3D(2, 0, 0, 0, 2.2, 0, 0, 0, 2.1, -20, 0, 19)
+
+[node name="DeadSpruce3" parent="ForestView" instance=ExtResource("19_ryud5")]
+transform = Transform3D(2, 0, 0, 0, 2.2, 0, 0, 0, 2.1, -29, 0, -4)
+
+[node name="DeadSpruce4" parent="ForestView" instance=ExtResource("19_ryud5")]
+transform = Transform3D(2, 0, 0, 0, 2.2, 0, 0, 0, 2.1, 28, 0, -11)
+
+[node name="DeadSpruce5" parent="ForestView" instance=ExtResource("19_ryud5")]
+transform = Transform3D(2, 0, 0, 0, 2.2, 0, 0, 0, 2.1, 12, 0, 50)
+
+[node name="DeadSpruce6" parent="ForestView" instance=ExtResource("19_ryud5")]
+transform = Transform3D(2, 0, 0, 0, 2.2, 0, 0, 0, 2.1, -13, 0, -8)

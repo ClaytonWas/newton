@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxsfyycjb6xgc"
-path.s3tc="res://.godot/imported/DeadOakTreeTrunk.png-493602ba45925b5ad01397c799a6d1df.s3tc.ctex"
+uid="uid://0h2du0vw83ir"
+path.s3tc="res://.godot/imported/hell_skybox.webp-ea32edafb5fad7c682cf349132e48455.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://objects/LowpolyForestPack/TreesTexture/DeadOakTreeTrunk.png"
-dest_files=["res://.godot/imported/DeadOakTreeTrunk.png-493602ba45925b5ad01397c799a6d1df.s3tc.ctex"]
+source_file="res://textures/environments/hell_skybox.webp"
+dest_files=["res://.godot/imported/hell_skybox.webp-ea32edafb5fad7c682cf349132e48455.s3tc.ctex"]
 
 [params]
 
