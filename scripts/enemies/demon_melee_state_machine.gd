@@ -75,7 +75,7 @@ func _process(delta):
 	match state:
 		State.IDLE:
 			animated_sprite.play('idle')
-			animated_sprite.set_billboard_mode(0)
+			animated_sprite.modulate = Color(1, 1, 1)
 		State.ALERTED:
 			animated_sprite.play('alerted')
 		State.CHASING:
@@ -104,6 +104,7 @@ func _on_detection_area_body_exited(body):
 	if body.name == 'Player':
 		target_node = null
 		state = State.IDLE
+		animated_sprite.modulate = Color(1, 1, 1)
 
 func _on_attack_area_body_entered(body):
 	if body.name == 'Player':

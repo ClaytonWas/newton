@@ -1,4 +1,4 @@
-[gd_scene load_steps=168 format=4 uid="uid://c3286p8uffrt8"]
+[gd_scene load_steps=169 format=4 uid="uid://c3286p8uffrt8"]
 
 [ext_resource type="PackedScene" uid="uid://cnxm803p7w416" path="res://scenes/player.tscn" id="1_8pdfp"]
 [ext_resource type="Texture2D" uid="uid://coyfxjg0hslqj" path="res://textures/environments/sewers/Textures/bricks.jpg" id="2_4veb8"]
@@ -19,7 +19,8 @@
 [ext_resource type="Script" path="res://scripts/scene_portal.gd" id="17_oi7uu"]
 [ext_resource type="Shader" path="res://scripts/shaders/outline.gdshader" id="18_dryxi"]
 [ext_resource type="Shader" path="res://scripts/shaders/chromatic_shield.gdshader" id="19_of88c"]
-[ext_resource type="Texture2D" uid="uid://bsa3iki2u1vl0" path="res://textures/environments/mines/Lamp.png" id="20_tcmdn"]
+[ext_resource type="PackedScene" uid="uid://cokd0qtf7bnbt" path="res://scenes/enemies/demon_ranged.tscn" id="20_prdut"]
+[ext_resource type="PackedScene" uid="uid://l63em15l8uwv" path="res://scenes/enemies/imp_melee.tscn" id="21_fr57v"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_wn8vl"]
 
@@ -1647,8 +1648,18 @@ shader_parameter/outline_width = 0.03
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_fost1")
 shader = ExtResource("19_of88c")
-shader_parameter/warp_ScreenSpace = false
-shader_parameter/texture_albedo = ExtResource("20_tcmdn")
+shader_parameter/time_speed = 1.0
+shader_parameter/spin = 0.0
+shader_parameter/flame_brightness = 0.6
+shader_parameter/color_intensity = 0.0
+shader_parameter/horizontal_frequency = 1.0
+shader_parameter/vertical_frequency = 1.0
+shader_parameter/size = -0.3
+shader_parameter/core_size = 1.0
+shader_parameter/color1 = Color(0.286, 0.22, 0.733, 1)
+shader_parameter/color2 = Color(0.98, 0.38, 0.34, 1)
+shader_parameter/color3 = Color(0.98, 0.95, 0.53, 1)
+shader_parameter/color4 = Color(1, 1, 1, 1)
 
 [sub_resource type="TubeTrailMesh" id="TubeTrailMesh_gs4wu"]
 radius = 3.0
@@ -2803,7 +2814,7 @@ transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -54.7969, -1.16531, 4.5
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -48.5124, -1.16531, 4.56015)
 
 [node name="SewersPortal" type="Area3D" parent="."]
-transform = Transform3D(-0.017592, 0, 0.999845, 0, 1, 0, -0.999845, 0, -0.017592, -219.632, -7.48656, 362.434)
+transform = Transform3D(-0.017592, 0, 0.999845, 0, 1, 0, -0.999845, 0, -0.017592, -226.532, -7.48656, 360.634)
 script = ExtResource("17_oi7uu")
 scene_path = "res://scenes/levels/sewers/main.tscn"
 metadata/_edit_group_ = true
@@ -2817,5 +2828,28 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SewersPortal"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("CylinderShape3D_nhfm7")
+
+[node name="DemonSet2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69, -16.2, 325)
+
+[node name="DemonMelee" parent="DemonSet2" instance=ExtResource("15_w68mf")]
+
+[node name="DemonMelee2" parent="DemonSet2" instance=ExtResource("15_w68mf")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 6, 0, 1)
+
+[node name="DemonMelee3" parent="DemonSet2" instance=ExtResource("15_w68mf")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -2, 0, 7)
+
+[node name="DemonRanged" parent="DemonSet2" instance=ExtResource("20_prdut")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 1, 0, 12)
+
+[node name="ImpMelee" parent="DemonSet2" instance=ExtResource("21_fr57v")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -17, 1, 24)
+
+[node name="ImpMelee2" parent="DemonSet2" instance=ExtResource("21_fr57v")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -15, 1, 18)
+
+[node name="ImpMelee3" parent="DemonSet2" instance=ExtResource("21_fr57v")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -18, 1, 14)
 
 [connection signal="body_entered" from="DeathZone" to="Player" method="_on_death_zone_body_entered"]

@@ -1,0 +1,230 @@
+[gd_scene load_steps=28 format=3 uid="uid://cokd0qtf7bnbt"]
+
+[ext_resource type="Script" path="res://scripts/enemies/demon_ranged_state_machine.gd" id="1_3mv74"]
+[ext_resource type="Texture2D" uid="uid://mudxjkclm3al" path="res://textures/enemies/BaronOfHell.png" id="2_qhtln"]
+[ext_resource type="PackedScene" uid="uid://s7f73anagqp4" path="res://scenes/guns/demon_bullet.tscn" id="2_xscjc"]
+[ext_resource type="PackedScene" uid="uid://dwsw3a2j15dtf" path="res://scenes/components/HealthComponent.tscn" id="4_a6ngm"]
+[ext_resource type="PackedScene" uid="uid://cmqrs35b4snep" path="res://scenes/components/HitboxComponent.tscn" id="5_iqv8b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jc083"]
+atlas = ExtResource("2_qhtln")
+region = Rect2(350, 18, 70, 79)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t8ka8"]
+atlas = ExtResource("2_qhtln")
+region = Rect2(770, 97, 70, 79)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ge4xj"]
+atlas = ExtResource("2_qhtln")
+region = Rect2(490, 417, 70, 79)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_khr87"]
+atlas = ExtResource("2_qhtln")
+region = Rect2(420, 417, 70, 79)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxi5g"]
+atlas = ExtResource("2_qhtln")
+region = Rect2(350, 417, 70, 79)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jcgns"]
+atlas = ExtResource("2_qhtln")
+region = Rect2(280, 417, 70, 79)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mfcmd"]
+atlas = ExtResource("2_qhtln")
+region = Rect2(350, 18, 70, 79)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ur7yp"]
+atlas = ExtResource("2_qhtln")
+region = Rect2(490, 418, 70, 79)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_myqs0"]
+atlas = ExtResource("2_qhtln")
+region = Rect2(280, 497, 70, 79)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r2aac"]
+atlas = ExtResource("2_qhtln")
+region = Rect2(0, 18, 70, 79)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p2juf"]
+atlas = ExtResource("2_qhtln")
+region = Rect2(70, 18, 70, 79)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0y7w5"]
+atlas = ExtResource("2_qhtln")
+region = Rect2(140, 18, 70, 79)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0dld"]
+atlas = ExtResource("2_qhtln")
+region = Rect2(210, 18, 70, 79)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rdbgs"]
+atlas = ExtResource("2_qhtln")
+region = Rect2(280, 18, 70, 79)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2yyxp"]
+atlas = ExtResource("2_qhtln")
+region = Rect2(350, 18, 70, 79)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jbbj4"]
+atlas = ExtResource("2_qhtln")
+region = Rect2(420, 18, 70, 79)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nsvlb"]
+atlas = ExtResource("2_qhtln")
+region = Rect2(490, 18, 70, 79)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j4jmf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jc083")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t8ka8")
+}],
+"loop": true,
+"name": &"alerted",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ge4xj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_khr87")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sxi5g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jcgns")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sxi5g")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mfcmd")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ur7yp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_myqs0")
+}],
+"loop": true,
+"name": &"stunned",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r2aac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p2juf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0y7w5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d0dld")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rdbgs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2yyxp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jbbj4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nsvlb")
+}],
+"loop": true,
+"name": &"walkForward",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_buhtx"]
+radius = 0.454967
+height = 1.75018
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cy2g1"]
+height = 3.87831
+radius = 7.58081
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_wsy65"]
+height = 6.27775
+radius = 18.7358
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sp0js"]
+radius = 0.001
+height = 0.002
+
+[node name="DemonRanged" type="CharacterBody3D"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+script = ExtResource("1_3mv74")
+movement_speed = 20.0
+bullet = ExtResource("2_xscjc")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0.469452, 0)
+sprite_frames = SubResource("SpriteFrames_j4jmf")
+animation = &"walkForward"
+frame_progress = 0.957508
+
+[node name="HealthComponent" parent="." instance=ExtResource("4_a6ngm")]
+max_health = 50
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_iqv8b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.501207, 0)
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
+shape = SubResource("CapsuleShape3D_buhtx")
+
+[node name="DetectionArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+shape = SubResource("CylinderShape3D_cy2g1")
+
+[node name="AttackArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackArea"]
+shape = SubResource("CylinderShape3D_wsy65")
+
+[node name="AlertTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AttackIntervalTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="StunTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0195207, 0)
+shape = SubResource("CapsuleShape3D_sp0js")
+
+[connection signal="damage_taken" from="HealthComponent" to="." method="_on_health_component_damage_taken"]
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="AttackArea" to="." method="_on_attack_area_body_exited"]
+[connection signal="timeout" from="AlertTimer" to="." method="_on_alert_timer_timeout"]
+[connection signal="timeout" from="AttackIntervalTimer" to="." method="_on_attack_interval_timer_timeout"]
+[connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]
