@@ -28,6 +28,7 @@ const LEVELS =  [		#Names of level scenes as navigation path
 @onready var musicPlayer = AudioStreamPlayer.new()
 var music_sound = preload('res://sounds/Music/video-game-music-147338.mp3')
 var countdown_sound = preload('res://sounds/Music/10sec-digital-countdown.wav')
+var win_music = preload('res://sounds/Music/win_music.mp3')
 # Settings screen variables
 var hardcore: bool = false
 var music: bool = true
@@ -49,10 +50,10 @@ var game_won: bool	# Global won game flag
 func start_game():
 	#Resets variables for fresh game runs
 	randomize()
-	player_inventory = GUN_POOL	#Set starting weapon
+	player_inventory = [GUN_POOL[0], GUN_POOL[4]]	#Set starting weapon
 	player_health = preload('res://scenes/player.tscn').instantiate().find_child('HealthComponent').max_health# default value before scene enters
 	equipped_weapon= player_inventory[0]
-	level_order = [LEVELS[0], LEVELS[1], LEVELS[4], LEVELS[3]] #
+	level_order = [LEVELS[0], LEVELS[3], LEVELS[4], LEVELS[3]] #
 	game_won = false
 	score = 0
 	level_counter = 0
@@ -78,12 +79,10 @@ func _process(delta: float) -> void:
 	# 10 Second timer
 	if get_tree().current_scene:
 		if get_tree().current_scene.scene_file_path in LEVELS:
-			print(timer_time)
-			if timer_time <= 10 and musicPlayer.stream != countdown_sound:
+			if timer_time <= 10 :	#and musicPlayer.stream != countdown_sound
 				musicPlayer.stream = countdown_sound
 				musicPlayer.play()
-				print(timer_time)
-
+		
 func next_scene():
 	#Function to return the next scene in layout order & pop from list
 	var temp = level_order[0]
@@ -120,7 +119,7 @@ func settings_toggle(setting: String):
 
 func play_music():
 	# Starts the audio stream
-	if music and not musicPlayer.is_playing():
+	if music and (not musicPlayer.is_playing() or musicPlayer.stream == countdown_sound):
 		if get_tree().current_scene:
 			if get_tree().current_scene.scene_file_path.contains('shop') or get_tree().current_scene.scene_file_path.contains('start_menu'):
 				musicPlayer.play()

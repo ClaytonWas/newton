@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cnxm803p7w416"]
+[gd_scene load_steps=35 format=3 uid="uid://cnxm803p7w416"]
 
 [ext_resource type="Script" path="res://scripts/playermovement.gd" id="1_2ak50"]
 [ext_resource type="Script" path="res://scripts/player_shoot.gd" id="3_0hi0p"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://bfnn2eyg70t15" path="res://textures/general/blood_scratch_2.png" id="15_ew4t3"]
 [ext_resource type="Texture2D" uid="uid://ue6ho1grvko7" path="res://textures/general/blood_screen.png" id="15_jegdm"]
 [ext_resource type="Script" path="res://scripts/UI/tutorial.gd" id="19_3hmld"]
+[ext_resource type="AudioStream" uid="uid://cmx3kw7jh74uj" path="res://sounds/Music/win_music.mp3" id="20_cq73h"]
 [ext_resource type="PackedScene" uid="uid://cmqrs35b4snep" path="res://scenes/components/HitboxComponent.tscn" id="20_hg7dl"]
 [ext_resource type="FontFile" uid="uid://1ocjgmtw3srp" path="res://fonts/doomed/doomed.ttf" id="20_ksctb"]
 [ext_resource type="PackedScene" uid="uid://dwsw3a2j15dtf" path="res://scenes/components/HealthComponent.tscn" id="21_5kmh6"]
@@ -469,6 +470,9 @@ theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_fonts/font = ExtResource("13_yx3nr")
 theme_override_font_sizes/font_size = 20
 text = "Quit"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="DeathScreen"]
+stream = ExtResource("20_cq73h")
 
 [node name="Timer" type="Timer" parent="."]
 unique_name_in_owner = true

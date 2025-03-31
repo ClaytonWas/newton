@@ -8,43 +8,35 @@ var is_enemy_bullet: bool = false #Toggle to be enabled in enemies bullet script
 func _ready() -> void:
 	pass
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(delta: float) -> void:
-	if (offset):
+	if (offset):	# Fires shotgun spread
 		position += transform.basis * (offset + Vector3(-speed,0,0)) * delta 
-	else:
+	else:	# Normal bullet
 		position += transform.basis * Vector3(-speed,0,0) * delta 
-	#position += global_position.lerp(direction, speed * delta)
-	#position += direction * speed * delta
-	
 
 func _on_timer_timeout() -> void:
 	queue_free()
 
-
 func _on_hitbox_component_body_entered(body: Node3D) -> void:	
+	# Player shot by enemy
 	if is_enemy_bullet and body.name == "Player":
-		print('Enemy bullet hit player!')
 		if body.has_node("HitboxComponent"):
 			print('Player took %d damage!' % [damage])
 			var hitbox : HitboxComponent = body.find_child("HitboxComponent")
 			hitbox.damage(damage)
 			queue_free()
-
-	if is_enemy_bullet and body.name == "MutantBoss":	
-		if body.has_node("HitboxComponent"):
-			print('Boss took %d damage!' % [damage])
-			var hitbox : HitboxComponent = body.find_child("HitboxComponent")
-			hitbox.damage(damage)
 			
 func _on_hitbox_component_area_entered(area):
 	if area is HitboxComponent and not is_enemy_bullet:
 		if area.get_parent().name == "Player":
 			pass
-		else:
-			var hitbox = area
-			hitbox.damage(damage)
-			print('Area hit')
-		queue_free()
+		else: # Shot enemy
+			if not area.get_parent() is RigidBody3D: #Dont collide with bullets
+				print('Area hit', area.get_parent().name)
+				area.damage(damage)
+				queue_free()
+			
+		
 	#else:
 		#print(area.name)

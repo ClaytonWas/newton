@@ -13,7 +13,6 @@ radius = 0.0529527
 [node name="Pellet" type="RigidBody3D"]
 gravity_scale = 0.0
 script = ExtResource("1_udgjf")
-speed = 45.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_wfoq3")
@@ -28,5 +27,6 @@ shape = SubResource("SphereShape3D_b07rk")
 wait_time = 10.0
 autostart = true
 
+[connection signal="area_entered" from="HitboxComponent" to="." method="_on_hitbox_component_area_entered"]
 [connection signal="body_entered" from="HitboxComponent" to="." method="_on_hitbox_component_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
