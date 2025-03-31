@@ -23,7 +23,7 @@ enum State {
 @export_group("Sound Variables")
 @export var run_sound = preload('res://sounds/Enemy/MutantBoss/boss_running_sound.wav')
 @export var roar_sound = preload('res://sounds/Enemy/MutantBoss/mutant_roar_sound.wav')
-@export var hurt_sound = preload('res://sounds/Enemy/MutantBoss/boss-hurt.mp3')
+@export var hurt_sound = preload('res://sounds/Enemy/MutantBoss/boss-hurt.wav')
 @export var idle_sound = preload('res://sounds/Enemy/MutantBoss/idle_growl.wav')
 @export var hit_sound = preload('res://sounds/Enemy/MutantBoss/hit_swing_sound.mp3')
 @export var death_sound = preload('res://sounds/Enemy/MutantBoss/mutant_die_sound.mp3')
@@ -112,7 +112,9 @@ func _physics_process(delta: float) -> void:
 				
 		State.ATTACKING:
 			# Decelleration when reaching player
-			velocity = velocity.move_toward(Vector3.ZERO, 0 * delta)
+			velocity = Vector3.ZERO
+			navigation_agent.set_target_position(global_position) 
+			move_and_slide()
 			if can_attack: #and bullet:
 				can_attack = false
 				attack_counter += 1
@@ -130,12 +132,10 @@ func _physics_process(delta: float) -> void:
 						audio.stream = hit_sound
 						audio.play()
 		State.STUNNED:
-			velocity = velocity.move_toward(Vector3.ZERO, movement_speed * delta)
+			velocity = Vector3.ZERO
 			move_and_slide()
 			animation.play("mutant_stun")
-			if not audio.is_playing() or audio.stream == run_sound:
-				audio.stream = hurt_sound
-				audio.play()
+			
 				
 		State.ALERTED:
 			animation.play('mutant_roaring')
@@ -159,19 +159,16 @@ func instance_bullet():
 	add_child(projectile)
 
 func _process(delta):
-	if stop_audio:
+	if stop_audio:	# Stop audio after death
 		audio.stop()
+		
 	match state:
 		State.STUNNED:
 			if not stunned and target_node:
 				state = State.CHASING
 
-func _on_punch_finished():
-	animation.play("mutant_punch")
-	print('punching')
-	#animation.animation_finished.disconnect(_on_punch_finished)
-
 func _on_vision_area_body_entered(body):
+	# called when Boss spots player
 	if body.name == 'Player':
 		target_node = body
 		if not aware_of_player:
@@ -185,6 +182,7 @@ func _on_vision_area_body_entered(body):
 			state = State.CHASING
 
 func _on_vision_area_body_exited(body):
+	# called when player leaves boss vision
 	if body.name == 'Player':
 		#target_node = null
 		state = State.IDLE
@@ -214,8 +212,10 @@ func _on_health_component_damage_taken():
 	if not stunned and hit_counter % 4 == 0:
 		state = State.STUNNED
 		stunned = true
+		if not audio.is_playing() or audio.stream == run_sound:
+				audio.stream = hurt_sound
+				audio.play()
 		stun_timer.start()
-		print('stunned')
 
 func _on_stun_timer_timeout():
 	stunned = false
