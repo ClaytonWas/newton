@@ -79,7 +79,8 @@ func _process(delta: float) -> void:
 	# 10 Second timer
 	if get_tree().current_scene:
 		if get_tree().current_scene.scene_file_path in LEVELS:
-			if timer_time <= 10 :	#and musicPlayer.stream != countdown_sound
+			if timer_time <= 10 and not musicPlayer.is_playing():
+				print('countdown on')
 				musicPlayer.stream = countdown_sound
 				musicPlayer.play()
 		

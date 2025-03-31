@@ -15,8 +15,8 @@ extends Node3D
 
 func _ready() -> void:
 	#print(get_parent().name, self.name)
-	get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
-	get_tree().root.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_EXPAND
+	#get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
+	#get_tree().root.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_EXPAND
 	arriver.setup(
 		deg_to_rad(align_tolerance),
 		deg_to_rad(angular_deceleration_radius),

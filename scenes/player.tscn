@@ -566,7 +566,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9096, 0)
 shape = SubResource("CapsuleShape3D_ykk5e")
 
 [node name="HealthComponent" parent="." instance=ExtResource("21_5kmh6")]
-max_health = 110
 
 [node name="AudioGun" type="AudioStreamPlayer3D" parent="."]
 unique_name_in_owner = true

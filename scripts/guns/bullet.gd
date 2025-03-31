@@ -1,6 +1,6 @@
 extends Node3D
 
-@export var speed = 20.0
+@export var speed = 50.0
 var offset: Vector3		# Values to offset shotgun bullets
 var damage: int	#Damage value to be set from Player_shoot script
 var is_enemy_bullet: bool = false #Toggle to be enabled in enemies bullet scripts when instanited.
