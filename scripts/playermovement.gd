@@ -3,7 +3,7 @@ extends CharacterBody3D
 signal death_screen
 
 @export_category("Camera Controls")
-@export var mouse_sensitivity := 0.002
+@onready var mouse_sensitivity := GameScript.sensitivity
 const headbob_shake := 0.0075
 const headbob_frequency := 0.5
 @export var headbob_time := 0.0
@@ -37,7 +37,10 @@ var low_health_sound = preload('res://sounds/Player/heartbeat_sound.wav')
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
+	if GameScript.hardcore:	# If hardcore mode, player is one shot
+		health.max_health = 5
+		GameScript.player_health = 5
+		
 	health.damage_taken.connect(_on_hitbox_damage_taken)
 	health.max_health = GameScript.player_health
 	health.health = GameScript.player_health

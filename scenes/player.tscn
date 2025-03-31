@@ -239,7 +239,6 @@ _data = {
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_2ak50")
-mouse_sensitivity = 0.005
 headbob_time = 0.5
 walk_speed = 20.0
 sprint_speed = 35.0

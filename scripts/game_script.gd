@@ -29,10 +29,11 @@ const LEVELS =  [		#Names of level scenes as navigation path
 var music_sound = preload('res://sounds/Music/video-game-music-147338.mp3')
 var countdown_sound = preload('res://sounds/Music/10sec-digital-countdown.wav')
 var win_music = preload('res://sounds/Music/win_music.mp3')
+
 # Settings screen variables
 var hardcore: bool = false
 var music: bool = true
-
+var sensitivity : float = 0.002	# Default mouse sensitivity
 # Game Timer variables
 var timer_time: float
 var score: int	# Players score/currency for shop

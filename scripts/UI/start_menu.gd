@@ -9,7 +9,7 @@ var normal_click = preload('res://sounds/UI/ui_normal_click.mp3')
 func _ready() -> void:
 	change_panel($ButtonPanel)
 	GameScript.start_game() #Resets game loop variables
-
+	%SensivitySlider.value = GameScript.sensitivity
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
@@ -46,21 +46,24 @@ func change_panel(panel):
 	
 	panel.visible = true
 
-
 func _on_setting_button_button_down() -> void:
 	change_panel($SettingsPanel)
 	%AudioStreamPlayer.stream = normal_click
 	%AudioStreamPlayer.play()
-
+	
 func _on_music_button_toggled(toggled_on: bool) -> void:
 	#Toggles music on/off
 	GameScript.settings_toggle('music')
-
 
 func _on_volume_silder_value_changed(value: float) -> void:
 	# Sets global game volume
 	GameScript.set_volume(value)
 
-
 func _on_skip_tutorial_button_toggled(toggled_on: bool) -> void:
 	GameScript.skip_tutorial = !GameScript.skip_tutorial
+
+func _on_hardcore_button_toggled(toggled_on: bool) -> void:
+	GameScript.hardcore = true
+
+func _on_sensivity_slider_value_changed(value: float) -> void:
+	GameScript.sensitivity = value
