@@ -184,6 +184,7 @@ func update_ammo_UI(value: int) -> void:
 		%AmmoLabel.add_theme_color_override("default_color", Color.RED)
 	else:
 		%AmmoLabel.add_theme_color_override("default_color", Color.WHITE)
+		
 func _process(delta: float) -> void:
 	
 	if GameScript.is_sprinting and not %AudioGun.playing:

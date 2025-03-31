@@ -47,12 +47,12 @@ func _ready():
 		print('Trigger to add %d to HP:%d' % [GameScript.add_health, health.health])
 		health.add_max_health(GameScript.add_health)
 		GameScript.add_health = 0
-		
+
 func _unhandled_input(event):
-	if event is InputEventMouseButton:
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		%PauseMenu.visible = false
-	elif event.is_action_pressed("ui_cancel"):
+	#if event is InputEventMouseButton:
+		#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		#%PauseMenu.visible = false
+	if event.is_action_pressed("ui_cancel"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		toggle_pause()		#Pause game on esc key
 		
@@ -149,16 +149,23 @@ func death_state():
 func _on_death_zone_body_entered(body: Node3D) -> void:
 	emit_signal("death_screen")
 
-func toggle_pause() -> void:
+func toggle_pause(menu=true) -> void:
 	#Toggles pause game menu & functionality
-	if Engine.time_scale > 0.0:
+	if Engine.time_scale > 0.0:	# Pause
 		Engine.time_scale = 0.0
-	else:
+		%right_hand.can_shoot = false
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	else:	# Unpase
 		Engine.time_scale = 1.0
-	if %PauseMenu.visible:
-		%PauseMenu.visible = false
-	else:
-		%PauseMenu.visible = true
+		%right_hand.can_shoot = true
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
+	if menu:	# Show UI
+		if %PauseMenu.visible:
+			%PauseMenu.visible = false
+		else:
+			%PauseMenu.visible = true
+
 
 func _on_resume_button_down() -> void:
 	%AudioPlayer.stream = normal_click
@@ -192,4 +199,5 @@ func _on_health_component_healing() -> void:
 		%HUD.find_child('Scratch2').visible = false
 	else:
 		%HUD.find_child('Scratch1').visible = false
-	print('Healed UP')
+
+	
