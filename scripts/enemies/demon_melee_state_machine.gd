@@ -74,7 +74,7 @@ func _process(delta):
 	match state:
 		State.IDLE:
 			animated_sprite.play('idle')
-			animated_sprite.set_billboard_mode(0)
+			animated_sprite.modulate = Color(1, 1, 1)
 		State.ALERTED:
 			animated_sprite.play('alerted')
 		State.CHASING:
