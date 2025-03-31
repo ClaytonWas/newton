@@ -23,9 +23,9 @@ enum State {
 @export_group("Sound Variables")
 @export var run_sound = preload('res://sounds/Enemy/MutantBoss/boss_running_sound.wav')
 @export var roar_sound = preload('res://sounds/Enemy/MutantBoss/mutant_roar_sound.wav')
-@export var hurt_sound: AudioStreamWAV
-@export var idle_sound: AudioStreamWAV
-@export var hit_sound: AudioStreamWAV
+@export var hurt_sound = preload('res://sounds/Enemy/MutantBoss/boss-hurt.mp3')
+@export var idle_sound = preload('res://sounds/Enemy/MutantBoss/idle_growl.wav')
+@export var hit_sound = preload('res://sounds/Enemy/MutantBoss/hit_swing_sound.mp3')
 @export var death_sound = preload('res://sounds/Enemy/MutantBoss/mutant_die_sound.mp3')
 
 # Steering Addons
@@ -49,6 +49,7 @@ var can_attack: bool = true
 var stunned: bool = false
 var attack_counter: int	# Counter to alternate swipe and punch
 var hit_counter: int	# Tracks how many times boss shot before stun
+var stop_audio: bool	# Flag to stop sounds when player dies
 
 func setup(
 	align_tolerance: float,
@@ -111,7 +112,7 @@ func _physics_process(delta: float) -> void:
 				
 		State.ATTACKING:
 			# Decelleration when reaching player
-			velocity = Vector3.ZERO
+			velocity = velocity.move_toward(Vector3.ZERO, 0 * delta)
 			if can_attack: #and bullet:
 				can_attack = false
 				attack_counter += 1
@@ -124,13 +125,17 @@ func _physics_process(delta: float) -> void:
 						animation.play("mutant_punch")
 						attack_interval_timer.wait_time = animation.get_animation("mutant_punch").length
 					attack_interval_timer.start()
-			
+					
+					if not audio.is_playing() or audio.stream == run_sound: # Play hit sound
+						audio.stream = hit_sound
+						audio.play()
 		State.STUNNED:
 			velocity = velocity.move_toward(Vector3.ZERO, movement_speed * delta)
 			move_and_slide()
 			animation.play("mutant_stun")
-			if not audio.is_playing():
+			if not audio.is_playing() or audio.stream == run_sound:
 				audio.stream = hurt_sound
+				audio.play()
 				
 		State.ALERTED:
 			animation.play('mutant_roaring')
@@ -138,7 +143,9 @@ func _physics_process(delta: float) -> void:
 		State.IDLE:
 			animation.play('mutant_breathing_idle')
 			velocity = Vector3.ZERO
-			# Play sound	
+			if not audio.is_playing() or audio.stream == run_sound and not audio.stream == roar_sound:
+				audio.stream = idle_sound
+				audio.play()
 		_:
 			velocity = Vector3.ZERO
 
@@ -152,6 +159,8 @@ func instance_bullet():
 	add_child(projectile)
 
 func _process(delta):
+	if stop_audio:
+		audio.stop()
 	match state:
 		State.STUNNED:
 			if not stunned and target_node:

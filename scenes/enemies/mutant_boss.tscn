@@ -580,6 +580,7 @@ bg_color = Color(0.782351, 0.703235, 0.0414122, 1)
 [node name="MutantBoss" type="CharacterBody3D"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 script = ExtResource("1_ih2ok")
+movement_speed = 10.0
 
 [node name="Skeleton" type="Skeleton3D" parent="."]
 unique_name_in_owner = true
@@ -995,7 +996,7 @@ shape = SubResource("CylinderShape3D_l5u0b")
 [node name="HealthComponent" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("13_ov2sw")
-max_health = 600
+max_health = 1000
 
 [node name="AudioBoss" type="AudioStreamPlayer3D" parent="."]
 unique_name_in_owner = true
