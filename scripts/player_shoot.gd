@@ -185,12 +185,6 @@ func update_ammo_UI(value: int) -> void:
 	else:
 		%AmmoLabel.add_theme_color_override("default_color", Color.WHITE)
 func _process(delta: float) -> void:
-	# Avoid shooting in UI
-	if %Tutorial or %DeathScreen.visible:
-		can_shoot = false
-		
-	else:
-		can_shoot = true
 	
 	if GameScript.is_sprinting and not %AudioGun.playing:
 		%AudioGun.stream = run_sound
