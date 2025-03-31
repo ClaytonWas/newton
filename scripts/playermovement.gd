@@ -39,7 +39,6 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 	health.damage_taken.connect(_on_hitbox_damage_taken)
-
 	health.max_health = GameScript.player_health
 	health.health = GameScript.player_health
 	#If health booster - add health
@@ -48,6 +47,7 @@ func _ready():
 		health.add_max_health(GameScript.add_health)
 		GameScript.add_health = 0
 
+	GameScript.timer_time = %Timer.time_left
 func _unhandled_input(event):
 	#if event is InputEventMouseButton:
 		#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -178,6 +178,7 @@ func _on_tree_exiting() -> void:
 	GameScript.timer_time = %Timer.time_left
 
 func _process(delta: float) -> void:
+	GameScript.timer_time = %Timer.time_left
 	if health.health <= 50:
 		#Show full blood HUD
 		%HUD.find_child('BloodScreen').visible = true

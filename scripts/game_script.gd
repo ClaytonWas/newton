@@ -26,7 +26,8 @@ const LEVELS =  [		#Names of level scenes as navigation path
 ]
 # Game music audioplayer
 @onready var musicPlayer = AudioStreamPlayer.new()
-
+var music_sound = preload('res://sounds/Music/video-game-music-147338.mp3')
+var countdown_sound = preload('res://sounds/Music/10sec-digital-countdown.wav')
 # Settings screen variables
 var hardcore: bool = false
 var music: bool = true
@@ -63,7 +64,7 @@ func _ready() -> void:
 	# Play music
 	if music:
 		add_child(musicPlayer)
-		musicPlayer.stream = preload('res://sounds/Music/video-game-music-147338.mp3')
+		musicPlayer.stream = music_sound
 		play_music()
 
 func _process(delta: float) -> void:
@@ -73,6 +74,15 @@ func _process(delta: float) -> void:
 
 	else:	# Update volume
 		play_music()
+		
+	# 10 Second timer
+	if get_tree().current_scene:
+		if get_tree().current_scene.scene_file_path in LEVELS:
+			print(timer_time)
+			if timer_time <= 10 and musicPlayer.stream != countdown_sound:
+				musicPlayer.stream = countdown_sound
+				musicPlayer.play()
+				print(timer_time)
 
 func next_scene():
 	#Function to return the next scene in layout order & pop from list
@@ -114,7 +124,6 @@ func play_music():
 		if get_tree().current_scene:
 			if get_tree().current_scene.scene_file_path.contains('shop') or get_tree().current_scene.scene_file_path.contains('start_menu'):
 				musicPlayer.play()
-				#Debug
 				musicPlayer.volume_db = min(musicPlayer.volume_db, VOLUME_LIMIT_DB)
 func set_volume(value: float) -> void:
 	# Alters volume of audio buses
