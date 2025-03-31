@@ -26,7 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://cjbj45nkp0ded" path="res://scenes/environments/Foliage/BigRock5.tscn" id="22_6b5a3"]
 [ext_resource type="Shader" path="res://scripts/shaders/water.gdshader" id="25_5mkua"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lcncu"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sg8ek"]
 render_priority = 0
 shader = ExtResource("2_jfs6n")
 shader_parameter/outline_color = Color(0.274161, 0.252791, 0.694012, 1)
@@ -34,7 +34,7 @@ shader_parameter/outline_width = 0.03
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_58x65"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_lcncu")
+next_pass = SubResource("ShaderMaterial_sg8ek")
 shader = ExtResource("3_5nwsy")
 shader_parameter/warp_ScreenSpace = false
 shader_parameter/texture_albedo = ExtResource("4_jmuup")

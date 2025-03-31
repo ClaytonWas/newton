@@ -49,9 +49,9 @@ func start_game():
 	#Resets variables for fresh game runs
 	randomize()
 	player_inventory = [GUN_POOL[0]]	#Set starting weapon
-	player_health = 100# default value before scene enters
+	player_health = preload('res://scenes/player.tscn').instantiate().find_child('HealthComponent').max_health# default value before scene enters
 	equipped_weapon= player_inventory[0]
-	level_order = [LEVELS[3], LEVELS[1], LEVELS[3], LEVELS[4]] #
+	level_order = [LEVELS[0], LEVELS[3], LEVELS[4], LEVELS[3]] #
 	game_won = false
 	score = 0
 	level_counter = 0
@@ -142,5 +142,5 @@ func on_restart():
 		weapon.damage = fresh_weapon.damage
 		weapon.magazine_size = fresh_weapon.magazine_size
 	player_inventory = temp  # Replace the original list
-
+	score = 0
 	get_tree().change_scene_to_file("res://scenes/levels/start_menu.tscn")

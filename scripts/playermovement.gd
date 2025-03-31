@@ -36,7 +36,8 @@ var normal_click = preload('res://sounds/UI/ui_normal_click.mp3')
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	print('health on load: ',health.max_health)
+	
+	health.damage_taken.connect(_on_hitbox_damage_taken)
 	
 	health.max_health = GameScript.player_health
 	health.health = GameScript.player_health
@@ -165,4 +166,20 @@ func _on_tree_exiting() -> void:
 	GameScript.timer_time = %Timer.time_left
 
 func _process(delta: float) -> void:
-	pass
+	if health.health <= 50:
+		#Show full blood HUD
+		%HUD.find_child('BloodScreen').visible = true
+	else:
+		%HUD.find_child('BloodScreen').visible = false
+
+func _on_hitbox_damage_taken():
+	if not %HUD.find_child('Scratch1').visible:
+		%HUD.find_child('Scratch1').visible = true
+	else:
+		%HUD.find_child('Scratch2').visible = true
+		
+func _on_heal():
+	if not %HUD.find_child('Scratch2').visible:
+		%HUD.find_child('Scratch2').visible = false
+	else:
+		%HUD.find_child('Scratch1').visible = false

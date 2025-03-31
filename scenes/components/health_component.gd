@@ -3,11 +3,23 @@ class_name HealthComponent
 
 @export var max_health:= 100
 var health : float
+var player_heal_amount: float	# Amount of health added per heal interval
+var heal_timer
 signal damage_taken
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	health = max_health
+	
+	if get_parent().has_node('HealTimer'):
+		heal_timer = get_parent().get_node('HealTimer')
+		
+func _process(delta: float) -> void:
+	# Heal at time interval
+	if get_parent().name == "Player":
+		if health < max_health and heal_timer:
+			#Heal
+			heal_timer.start()
 
 func damage(amount):
 	health -= amount
@@ -24,6 +36,12 @@ func damage(amount):
 		if health <= 0:
 			GlobalDeathSignals.enemy_died.emit()
 			get_parent().queue_free()
+			
+func heal() -> void:
+	# Function to apply healing to health variable without exceeding max
+	health += player_heal_amount
+	if health  > max_health:
+		health = max_health
 
 func add_max_health(amount):
 	print('Applying Bonus health')

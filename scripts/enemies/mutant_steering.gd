@@ -20,11 +20,6 @@ extends CharacterBody3D
 @export var hit_sound: AudioStreamWAV
 @export var death_sound = preload('res://sounds/Enemy/MutantBoss/mutant_die_sound.mp3')
 
-var is_attacking: bool = false
-var aware_of_player: bool = false
-var can_attack: bool = true
-var stunned: bool = false
-
 @onready var agent := await GSAICharacterBody3DAgent.new(self)
 @onready var target := GSAIAgentLocation.new()
 @onready var accel := GSAITargetAcceleration.new()
@@ -38,10 +33,17 @@ var stunned: bool = false
 @onready var navigation_agent = $NavigationAgent3D
 @onready var audio = $AudioBoss
 
+var is_attacking: bool = false
+var aware_of_player: bool = false
+var can_attack: bool = true
+var stunned: bool = false
+var attack_counter: int	# Counter to alternate swipe and punch
+
 func _ready():
 	#anim_state.travel('mutant_idle')
 	animation.play('mutant_breathing_idle')
-
+	attack_counter = 0
+	
 func _physics_process(delta: float) -> void:
 
 		
@@ -61,14 +63,22 @@ func _physics_process(delta: float) -> void:
 				if not audio.is_playing():
 					audio.stream = run_sound
 					audio.play()
-				animation.play('mutant_run_(1)')
+				if not (animation.current_animation == 'mutant_swiping' or animation.current_animation == 'mutant_roar' or animation.current_animation == 'mutant_punch'):
+					animation.play('mutant_run_(1)')
 				
 		State.ATTACKING:
 			# Decelleration when reaching player
 			velocity = Vector3.ZERO
 			if can_attack: #and bullet:
 				can_attack = false
-				animation.play("mutant_swiping")
+				attack_counter += 1
+				
+				if attack_counter % 2 == 0:
+					animation.play("mutant_swiping")
+					attack_interval_timer.wait_time = animation.get_animation("mutant_swiping").length
+				else:
+					animation.play("mutant_punch")
+					attack_interval_timer.wait_time = animation.get_animation("mutant_punch").length
 				attack_interval_timer.start()
 			
 		State.STUNNED:

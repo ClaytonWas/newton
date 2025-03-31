@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cnxm803p7w416"]
+[gd_scene load_steps=34 format=3 uid="uid://cnxm803p7w416"]
 
 [ext_resource type="Script" path="res://scripts/playermovement.gd" id="1_2ak50"]
 [ext_resource type="Script" path="res://scripts/player_shoot.gd" id="3_0hi0p"]
@@ -14,8 +14,11 @@
 [ext_resource type="PackedScene" uid="uid://c3hldvhjiu47q" path="res://scenes/UI/crosshair.tscn" id="12_k6evy"]
 [ext_resource type="Script" path="res://scenes/timer.gd" id="13_g3pfr"]
 [ext_resource type="FontFile" uid="uid://b37i10y1miif5" path="res://fonts/kids_knowledge_2/Kid Knowledge 2 Clean.otf" id="13_yx3nr"]
+[ext_resource type="Texture2D" uid="uid://bc5isyi7otk65" path="res://textures/general/blood_scratch_1.png" id="14_2i13r"]
 [ext_resource type="PackedScene" uid="uid://v1nfdxx3d3u4" path="res://scenes/guns/shotgun.tscn" id="14_gbkgs"]
 [ext_resource type="Script" path="res://scripts/UI/clock_face.gd" id="15_b7v5p"]
+[ext_resource type="Texture2D" uid="uid://bfnn2eyg70t15" path="res://textures/general/blood_scratch_2.png" id="15_ew4t3"]
+[ext_resource type="Texture2D" uid="uid://ue6ho1grvko7" path="res://textures/general/blood_screen.png" id="15_jegdm"]
 [ext_resource type="Script" path="res://scripts/UI/tutorial.gd" id="19_3hmld"]
 [ext_resource type="PackedScene" uid="uid://cmqrs35b4snep" path="res://scenes/components/HitboxComponent.tscn" id="20_hg7dl"]
 [ext_resource type="FontFile" uid="uid://1ocjgmtw3srp" path="res://fonts/doomed/doomed.ttf" id="20_ksctb"]
@@ -349,6 +352,40 @@ bbcode_enabled = true
 text = " 30 [img=60]res://textures/guns/Pics/ammo_icon.svg[/img]"
 fit_content = true
 
+[node name="Scratch1" type="TextureRect" parent="HUD"]
+visible = false
+anchors_preset = -1
+anchor_left = 0.636
+anchor_top = 0.411
+anchor_right = 0.636
+anchor_bottom = 0.411
+offset_right = 150.0
+offset_bottom = 124.0
+scale = Vector2(3, 3)
+texture = ExtResource("14_2i13r")
+
+[node name="Scratch2" type="TextureRect" parent="HUD"]
+visible = false
+anchors_preset = -1
+anchor_left = 0.193
+anchor_top = 0.33
+anchor_right = 0.193
+anchor_bottom = 0.33
+offset_right = 150.0
+offset_bottom = 124.0
+rotation = -0.270526
+scale = Vector2(2, 2)
+texture = ExtResource("15_ew4t3")
+
+[node name="BloodScreen" type="TextureRect" parent="HUD"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("15_jegdm")
+
 [node name="DeathScreen" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 visible = false
@@ -517,9 +554,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9096, 0)
 shape = SubResource("CapsuleShape3D_ykk5e")
 
 [node name="HealthComponent" parent="." instance=ExtResource("21_5kmh6")]
+max_health = 110
 
 [node name="AudioGun" type="AudioStreamPlayer3D" parent="."]
 unique_name_in_owner = true
+
+[node name="HealTimer" type="Timer" parent="."]
 
 [connection signal="death_screen" from="." to="DeathScreen" method="_on_player_death_screen"]
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]

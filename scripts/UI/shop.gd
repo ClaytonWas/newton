@@ -29,7 +29,7 @@ func update_shop_label(upgrade, inv=false):
 	var button = panel.find_child('BuyButton')
 	var remove_button = panel.find_child('RemoveButton')
 	
-	price = round((1000 * GameScript.level_counter**1.5)/100) * 100
+	price = round((750 * GameScript.level_counter)/50) * 50
 	
 	if (upgrade is Weapon): #Gun upgrade - Choose Random Weapon
 		type_label.text = 'New Weapon Upgrade: \t\t%s' % [upgrade.weapon_name]
