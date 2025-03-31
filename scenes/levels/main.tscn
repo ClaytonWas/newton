@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://b4untvgg5fv5u"]
+[gd_scene load_steps=32 format=3 uid="uid://b4untvgg5fv5u"]
 
 [ext_resource type="Material" uid="uid://cj54grl1sx8e4" path="res://textures/environments/fadeskybox.tres" id="1_he3p1"]
 [ext_resource type="PackedScene" uid="uid://da6akh7ukg2bu" path="res://scenes/levels/LongHall.tscn" id="2_jfx1u"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://baf7umi8dijob" path="res://textures/environments/Door_02_Brown.png" id="4_0s5ou"]
 [ext_resource type="PackedScene" uid="uid://dqwbwpx130nt6" path="res://scenes/levels/MediumRoom.tscn" id="5_vaiy3"]
 [ext_resource type="Texture2D" uid="uid://c3bq8bylxfiiu" path="res://textures/environments/Rug2_Texture.png" id="6_e6ke1"]
-[ext_resource type="PackedScene" uid="uid://bvnyx7k8ac0sw" path="res://scenes/UI/inventory.tscn" id="7_63r21"]
 [ext_resource type="PackedScene" uid="uid://cnxm803p7w416" path="res://scenes/player.tscn" id="10_6cm2e"]
 [ext_resource type="PackedScene" uid="uid://b2fjtwvvykrc3" path="res://scenes/levels/ShortHall.tscn" id="12_5rtcy"]
 [ext_resource type="PackedScene" uid="uid://dli4pc7f7u7hw" path="res://scenes/levels/SmallRoom.tscn" id="13_en2gp"]
@@ -94,11 +93,6 @@ orientation = 2
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_lybr5")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Inventory" parent="CanvasLayer" instance=ExtResource("7_63r21")]
-options = [null, null, null, null, null, null]
 
 [node name="Player" parent="." instance=ExtResource("10_6cm2e")]
 transform = Transform3D(-0.998546, 0, -0.0539045, 0, 1, 0, 0.0539045, 0, -0.998546, -0.369, 1.7, -70.5358)

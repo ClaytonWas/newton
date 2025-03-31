@@ -1,5 +1,5 @@
 extends Node
-const VOLUME_LIMIT_DB = -10.0
+const VOLUME_LIMIT_DB = -25.0	# Music volume cap
 var gun_paths = {
 	'old_glock': 'res://resources/old_glock.tres',
 	'fade_glock': 'res://resources/fade_glock.tres',
@@ -49,9 +49,9 @@ func start_game():
 	#Resets variables for fresh game runs
 	randomize()
 	player_inventory = [GUN_POOL[0]]	#Set starting weapon
-	player_health = 100# default value before scene enters
+	player_health = preload('res://scenes/player.tscn').instantiate().find_child('HealthComponent').max_health# default value before scene enters
 	equipped_weapon= player_inventory[0]
-	level_order = [LEVELS[0], LEVELS[1], LEVELS[4],LEVELS[3]]
+	level_order = [LEVELS[0], LEVELS[1], LEVELS[4], LEVELS[3]] #
 	game_won = false
 	score = 0
 	level_counter = 0
@@ -99,9 +99,6 @@ func upgrade_ammo(ammo: float) -> void:
 	#Update inventory list
 	player_inventory[player_inventory.find(equipped_weapon)] = equipped_weapon
 
-func upgrade_health(health: HealthComponent):
-	# Applies player_health value to health component
-	pass
 func settings_toggle(setting: String):
 	# Toggles settings booleans
 	if setting == 'hardcore':
@@ -126,10 +123,10 @@ func set_volume(value: float) -> void:
 
 func calculate_score() -> int:
 	# Save time left on game clock
-	var point_interval = 300
-	var time_interval = 15
+	var point_interval = 750
+	var time_interval = 10
 	# Formula to give {point_interval} points per {time_interval} seconds left
-	score += floor(timer_time / time_interval) * point_interval**2
+	score += floor(timer_time / time_interval) * point_interval
 	
 	return score
 
@@ -144,8 +141,6 @@ func on_restart():
 		print('Reloading %s with stats of %d %d' % [fresh_weapon.weapon_name, fresh_weapon.damage,fresh_weapon.magazine_size])
 		weapon.damage = fresh_weapon.damage
 		weapon.magazine_size = fresh_weapon.magazine_size
-	print(temp, player_inventory)
-	print(typeof(temp[0]), typeof(player_inventory[0]))
 	player_inventory = temp  # Replace the original list
-
+	score = 0
 	get_tree().change_scene_to_file("res://scenes/levels/start_menu.tscn")

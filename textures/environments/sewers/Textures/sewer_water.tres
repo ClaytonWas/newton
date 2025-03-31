@@ -1,0 +1,27 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://bilmkrhi6mg7m"]
+
+[ext_resource type="Shader" path="res://scripts/shaders/sewers_mucky_water.gdshader" id="1_b7bjg"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2kc0g"]
+load_path = "res://.godot/imported/clear+sea+water-256x256.jpg-e5720ae240615d618fc856eef23ddbdc.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3tixn"]
+load_path = "res://.godot/imported/clear+sea+water-256x256.jpg-e5720ae240615d618fc856eef23ddbdc.s3tc.ctex"
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_b7bjg")
+shader_parameter/albedo = Color(0.133333, 1, 0.541176, 1)
+shader_parameter/scroll_speed1 = Vector2(0.1, 0)
+shader_parameter/scroll_speed2 = Vector2(0, -0.1)
+shader_parameter/blend_factor = 0.5
+shader_parameter/scale1 = Vector2(1, 1)
+shader_parameter/scale2 = Vector2(1, 1)
+shader_parameter/wave_strength = 0.0
+shader_parameter/wave_scale = 0.02
+shader_parameter/pixelation_level = 150
+shader_parameter/FoamSize = 0.15
+shader_parameter/WaterOpacity = 0.85
+shader_parameter/FoamGlowIntensity = -0.15
+shader_parameter/water_texture1 = SubResource("CompressedTexture2D_2kc0g")
+shader_parameter/water_texture2 = SubResource("CompressedTexture2D_3tixn")

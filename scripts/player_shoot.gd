@@ -7,6 +7,10 @@ var is_shooting = false
 var shot_interval: float = 0.0		#Time elapsed counter for full auto
 var can_shoot: bool = true
 var is_reloading: bool = false
+
+# Sound variables
+var run_sound = preload('res://sounds/Player/running.mp3')
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	change_weapon(0)
@@ -76,8 +80,8 @@ func shoot():
 		equipped_weapon_node.find_child('muzzle_flash').visible=true	#Show muzzle flash
 		equipped_weapon_node.find_child('muzzle_flash').find_child('FlashTimer').start()
 
-		%AudioPlayer.stream = equipped_weapon.fire_sound	#Play sound
-		%AudioPlayer.play()
+		%AudioGun.stream = equipped_weapon.fire_sound	#Play sound
+		%AudioGun.play()
 		%AnimationPlayer.play('shoot')	#Animate Player
 		
 		if equipped_weapon.bullet_type == 'shotgun':		#Shoot shotgun round
@@ -94,8 +98,8 @@ func shoot():
 	else:
 		if equipped_weapon.mag == 0:
 			print("Out of ammo!")
-			%AudioPlayer.stream = equipped_weapon.dryfire_sound	#Play dry fire sound
-			%AudioPlayer.play()
+			%AudioGun.stream = equipped_weapon.dryfire_sound	#Play dry fire sound
+			%AudioGun.play()
 
 
 func reload():
@@ -107,8 +111,8 @@ func reload():
 		clip.visible = true
 		clip.global_transform = equipped_weapon_node.find_child('clip_spawn').global_transform.basis
 		
-		%AudioPlayer.stream = equipped_weapon.reload_sound	#Play dry fire sound
-		%AudioPlayer.play()
+		%AudioGun.stream = equipped_weapon.reload_sound	#Play dry fire sound
+		%AudioGun.play()
 		can_shoot = false	# Disable shooting
 		
 		# Animate Player
@@ -134,6 +138,7 @@ func reload():
 func _on_reload_timer_timeout():
 	# Called after reload_timer and shot_timer. re-enables can_shoot & updates ammo count UI
 	can_shoot = true
+	is_reloading = false
 	update_ammo_UI(equipped_weapon.mag)
 
 func fire_bullet(gun, offset):
@@ -174,12 +179,16 @@ func _physics_process(delta: float) -> void:
 
 func update_ammo_UI(value: int) -> void:
 	%AmmoLabel.add_theme_constant_override("horitzontal_alignment", HORIZONTAL_ALIGNMENT_RIGHT)
-	%AmmoLabel.set_text(str(value) + ' [img=32x32]res://textures/guns/Pics/ammo_icon.svg[/img]')
+	%AmmoLabel.set_text(str(value) + ' [img=60]res://textures/guns/Pics/ammo_icon.svg[/img]')
 	if (value <= ceil(equipped_weapon.magazine_size * 0.25)):	# Indicate low ammo with red text
 		%AmmoLabel.add_theme_color_override("default_color", Color.RED)
 	else:
 		%AmmoLabel.add_theme_color_override("default_color", Color.WHITE)
 func _process(delta: float) -> void:
+	
+	if GameScript.is_sprinting and not %AudioGun.playing:
+		%AudioGun.stream = run_sound
+		%AudioGun.play()
 	GameScript.equipped_weapon = equipped_weapon
 
 	# Check game over

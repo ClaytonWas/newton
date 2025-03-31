@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://scripts/guns/bullet.gd" id="1_1seml"]
 [ext_resource type="PackedScene" uid="uid://cmqrs35b4snep" path="res://scenes/components/HitboxComponent.tscn" id="1_827i8"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_yx31f"]
-size = Vector3(0.5, 1, 0.5)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_dfeij"]
+radius = 1.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vbud2"]
 albedo_color = Color(1, 0, 0, 1)
@@ -19,7 +19,7 @@ script = ExtResource("1_1seml")
 speed = 0.0
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.001
+wait_time = 0.1
 autostart = true
 
 [node name="HitboxComponent" parent="." instance=ExtResource("1_827i8")]
@@ -27,7 +27,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.139798, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
-shape = SubResource("BoxShape3D_yx31f")
+shape = SubResource("CylinderShape3D_dfeij")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.139798, 0)
