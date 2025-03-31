@@ -104,7 +104,7 @@ func generate_upgrades():
 func add_weapon_to_player(gun: Weapon):
 	#Adds Weapon (WeaponResource.gd) to player_inventory in game_script.gd
 	#Called when Buy Button on gun upgrade is clicked
-	if GameScript.score >= price:
+	if GameScript.score >= price and GameScript.player_inventory.size() + 1 <= GameScript.max_inv_size:
 		GameScript.score -= price
 		update_score(GameScript.score)
 		%AudioPlayer.stream = buy_click

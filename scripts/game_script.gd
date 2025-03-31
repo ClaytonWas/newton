@@ -1,5 +1,6 @@
 extends Node
 const VOLUME_LIMIT_DB = -25.0	# Music volume cap
+const max_inv_size: int = 3	# Max amount of guns player can carry
 var gun_paths = {
 	'old_glock': 'res://resources/old_glock.tres',
 	'fade_glock': 'res://resources/fade_glock.tres',
@@ -15,7 +16,6 @@ var GUN_POOL = [
 	load('res://resources/mac10.tres').duplicate(),
 	load('res://resources/shotgun.tres').duplicate()
 ]
-var default_guns
 
 const LEVELS =  [		#Names of level scenes as navigation path 
 	'res://scenes/levels/outdoors.tscn',
@@ -53,7 +53,7 @@ func start_game():
 	player_inventory = [GUN_POOL[0]]	#Set starting weapon
 	player_health = preload('res://scenes/player.tscn').instantiate().find_child('HealthComponent').max_health# default value before scene enters
 	equipped_weapon= player_inventory[0]
-	level_order = [LEVELS[0], LEVELS[3], LEVELS[4], LEVELS[3]] 
+	level_order = [LEVELS[0], LEVELS[1], LEVELS[4], LEVELS[3]] 
 	game_won = false
 	score = 0
 	level_counter = 0
@@ -61,7 +61,6 @@ func start_game():
 	
 func _ready() -> void:
 	start_game()
-	default_guns = GUN_POOL
 	# Play music
 	if music:
 		add_child(musicPlayer)
@@ -93,8 +92,9 @@ func next_scene():
 	return temp
 
 func add_weapon(gun: Weapon) -> void:
-	if not gun in player_inventory:
-		player_inventory.append(gun)
+	if not gun in player_inventory: 	#If gun doesnt exist in inventory
+		if not player_inventory.size() >= max_inv_size:	# max inv size
+			player_inventory.append(gun)
 
 func upgrade_damage(damage: float) -> void:
 	# Applies weapon upgrade globally
