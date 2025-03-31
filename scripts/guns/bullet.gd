@@ -31,7 +31,12 @@ func _on_hitbox_component_body_entered(body: Node3D) -> void:
 			hitbox.damage(damage)
 			queue_free()
 
-
+	if is_enemy_bullet and body.name == "MutantBoss":	
+		if body.has_node("HitboxComponent"):
+			print('Boss took %d damage!' % [damage])
+			var hitbox : HitboxComponent = body.find_child("HitboxComponent")
+			hitbox.damage(damage)
+			
 func _on_hitbox_component_area_entered(area):
 	if area is HitboxComponent and not is_enemy_bullet:
 		if area.get_parent().name == "Player":
@@ -39,6 +44,7 @@ func _on_hitbox_component_area_entered(area):
 		else:
 			var hitbox = area
 			hitbox.damage(damage)
+			print('Area hit')
 		queue_free()
 	#else:
 		#print(area.name)

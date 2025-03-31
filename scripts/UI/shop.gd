@@ -27,8 +27,9 @@ func update_shop_label(upgrade, inv=false):
 	var image = panel.find_child('Image')
 	var desc = panel.find_child('Desc')
 	var button = panel.find_child('BuyButton')
+	var remove_button = panel.find_child('RemoveButton')
 	
-	price = round((1000 * GameScript.level_counter**1.5)/100) * 100
+	price = round((750 * GameScript.level_counter)/50) * 50
 	
 	if (upgrade is Weapon): #Gun upgrade - Choose Random Weapon
 		type_label.text = 'New Weapon Upgrade: \t\t%s' % [upgrade.weapon_name]
@@ -55,8 +56,11 @@ func update_shop_label(upgrade, inv=false):
 		button.visible = false
 		type_label.text = upgrade.weapon_name
 		type_label.add_theme_color_override('default_color', Color.WHITE)
+		remove_button.visible = false if GameScript.player_inventory.size() == 1 else true
+		remove_button.pressed.connect(self.remove_weapon_inventory.bind(upgrade))
 		%InventoryList.add_child(panel)
 	else:
+		remove_button.visible = false
 		button.text = 'BUY: %d' % [price]
 		%VBoxUpgrades.add_child(panel)
 	
@@ -133,7 +137,7 @@ func add_ability_upgrade(ability):
 		if ability.contains("Health"):
 			GameScript.add_health = value
 			print('Adding %d HP to player.' % [value])
-			%HealthLabel.text = 'HEALTH: %d' % GameScript.player_health
+			%HealthLabel.text = 'HEALTH: %d' % [GameScript.player_health + value]
 		#Damage Case
 		elif ability.contains("Damage"):
 			GameScript.upgrade_damage(value)
@@ -147,6 +151,8 @@ func add_ability_upgrade(ability):
 		# Remove last child from Upgrades panel
 		%VBoxUpgrades.get_child(%VBoxUpgrades.get_children().size()-1).queue_free()
 		%VBoxUpgrades.size.y /= 2
+		generate_inventory_panel()
+		
 	else:	# Rejected buy
 		%AudioPlayer.stream = error_click
 		%AudioPlayer.play()
@@ -168,7 +174,8 @@ func generate_inventory_panel():
 		update_shop_label(weapon, true)
 
 func _on_back_button_pressed() -> void:
-	get_tree().change_scene_to_file('res://scenes/levels/start_menu.tscn')
+	GameScript.on_restart()
+	#get_tree().change_scene_to_file('res://scenes/levels/start_menu.tscn')
 	
 func _on_tree_entered() -> void:
 	# Start music player
@@ -180,5 +187,12 @@ func _on_continue_button_button_down() -> void:
 	%AudioPlayer.play()
 	get_tree().change_scene_to_file(GameScript.next_scene())
 
+func remove_weapon_inventory(gun: Weapon):
+	# Removes weapon from player inventory
+	if gun in GameScript.player_inventory and GameScript.player_inventory.size() > 1:
+		%InventoryList.get_child(GameScript.player_inventory.find(gun)).queue_free()# Remove UI panel
+		GameScript.player_inventory.remove_at(GameScript.player_inventory.find(gun)) # Remove from global list
+	generate_inventory_panel()
+	
 func _on_quit_button_down() -> void:
 	get_tree().quit()

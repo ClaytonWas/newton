@@ -1,5 +1,5 @@
-[gd_scene load_steps=43 format=4 uid="uid://b4untvgg5fv5u"]
 
+[gd_scene load_steps=43 format=4 uid="uid://b4untvgg5fv5u"]
 [ext_resource type="Texture2D" uid="uid://0h2du0vw83ir" path="res://textures/environments/hell_skybox.webp" id="1_jblj5"]
 [ext_resource type="Texture2D" uid="uid://baf7umi8dijob" path="res://textures/environments/Door_02_Brown.png" id="4_0s5ou"]
 [ext_resource type="PackedScene" uid="uid://bvnyx7k8ac0sw" path="res://scenes/UI/inventory.tscn" id="7_63r21"]
@@ -147,11 +147,6 @@ shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_uy8v5")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Inventory" parent="CanvasLayer" instance=ExtResource("7_63r21")]
-options = [null, null, null, null, null, null]
 
 [node name="Player" parent="." instance=ExtResource("10_6cm2e")]
 transform = Transform3D(-0.998546, 0, -0.0539045, 0, 1, 0, 0.0539045, 0, -0.998546, -0.369, 1.7, -70.5358)

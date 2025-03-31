@@ -5,8 +5,7 @@ class_name Weapon extends Resource
 @export_category("Visual & Audio Settings")
 @export var fire_sound: AudioStream
 @export var reload_sound: AudioStream
-@export var dryfire_sound:  AudioStream = load('res://sounds/shot_dry.wav')
-@export var mesh: Mesh
+@export var dryfire_sound:  AudioStream = preload('res://sounds/Guns/shot_dry.wav')
 
 @export_category("Weapon Stats")
 @export var bullet_type = 'light'
@@ -17,7 +16,7 @@ class_name Weapon extends Resource
 @export var is_melee: bool = false
 @export var is_fullauto: bool 
 @export var fire_rate: float
-@export_category('Shotgun Options')
+@export_group('Shotgun Options')
 @export var pellet_count: int	#Number of pellets to be fired
 @export var spread: float	#Bullet displacement
 
@@ -37,7 +36,6 @@ func update_ammo(shots: int = 0):
 	
 	if (mag + shots) >= 0 and (mag + shots <= magazine_size):	#Avoid negative bullets and overloading
 		mag += shots
-
 
 func shoot(): update_ammo(-1)			#Function to manage magazine size when shooting
 

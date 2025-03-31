@@ -28,16 +28,18 @@ var target_velocity = Vector3.ZERO
 var current_velocity = Vector3.ZERO
 var desired_direction := Vector3.ZERO
 
-
+var run_sound = preload('res://sounds/Player/running.mp3')
 var normal_click = preload('res://sounds/UI/ui_normal_click.mp3')
+var low_health_sound = preload('res://sounds/Player/heartbeat_sound.wav')
 
 @onready var health = $HealthComponent
 
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	print('health on load: ',health.max_health)
 	
+	health.damage_taken.connect(_on_hitbox_damage_taken)
+
 	health.max_health = GameScript.player_health
 	health.health = GameScript.player_health
 	#If health booster - add health
@@ -61,6 +63,12 @@ func _unhandled_input(event):
 			%Camera3D.rotate_x(-event.relative.y * mouse_sensitivity)
 			%Camera3D.rotation.x = clamp(%Camera3D.rotation.x, deg_to_rad(-70), deg_to_rad(70))
 
+	if Input.is_action_just_released("sprint"):
+		GameScript.is_sprinting = false
+		print('stopped run')
+		if %AudioPlayer.stream == run_sound:
+			%AudioPlayer.stop()
+			
 func _headbob_effect(delta) -> void:
 	headbob_time += delta * self.velocity.length()
 	%Camera3D.transform.origin = Vector3(
@@ -72,11 +80,13 @@ func _headbob_effect(delta) -> void:
 func get_move_speed() -> float:
 	if Input.is_action_pressed("sprint"):
 		GameScript.is_sprinting = true
-		%AnimationPlayer.play('sprint')	
+		%AnimationPlayer.play('sprint')
+		if not %AudioPlayer.stream == run_sound:
+			%AudioPlayer.stream = run_sound
+			%AudioPlayer.play()
 		return sprint_speed 
 	else:
-		GameScript.is_sprinting = false
-		
+
 		return walk_speed	
 
 func _physics_process(delta):
@@ -161,5 +171,25 @@ func _on_tree_exiting() -> void:
 	GameScript.timer_time = %Timer.time_left
 
 func _process(delta: float) -> void:
-	#GameScript.player_health = $HealthComponent.health
-	pass
+	if health.health <= 50:
+		#Show full blood HUD
+		%HUD.find_child('BloodScreen').visible = true
+		
+		if not %AudioPlayer.stream == low_health_sound:
+			%AudioPlayer.stream = low_health_sound
+			%AudioPlayer.play() 
+	else:
+		%HUD.find_child('BloodScreen').visible = false
+
+func _on_hitbox_damage_taken():
+	if not %HUD.find_child('Scratch1').visible:
+		%HUD.find_child('Scratch1').visible = true
+	else:
+		%HUD.find_child('Scratch2').visible = true
+
+func _on_health_component_healing() -> void:
+	if %HUD.find_child('Scratch2').visible:
+		%HUD.find_child('Scratch2').visible = false
+	else:
+		%HUD.find_child('Scratch1').visible = false
+	print('Healed UP')
