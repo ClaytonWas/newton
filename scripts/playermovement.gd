@@ -4,7 +4,7 @@ signal death_screen
 
 @export_category("Camera Controls")
 @export var mouse_sensitivity := 0.002
-const headbob_shake := 0.025
+const headbob_shake := 0.0075
 const headbob_frequency := 0.5
 @export var headbob_time := 0.0
 
@@ -48,14 +48,11 @@ func _ready():
 		GameScript.add_health = 0
 
 	GameScript.timer_time = %Timer.time_left
+	
 func _unhandled_input(event):
-	#if event is InputEventMouseButton:
-		#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		#%PauseMenu.visible = false
 	if event.is_action_pressed("ui_cancel"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		toggle_pause()		#Pause game on esc key
-		
 		
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
@@ -70,12 +67,13 @@ func _unhandled_input(event):
 			%AudioPlayer.stop()
 			
 func _headbob_effect(delta) -> void:
-	headbob_time += delta * self.velocity.length()
-	%Camera3D.transform.origin = Vector3(
-		cos(headbob_time * headbob_frequency * 0.5) * headbob_shake,
-		sin(headbob_time * headbob_frequency * 0.5) * headbob_shake,
-		0
-	)
+	if self.velocity.length() > 0:
+		headbob_time += delta * self.velocity.length()
+		%right_hand.transform.origin += Vector3(
+			cos(headbob_time * headbob_frequency * 0.5) * headbob_shake,
+			sin(headbob_time * headbob_frequency * 0.5) * headbob_shake,
+			0
+		)
 
 func get_move_speed() -> float:
 	if Input.is_action_pressed("sprint"):

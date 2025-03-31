@@ -92,8 +92,9 @@ func generate_upgrades():
 	#Shop offers one new weapon upgrade & one abilities upgrade
 	#Choose random gun - NOT already owned
 	var new_guns = GameScript.GUN_POOL.filter(func(x): return x not in GameScript.player_inventory)	
-	var gun_offer = new_guns[randi() % new_guns.size()]
-	update_shop_label(gun_offer)
+	if new_guns:
+		var gun_offer = new_guns[randi() % new_guns.size()]
+		update_shop_label(gun_offer)
 	
 	#Choose ability upgrade
 	var ability = UPGRADE_TYPES[randi() % UPGRADE_TYPES.size()]

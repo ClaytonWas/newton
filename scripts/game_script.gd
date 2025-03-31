@@ -49,7 +49,7 @@ var game_won: bool	# Global won game flag
 func start_game():
 	#Resets variables for fresh game runs
 	randomize()
-	player_inventory = [GUN_POOL[0]]	#Set starting weapon
+	player_inventory = GUN_POOL	#Set starting weapon
 	player_health = preload('res://scenes/player.tscn').instantiate().find_child('HealthComponent').max_health# default value before scene enters
 	equipped_weapon= player_inventory[0]
 	level_order = [LEVELS[0], LEVELS[1], LEVELS[4], LEVELS[3]] #
