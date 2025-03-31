@@ -155,9 +155,11 @@ height = 0.002
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
 script = ExtResource("1_ua76x")
 movement_speed = 15.0
+damage = 25.0
 bullet = ExtResource("2_b5fh6")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.191615, 0)
 sprite_frames = SubResource("SpriteFrames_7w1jo")
 animation = &"idle"
 frame_progress = 0.270722
@@ -165,6 +167,7 @@ frame_progress = 0.270722
 [node name="HealthComponent" parent="." instance=ExtResource("3_egdu1")]
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_jnmgy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0660931, 0)
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]

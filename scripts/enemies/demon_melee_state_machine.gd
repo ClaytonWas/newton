@@ -103,6 +103,7 @@ func _on_detection_area_body_exited(body):
 	if body.name == 'Player':
 		target_node = null
 		state = State.IDLE
+		animated_sprite.modulate = Color(1, 1, 1)
 
 func _on_attack_area_body_entered(body):
 	if body.name == 'Player':
